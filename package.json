@@ -4,12 +4,13 @@
   "description": "A Discord Bot for the Yeet Server",
   "main": "bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint bot.js src/",
+    "start": "node bot.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yaboijd/yeet-bot.git"
-  },
+  }, 
   "author": "Jacob Ellis Duncan",
   "license": "MIT",
   "bugs": {

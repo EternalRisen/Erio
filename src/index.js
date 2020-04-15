@@ -1,0 +1,61 @@
+const fs = require('fs');
+const path = require('path');
+const Discord = require('discord.js');
+const config = require('../config/config.json');
+
+class YeetBot {
+	constructor() {
+		this.client = new Discord.Client();
+		this.token = config.token;
+		this.channels = config.channels;
+		this.roles = config.roles;
+		this.bannedWords = config.bannedWords;
+		this.prefix = config.prefix;
+        this.operators = config.botAdmins;
+        this.loggedIn = false;
+        this.plugins = [];
+
+		this.client.on('ready', this.onReady.bind(this));
+		this.client.on('error', this.onError.bind(this));
+	}
+
+	onReady() {
+		console.log(`${this.client.user.tag} is online`);
+	}
+
+	onError(e) {
+		console.log(`${this.client.user.tag} error: ${e}`);
+	}
+
+	login(token) {
+		if (this.loggedIn) throw new Error('Cannot call login() twice');
+
+		this.loggedIn = true;
+		this.client.login(token);
+	}
+
+	loadPlugin(Plugin) {
+		if (this.loggedIn) throw new Error('Plugins must be loaded before calling login()');
+		if (this.plugins.includes(Plugin)) return;
+
+		this.plugins.push(Plugin);
+
+		if (Plugin.deps) {
+			Plugin.deps.forEach(this.loadPlugin.bind(this));
+		}
+
+		const plugin = new Plugin(this);
+		plugin.load();
+	}
+
+	loadPluginDir(dir) {
+		fs.readdirSync(dir).forEach(file => {
+			const p = path.join(dir, file);
+			const Plugin = require(p);
+			this.loadPlugin(Plugin);
+		});
+	}
+
+}
+
+module.exports = YeetBot;
