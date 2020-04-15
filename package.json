@@ -1,0 +1,19 @@
+{
+  "name": "yeet-bot",
+  "version": "1.0.0",
+  "description": "A Discord Bot for the Yeet Server",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yaboijd/yeet-bot.git"
+  },
+  "author": "Jacob Ellis Duncan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yaboijd/yeet-bot/issues"
+  },
+  "homepage": "https://github.com/yaboijd/yeet-bot#readme"
+}
