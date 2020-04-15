@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const Discord = require('discord.js');
 const config = require('../config/config.json');
 
@@ -12,11 +10,11 @@ class YeetBot {
 		this.bannedWords = config.bannedWords;
 		this.prefix = config.prefix;
         this.operators = config.botAdmins;
-        this.loggedIn = false;
+		this.loggedIn = false;
 
 		this.client.on('ready', this.onReady.bind(this));
-        this.client.on('error', this.onError.bind(this));
-        this.client.on('message', this.onMessage.bind(this));
+		this.client.on('error', this.onError.bind(this));
+		this.client.on('message', this.onMessage.bind(this));
 	}
 
 	onReady() {
@@ -26,9 +24,9 @@ class YeetBot {
 	onError(e) {
 		console.log(`${this.client.user.tag} error: ${e}`);
     }
-    
+	
     onMessage() {
-        if (message.author.bot) return;
+		if (this.message.author.bot) return;
 
     }
 
