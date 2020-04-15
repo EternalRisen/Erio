@@ -26,7 +26,8 @@ class YeetBot {
     }
 	
     onMessage() {
-		if (this.message.author.bot) return;
+		console.log(message.content);
+		if (message.author.bot) return;
 	}
 
 	login(token) {
