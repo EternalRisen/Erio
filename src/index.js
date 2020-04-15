@@ -13,10 +13,10 @@ class YeetBot {
 		this.prefix = config.prefix;
         this.operators = config.botAdmins;
         this.loggedIn = false;
-        this.plugins = [];
 
 		this.client.on('ready', this.onReady.bind(this));
-		this.client.on('error', this.onError.bind(this));
+        this.client.on('error', this.onError.bind(this));
+        this.client.on('message', this.onMessage.bind(this));
 	}
 
 	onReady() {
@@ -25,7 +25,12 @@ class YeetBot {
 
 	onError(e) {
 		console.log(`${this.client.user.tag} error: ${e}`);
-	}
+    }
+    
+    onMessage() {
+        if (message.author.bot) return;
+
+    }
 
 	login(token) {
 		if (this.loggedIn) throw new Error('Cannot call login() twice');
@@ -33,29 +38,6 @@ class YeetBot {
 		this.loggedIn = true;
 		this.client.login(token);
 	}
-
-	loadPlugin(Plugin) {
-		if (this.loggedIn) throw new Error('Plugins must be loaded before calling login()');
-		if (this.plugins.includes(Plugin)) return;
-
-		this.plugins.push(Plugin);
-
-		if (Plugin.deps) {
-			Plugin.deps.forEach(this.loadPlugin.bind(this));
-		}
-
-		const plugin = new Plugin(this);
-		plugin.load();
-	}
-
-	loadPluginDir(dir) {
-		fs.readdirSync(dir).forEach(file => {
-			const p = path.join(dir, file);
-			const Plugin = require(p);
-			this.loadPlugin(Plugin);
-		});
-	}
-
 }
 
 module.exports = YeetBot;
