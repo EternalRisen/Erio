@@ -1,0 +1,14 @@
+{
+    "token": "Njk5ODkyMjA2MTI2NzYwMDI2.XpbQFA.iT2xxLnhPI-VXft_o1idAGvszfw",
+    "botAdmins": ["615249674084810763"],
+    "channels":{
+        "modchat": "699155394412544025",
+        "modlog": "699925001750446150",
+        "reportlog": "699924914727157780"
+    },
+    "roles": {
+        "muted": "635609838256128020"
+    },
+    "prefix": "~",
+    "bannedWords": [ "niggers", "nigger", "faggots", "faggot", "fags", "fag", "tranny", "trannies"]
+}

@@ -9,7 +9,7 @@ class YeetBot {
 		this.roles = config.roles;
 		this.bannedWords = config.bannedWords;
 		this.prefix = config.prefix;
-        	this.operators = config.botAdmins;
+        this.operators = config.botAdmins;
 		this.loggedIn = false;
 
 		this.client.on('ready', this.onReady.bind(this));
@@ -23,9 +23,9 @@ class YeetBot {
 
 	onError(e) {
 		console.log(`${this.client.user.tag} error: ${e}`);
-    	}
+    }
 	
-    	onMessage() {
+    onMessage() {
 		if (this.message.author.bot) return;
 	}
 
