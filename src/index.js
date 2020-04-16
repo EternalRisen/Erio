@@ -27,7 +27,7 @@ class YeetBot {
 			if(client.commands.get(cmd)) {
 				client.commands.get(cmd).run(client, message, args)
 			} else {
-				console.log('doesnt exist');
+				return;
 			}
 		});
 	}
