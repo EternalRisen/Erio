@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const Discord = require('discord.js');
 const config = require('../config/config.json');
+const { checkCommandModule, checkProperties} = require('./structs/validate.js');
 
 class YeetBot {
 	constructor() {
@@ -47,10 +48,22 @@ class YeetBot {
 		let files = await fs.readdir(path.join(__dirname, 'plugins/commands'));
 		for (let file of files) {
 			if (file.endsWith('.js')) {
-				let cmdName = file.substring(0, file.indexOf('.js'));
-				console.log(`Command loaded:  ${cmdName}`);
-				let cmdModule = require(path.join(__dirname, 'plugins/commands/', file));
-				this.client.commands.set(cmdName, cmdModule);
+				try {
+					let cmdName = file.substring(0, file.indexOf('.js'));
+					let cmdModule = require(path.join(__dirname, 'plugins/commands/', file));
+					if (checkCommandModule(cmdName, cmdModule)) {
+						if (checkProperties(cmdName, cmdModule)) {
+							let { aliases } = cmdModule;
+							this.client.commands.set(cmdName, cmdModule);
+							if(aliases.length !== 0) {
+								aliases.forEach(alias => this.client.commands.set(alias, cmdModule));
+							}
+							console.log(`Command loaded:  ${cmdName}:  ${cmdModule.description}`);
+						}
+					}
+				} catch (err) {
+					console.log(err);
+				}
 			}
 		}
 	}
