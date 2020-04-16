@@ -2,7 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const Discord = require('discord.js');
 const config = require('../config/config.json');
-const { checkCommandModule, checkProperties} = require('./structs/validate.js');
+const { checkCommandModule, checkProperties } = require('./structs/validate.js');
 
 class YeetBot {
 	constructor() {
@@ -12,7 +12,7 @@ class YeetBot {
 		this.roles = config.roles;
 		this.bannedWords = config.bannedWords;
 		this.prefix = config.prefix;
-        this.operators = config.botAdmins;
+		this.operators = config.botAdmins;
 		this.loggedIn = false;
 		this.client.commands = new Map();
 		const client = this.client;
@@ -22,12 +22,13 @@ class YeetBot {
 		this.client.on('message', async message => {
 			if (message.author.bot) return;
 			if (!message.content.startsWith(this.prefix)) return;
-			let args = message.content.substring(message.content.indexOf(this.prefix)+1).split(new RegExp(/\s+/));
-			let cmd = args.shift();
-		
+			const args = message.content.substring(message.content.indexOf(this.prefix) + 1).split(new RegExp(/\s+/));
+			const cmd = args.shift();
+
 			if(client.commands.get(cmd)) {
-				client.commands.get(cmd).run(client, message, args)
-			} else {
+				client.commands.get(cmd).run(client, message, args);
+			}
+			else {
 				return;
 			}
 		});
@@ -40,20 +41,20 @@ class YeetBot {
 	onError(e) {
 		console.log(`${this.client.user.tag} error: ${e}`);
 	}
-	
+
 	async loadCommands() {
-		if (this.loggedIn) throw new Error('Cannot load commands after the bot has logged in')
-		
+		if (this.loggedIn) throw new Error('Cannot load commands after the bot has logged in');
+
 		console.log('Loading Commands...');
-		let files = await fs.readdir(path.join(__dirname, 'plugins/commands'));
-		for (let file of files) {
+		const files = await fs.readdir(path.join(__dirname, 'plugins/commands'));
+		for (const file of files) {
 			if (file.endsWith('.js')) {
 				try {
-					let cmdName = file.substring(0, file.indexOf('.js'));
-					let cmdModule = require(path.join(__dirname, 'plugins/commands/', file));
+					const cmdName = file.substring(0, file.indexOf('.js'));
+					const cmdModule = require(path.join(__dirname, 'plugins/commands/', file));
 					if (checkCommandModule(cmdName, cmdModule)) {
 						if (checkProperties(cmdName, cmdModule)) {
-							let { aliases } = cmdModule;
+							const { aliases } = cmdModule;
 							this.client.commands.set(cmdName, cmdModule);
 							if(aliases.length !== 0) {
 								aliases.forEach(alias => this.client.commands.set(alias, cmdModule));
@@ -61,7 +62,8 @@ class YeetBot {
 							console.log(`Command loaded:  ${cmdName}:  ${cmdModule.description}`);
 						}
 					}
-				} catch (err) {
+				}
+				catch (err) {
 					console.log(err);
 				}
 			}
