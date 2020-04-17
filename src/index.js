@@ -8,11 +8,7 @@ class YeetBot {
 	constructor() {
 		this.client = new Discord.Client();
 		this.token = config.token;
-		this.channels = config.channels;
-		this.roles = config.roles;
-		this.bannedWords = config.bannedWords;
 		this.prefix = config.prefix;
-		this.operators = config.botAdmins;
 		this.loggedIn = false;
 		this.commandsLoaded = false;
 		this.client.commands = new Map();
