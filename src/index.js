@@ -70,7 +70,7 @@ class YeetBot {
 				}
 			}
 		}
-		this.commandsLoaded = true
+		this.commandsLoaded = true;
 	}
 
 	login(token) {
