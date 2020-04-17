@@ -14,12 +14,14 @@ class YeetBot {
 		this.prefix = config.prefix;
 		this.operators = config.botAdmins;
 		this.loggedIn = false;
+		this.commandsLoaded = false;
 		this.client.commands = new Map();
 		const client = this.client;
 
 		this.client.on('ready', this.onReady.bind(this));
 		this.client.on('error', this.onError.bind(this));
 		this.client.on('message', async message => {
+			if (this.commandsLoaded === false) return;
 			if (message.author.bot) return;
 			if (!message.content.startsWith(this.prefix)) return;
 			const args = message.content.substring(message.content.indexOf(this.prefix) + 1).split(new RegExp(/\s+/));
@@ -68,6 +70,7 @@ class YeetBot {
 				}
 			}
 		}
+		this.commandsLoaded = true
 	}
 
 	login(token) {
