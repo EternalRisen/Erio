@@ -1,9 +1,9 @@
 const { botAdmins } = require('../../config/config.json');
 
-module.exports.isOperator = (message) => {
-	return botAdmins.includes(message.author.id);
+module.exports.isOperator = (authorID) => {
+	return botAdmins.includes(authorID);
 };
 
-module.exports.isAdmin = (message) => {
-	return message.member.hasPermissions(['ADMINISTRATOR']);
+module.exports.isAdmin = (targetMember) => {
+	return targetMember.hasPermissions(['ADMINISTRATOR']);
 };

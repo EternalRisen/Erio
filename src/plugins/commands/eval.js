@@ -1,11 +1,14 @@
 'use strict';
 
-const { isOperator } = require('../../structs/verification');
+const { isOperator } = require('../../structs/verification.js');
 const { inspect } = require('util');
 
 module.exports = {
-	run: async (message, args) => {
-		if (isOperator) {
+	/* eslint-disable */
+	run: async (client, message, args) => {
+		/* eslint-enable */
+		console.log(client);
+		if (isOperator(message.author.id)) {
 			let evaled;
 			try {
 				evaled = eval(args.join(' ').slice());
@@ -15,7 +18,9 @@ module.exports = {
 				message.channel.send(`${err.message}`);
 			}
 		}
-		else {return;}
+		else {
+			return;
+		}
 	},
 	aliases: ['e'],
 	description: 'Runs a console eval if the user is an operator',
