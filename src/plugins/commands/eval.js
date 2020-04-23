@@ -7,7 +7,6 @@ module.exports = {
 	/* eslint-disable */
 	run: async (client, message, args) => {
 		/* eslint-enable */
-		console.log(client);
 		if (isOperator(message.author.id)) {
 			let evaled;
 			try {
