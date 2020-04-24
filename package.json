@@ -2,11 +2,11 @@
   "name": "yeet-bot",
   "version": "1.0.0",
   "description": "A Discord Bot for the Yeet Server",
-  "main": "bot.js",
+  "main": "bot",
   "scripts": {
-    "test": "eslint bot.js src/",
-    "start": "node bot.js",
-    "fix": "eslint --fix bot.js src/"
+    "test": "eslint .",
+    "start": "node bot",
+    "build": "node build"
   },
   "repository": {
     "type": "git",
