@@ -23,7 +23,7 @@ class YeetBot {
 			const args = message.content.substring(message.content.indexOf(this.prefix) + 1).split(new RegExp(/\s+/));
 			const cmd = args.shift();
 
-			if(client.commands.get(cmd)) {
+			if (client.commands.get(cmd)) {
 				client.commands.get(cmd).run(client, message, args);
 			}
 			else {
