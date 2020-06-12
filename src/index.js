@@ -8,7 +8,7 @@ class YeetBot {
 	constructor() {
 		this.client = new Discord.Client();
 		this.token = config.token;
-		this.prefix = config.prefix;
+		this.client.prefix = config.prefix;
 		this.loggedIn = false;
 		this.commandsLoaded = false;
 		this.client.commands = new Map();
@@ -19,8 +19,11 @@ class YeetBot {
 		this.client.on('message', async message => {
 			if (this.commandsLoaded === false) return;
 			if (message.author.bot) return;
-			if (!message.content.startsWith(this.prefix)) return;
-			const args = message.content.substring(message.content.indexOf(this.prefix) + 1).split(new RegExp(/\s+/));
+			if (message.content.toLowerCase() === 'help' || message.content.includes(client.user.id)) {
+				message.reply(`My Prefix is \`${this.client.prefix}\`.  please see \`${this.client.prefix}help\` to see a list of my commands.`);
+			}
+			if (!message.content.startsWith(this.client.prefix)) return;
+			const args = message.content.substring(message.content.indexOf(this.client.prefix) + 1).split(new RegExp(/\s+/));
 			const cmd = args.shift();
 
 			if (client.commands.get(cmd)) {

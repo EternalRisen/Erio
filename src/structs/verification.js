@@ -5,5 +5,5 @@ module.exports.isOperator = (authorID) => {
 };
 
 module.exports.isAdmin = (targetMember) => {
-	return targetMember.hasPermissions(['ADMINISTRATOR']);
+	return targetMember.hasPermission(['ADMINISTRATOR']);
 };

@@ -22,5 +22,6 @@ module.exports = {
 		}
 	},
 	aliases: ['e'],
-	description: 'Runs a console eval if the user is an operator',
+	description: 'Runs a console eval if the user is an operator.(operators only)',
+	usage: 'eval <code>',
 };
