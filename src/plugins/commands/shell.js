@@ -1,7 +1,7 @@
 'use strict';
 
 const { isOperator } = require('../../structs/verification.js');
-const { child_process } = require('child_process');
+const { exec } = require('child_process');
 
 module.exports = {
 	/* eslint-disable */
@@ -9,12 +9,8 @@ module.exports = {
 		/* eslint-enable */
 		if (isOperator(message.author.id)) {
 			const cmd = args.join(' ');
-			child_process.exec(cmd, (err, stdout, stderr) => {
-				if (err) {
-					message.reply('There was an error with your request.');
-					throw new Error(err);
-				}
-				message.channel.send((`${stdout}${stderr}`));
+			exec(cmd, (stdout, stderr) => {
+				message.channel.send((`${stderr}`));
 			});
 		}
 		else {
