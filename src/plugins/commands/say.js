@@ -6,7 +6,7 @@ module.exports = {
         /* eslint-enable */
 		let sayMessage = args.join(' ');
 		if (sayMessage === '') {
-			sayMessage = args.join(' ') + 'Nothin to say eh?' + message.author;
+			sayMessage = args.join(' ') + 'Nothin to say eh?  ' + message.author;
 		}
 		message.delete();
 		message.channel.send(sayMessage);
