@@ -12,10 +12,11 @@ module.exports = {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
 				console.log('Hotpatching Commands...');
-				client.commands.delete();
+				client.commands.clear();
 				client.commands = new Map();
 				const files = await fs.readdir(path.join(__dirname, '../../plugins/commands'));
 				for (const file of files) {
+					delete require.cache[require.resolve(`../../plugins/commands/${file}`)];
 					if (file.endsWith('.js')) {
 						try {
 							const cmdName = file.substring(0, file.indexOf('.js'));
