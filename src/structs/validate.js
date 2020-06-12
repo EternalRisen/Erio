@@ -11,6 +11,6 @@ module.exports.checkProperties = (cmdName, cmdModule) => {
 	if(typeof cmdModule.run !== 'function') {throw new Error(`${cmdName} command: run is not a function.`);}
 	if(typeof cmdModule.description !== 'string') {throw new Error(`${cmdName} command: description is not a string.`);}
 	if(!Array.isArray(cmdModule.aliases)) {throw new Error(`${cmdName} command: aliases is not an Array.`);}
-	if(typeof cmdModule.usage !== 'string') {throw new Error(`${cmdName} command: usage is not a string.`)}
+	if(typeof cmdModule.usage !== 'string') {throw new Error(`${cmdName} command: usage is not a string.`);}
 	return true;
 };
