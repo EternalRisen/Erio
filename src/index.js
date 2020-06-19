@@ -7,6 +7,7 @@ const { checkCommandModule, checkProperties } = require('./structs/validate.js')
 class YeetBot {
 	constructor() {
 		this.client = new Discord.Client();
+		this.client.devs = config.botAdmins;
 		this.token = config.token;
 		this.client.prefix = config.prefix;
 		this.loggedIn = false;

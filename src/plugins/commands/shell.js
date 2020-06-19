@@ -9,8 +9,10 @@ module.exports = {
 		/* eslint-enable */
 		if (isOperator(message.author.id)) {
 			const cmd = args.join(' ');
-			exec(cmd, (stdout, stderr) => {
-				message.channel.send((`${stderr}`));
+			/* eslint-disable */
+			exec(cmd, (stderr, stdout) => {
+				/* eslint-enable */
+				message.channel.send((`${stdout}`));
 			});
 		}
 		else {
