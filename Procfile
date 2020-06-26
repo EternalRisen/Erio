@@ -1,1 +1,1 @@
-web: node opal.js
+web: node bot
