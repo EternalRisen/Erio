@@ -1,24 +1,23 @@
 'use strict';
 
-const Discord = require('discord.js');
+const { MessageAttachment } = require('discord.js');
+
+function getAvatar(user) {
+    return `${user.displayAvatarURL().replace('.webp', '.png')}?size=2048`;
+}
 
 module.exports = {
     /* eslint-disable */
     run: async (client, message, args) => {
         /* eslint-enable */
-        let user;
-
-        try {
-            user = client.users.fetch(args[0]);
-        } catch (e) {
-            user = message.mentions.members.first() || message.author;
-        }
-        const avatarEmbed = new Discord.MessageEmbed()
-        .setAuthor(user.username)
-        .addField(`text`, `${user.tag}'s Avatar:`)
-        .setImage(user.avatarURL)
-        .setColor('#11f2eb');
-        message.channel.send(avatarEmbed);
+        client.users.fetch(args[0]).then(user => {
+            const avatar = new MessageAttachment(getAvatar(user));
+            message.channel.send(`${user.tag}'s avatar:`, avatar);
+        }).catch(e => {
+            let user = message.mentions.users.first() || message.author;
+            const avatar = new MessageAttachment(getAvatar(user));
+            message.channel.send(`${user.tag}'s avatar:`, avatar);
+        });
     },
     aliases: ['a'],
     description: 'returns with the user\'s avatar',
