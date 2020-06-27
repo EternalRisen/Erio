@@ -11,13 +11,23 @@ function getAvatar(user) {
 module.exports = {
 	/* eslint-disable */
     run: async (client, message, args) => {
-        /* eslint-enable */
-		client.users.fetch(args[0]).then(user => {
+		/* eslint-enable */
+		let targetUser = args[0];
+
+		try {
+			targetUser = targetUser.replace('<!@', '');
+			targetUser = targetUser.replace('>', '');
+		} catch (e) {
+			// console.log() the debug for now until i add a debug log.
+			console.log(`Can't replace the string.  The user must have either inputted something wrong, or are just wanting their own avatar.  ${e}`);
+		}
+
+		client.users.fetch(targetUser).then(user => {
 			const avatar = new MessageAttachment(getAvatar(user));
 			message.channel.send(`${user.tag}'s avatar:`, avatar);
 		}).catch(e => {
 			console.log(`We just need to log this somewhere else in the future when I add other things. ${e}`);
-			const user = message.mentions.users.first() || message.author;
+			const user = message.author;
 			const avatar = new MessageAttachment(getAvatar(user));
 			message.channel.send(`${user.tag}'s avatar:`, avatar);
 		});
