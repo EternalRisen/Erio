@@ -3,7 +3,9 @@
 const { MessageAttachment } = require('discord.js');
 
 function getAvatar(user) {
-	return `${user.displayAvatarURL().replace('.webp', '.png')}?size=2048`;
+	const ext = user.avatar.startsWith('a_') ? 'gif' : 'png'
+	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=2048`;
+	return avatarURL;
 }
 
 module.exports = {
