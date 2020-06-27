@@ -6,9 +6,16 @@ module.exports = {
         /* eslint-enable */
 		let sayMessage = args.join(' ');
 		if (sayMessage === '') {
-			sayMessage = args.join(' ') + 'Nothin to say eh?  ' + message.author;
+			sayMessage = args.join(' ') + `Nothin to say eh?  ${message.author}`;
+			message.channel.send(sayMessage);
+			return;
 		}
-		message.delete();
+		if (!client.devs.includes(message.author.id)) {
+			sayMessage += `\n- ${message.author.tag}`;
+		}
+		else {
+			message.delete();
+		}
 		message.channel.send(sayMessage);
 	},
 	aliases: ['s'],
