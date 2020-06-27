@@ -1,12 +1,7 @@
 'use strict';
 
 const { MessageAttachment } = require('discord.js');
-
-function getAvatar(user) {
-	const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=2048`;
-	return avatarURL;
-}
+const { getAvatar } = require('../../structs/getavatar.js');
 
 module.exports = {
 	/* eslint-disable */
@@ -15,9 +10,10 @@ module.exports = {
 		let targetUser = args[0];
 
 		try {
-			targetUser = targetUser.replace('<!@', '');
+			targetUser = targetUser.replace('<@!', '');
 			targetUser = targetUser.replace('>', '');
-		} catch (e) {
+		}
+		catch (e) {
 			// console.log() the debug for now until i add a debug log.
 			console.log(`Can't replace the string.  The user must have either inputted something wrong, or are just wanting their own avatar.  ${e}`);
 		}
