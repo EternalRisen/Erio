@@ -1,5 +1,7 @@
-module.exports.getAvatar = (user) => {
+module.exports.getAvatar = (user, size) => {
 	const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
-	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=2048`;
+
+	size = size || '128';
+	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
 	return avatarURL;
 };

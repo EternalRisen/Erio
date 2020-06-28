@@ -19,12 +19,12 @@ module.exports = {
 		}
 
 		client.users.fetch(targetUser).then(user => {
-			const avatar = new MessageAttachment(getAvatar(user));
+			const avatar = new MessageAttachment(getAvatar(user, 2048));
 			message.channel.send(`${user.tag}'s avatar:`, avatar);
 		}).catch(e => {
 			console.log(`We just need to log this somewhere else in the future when I add other things. ${e}`);
 			const user = message.author;
-			const avatar = new MessageAttachment(getAvatar(user));
+			const avatar = new MessageAttachment(getAvatar(user, 2048));
 			message.channel.send(`${user.tag}'s avatar:`, avatar);
 		});
 	},
