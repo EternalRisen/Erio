@@ -1,13 +1,12 @@
 'use strict';
 
-const { isOperator } = require('../../structs/verification.js');
 const { inspect } = require('util');
 
 module.exports = {
 	/* eslint-disable */
 	run: async (client, message, args) => {
 		/* eslint-enable */
-		if (isOperator(message.author.id)) {
+		if (client.devs.includes(message.author.id)) {
 			let evaled;
 			try {
 				evaled = eval(args.join(' ').slice());

@@ -1,5 +1,5 @@
 'use strict';
-const { isOperator } = require('../../structs/verification.js');
+
 const fs = require('fs').promises;
 const path = require('path');
 const { checkCommandModule, checkProperties } = require('../../structs/validate.js');
@@ -8,7 +8,7 @@ module.exports = {
 	/* eslint-disable */
     run: async (client, message, args) => {
         /* eslint-enable */
-		if (isOperator(message.author.id)) {
+		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
 				console.log('Hotpatching Commands...');

@@ -1,13 +1,12 @@
 'use strict';
 
-const { isOperator } = require('../../structs/verification.js');
 const { exec } = require('child_process');
 
 module.exports = {
 	/* eslint-disable */
 	run: async (client, message, args) => {
 		/* eslint-enable */
-		if (isOperator(message.author.id)) {
+		if (client.dev.includes(message.author.id)) {
 			const cmd = args.join(' ');
 			/* eslint-disable */
 			exec(cmd, (stderr, stdout) => {
