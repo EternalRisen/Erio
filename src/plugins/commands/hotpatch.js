@@ -46,5 +46,6 @@ module.exports = {
 	},
 	aliases: [],
 	description: 'Hotpatches Events(TODO) and Commands.(Operators only)',
+	type: 'dev',
 	usage: 'hotpatch <commands/events>',
 };

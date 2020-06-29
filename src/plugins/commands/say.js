@@ -20,5 +20,6 @@ module.exports = {
 	},
 	aliases: ['s'],
 	description: 'deletes the command message and returns with a sent message containing the content after the command name',
+	type: 'fun',
 	usage: 'say <text>',
 };

@@ -7,27 +7,58 @@ module.exports = {
     run: async (client, message, args) => {
         /* eslint-enable */
 		const command = args[0];
-		let text;
+		let utilText = 'Utility:  ';
+		let funText = 'Fun:  ';
+		let modText = 'Moderation:  ';
+		let commandText;
 		if (!command) {
 			const files = await fs.readdir(path.join(__dirname, '../../plugins/commands'));
 			for (const file of files) {
+				const cmdName = file.substring(0, file.indexOf('.js'));
 				if (file.endsWith('js')) {
-					text += `\n${file.substring(0, file.indexOf('.js'))}:  Aliases: [${client.commands.get(file.substring(0, file.indexOf('.js'))).aliases}]`;
+					switch (client.commands.get(cmdName).type) {
+					case 'util':
+						utilText += `\n${cmdName}:  Aliases: [${client.commands.get(cmdName).aliases}]`;
+						break;
+					case 'fun':
+						funText += `\n${cmdName}:  Aliases: [${client.commands.get(cmdName).aliases}]`;
+						break;
+					case 'mod':
+						modText += `\n${cmdName}:  Aliases: [${client.commands.get(cmdName).aliases}]`;
+						break;
+					case 'dev':
+						// We just do nothing here.
+						break;
+					}
 				}
 			}
-			message.channel.send(`\`\`\`${text}\`\`\`\nSome commands do not have aliases.\nSee \`\`${client.prefix}help <command>\`\` for more info on a command.\nI'm still under development, so please be patient for more commands to appear on my list.`);
+			message.channel.send(`\`\`\`${utilText}\`\`\`\n\`\`\`${modText}\`\`\`\n\`\`\`${funText}\`\`\`Some commands do not have aliases.\nSee \`\`${client.prefix}help <command>\`\` for more info on a command.\nI'm still under development, so please be patient for more commands to appear on my list.`);
 		}
 		else {
 			try {
-				text = `\`${client.prefix}${command}\`: Usage: ${client.commands.get(command).usage}, ${client.commands.get(command).description}`;
+				switch(client.commands.get(command).type) {
+				case 'util':
+					commandText += `\n${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					break;
+				case 'fun':
+					commandText += `\n${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					break;
+				case 'mod':
+					commandText += `\n${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					break;
+				case 'dev':
+					commandText = (`Error:  Command(${command}) not found.`);
+					break;
+				}
 			}
 			catch (err) {
-				text = (`Error:  Command(${command}) not found.`);
+				commandText = (`Error:  Command(${command}) not found.`);
 			}
-			message.channel.send(`${text}`);
+			message.channel.send(`${commandText}`);
 		}
 	},
 	aliases: ['h'],
 	description: 'Tells the user the latency.',
+	type: 'util',
 	usage: 'help <command(optional)>',
 };

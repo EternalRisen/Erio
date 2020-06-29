@@ -15,5 +15,6 @@ module.exports = {
     },
     aliases: [],
     description: 'Returns the amount of time the bot has been online.',
+    type: 'util',
     usage: 'uptime',
 }

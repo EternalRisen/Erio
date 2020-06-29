@@ -30,5 +30,6 @@ module.exports = {
 	},
 	aliases: ['a'],
 	description: 'returns with the user\'s avatar',
+	type: 'util',
 	usage: 'avatar <user>',
 };

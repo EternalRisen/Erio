@@ -6,7 +6,7 @@ module.exports = {
 	/* eslint-disable */
 	run: async (client, message, args) => {
 		/* eslint-enable */
-		if (client.dev.includes(message.author.id)) {
+		if (client.devs.includes(message.author.id)) {
 			const cmd = args.join(' ');
 			/* eslint-disable */
 			exec(cmd, (stderr, stdout) => {
@@ -20,5 +20,6 @@ module.exports = {
 	},
 	aliases: [],
 	description: 'Runs bash command if the user is an operator.(operators only)',
+	type: 'dev',
 	usage: 'shell <command>',
 };

@@ -11,5 +11,6 @@ module.exports = {
 	},
 	aliases: ['pick'],
 	description: 'Makes a random choice between the choices given.',
+	type: 'fun',
 	usage: 'choose <choice1>, <choice2>, ...',
 };

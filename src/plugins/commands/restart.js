@@ -25,5 +25,6 @@ module.exports = {
 	},
 	aliases: [],
 	description: 'Restarts the bot.(Operatos only.)',
+	type: 'dev',
 	usage: 'restart',
 };

@@ -8,5 +8,6 @@ module.exports = {
 	},
 	aliases: ['p'],
 	description: 'Tells the user the latency.',
+	type: 'util',
 	usage: 'ping',
 };

@@ -10,5 +10,6 @@ module.exports = {
 	},
 	aliases: [],
 	description: 'Makes a random choice between the choices given.',
+	type: 'fun',
 	usage: 'rate <text>',
 };
