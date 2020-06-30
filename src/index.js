@@ -49,7 +49,7 @@ class YeetBot {
 		process.on('uncaughtException', err => {
 			this.onError(err);
 		});
-		
+
 		process.on('unhandledRejection', err => {
 			this.onError(err);
 		});
@@ -89,9 +89,9 @@ class YeetBot {
 	}
 
 	onError(err) {
-		for (const dev of client.devs) {
-			client.users.fetch(dev).then(user => {
-				user.send(`${client.user.tag} Error:  ${err}.`);
+		for (const dev of this.client.devs) {
+			this.client.users.fetch(dev).then(user => {
+				user.send(`${this.client.user.tag} Error:  ${err}.`);
 				console.log(err);
 			});
 		}
