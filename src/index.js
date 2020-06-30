@@ -15,8 +15,19 @@ class YeetBot {
 		this.client.commands = new Map();
 		const client = this.client;
 
-		this.client.on('ready', this.onReady.bind(this));
-		this.client.on('error', this.onError.bind(this));
+		this.client.on('ready', () => {
+			for (const dev of client.devs) {
+				client.users.fetch(dev).then(user => {
+					user.send(`${client.user.tag} is online.`);
+					user.send('(Mainly for testing.  Don\'t worry.)');
+				});
+			}
+		});
+
+		this.client.on('error', (err) => {
+			this.onError(err);
+		});
+
 		this.client.on('message', async message => {
 			if (this.commandsLoaded === false) return;
 			if (message.author.bot) return;
@@ -34,14 +45,18 @@ class YeetBot {
 				return;
 			}
 		});
+
+		process.on('uncaughtException', err => {
+			this.onError(err);
+		});
+		
+		process.on('unhandledRejection', err => {
+			this.onError(err);
+		});
 	}
 
 	onReady() {
 		console.log(`${this.client.user.tag} is online`);
-	}
-
-	onError(e) {
-		console.log(`${this.client.user.tag} error: ${e}`);
 	}
 
 	async loadCommands() {
@@ -71,6 +86,15 @@ class YeetBot {
 			}
 		}
 		this.commandsLoaded = true;
+	}
+
+	onError(err) {
+		for (const dev of client.devs) {
+			client.users.fetch(dev).then(user => {
+				user.send(`${client.user.tag} Error:  ${err}.`);
+				console.log(err);
+			});
+		}
 	}
 
 	login(token) {
