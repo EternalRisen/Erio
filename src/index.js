@@ -19,7 +19,6 @@ class YeetBot {
 			for (const dev of client.devs) {
 				client.users.fetch(dev).then(user => {
 					user.send(`${client.user.tag} is online.`);
-					user.send('(Mainly for testing.  Don\'t worry.)');
 				});
 			}
 		});
@@ -91,8 +90,7 @@ class YeetBot {
 	onError(err) {
 		for (const dev of this.client.devs) {
 			this.client.users.fetch(dev).then(user => {
-				user.send(`${this.client.user.tag} Error:  ${err}.`);
-				console.log(err);
+				user.send(`${this.client.user.username} Error:  ${err}\nat:  ${err.stack}`);
 			});
 		}
 	}
