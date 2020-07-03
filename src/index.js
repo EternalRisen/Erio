@@ -13,16 +13,15 @@ class YeetBot {
 		this.loggedIn = false;
 		this.commandsLoaded = false;
 		this.client.commands = new Map();
-		const client = this.client;
 
 		this.client.on('ready', () => {
-			for (const dev of client.devs) {
-				client.users.fetch(dev).then(user => {
-					user.send(`${client.user.tag} is online.`);
+			for (const dev of this.client.devs) {
+				this.client.users.fetch(dev).then(user => {
+					user.send(`Logged in as ${this.client.user.tag}`);
 				});
 			}
 
-			client.user.setPresence({
+			this.client.user.setPresence({
 				activity: {
 					name: 'JD-San Develop me',
 					type: 'WATCHING',
@@ -37,15 +36,15 @@ class YeetBot {
 		this.client.on('message', async message => {
 			if (this.commandsLoaded === false) return;
 			if (message.author.bot) return;
-			if (message.content.toLowerCase() === 'help' || message.content.includes(client.user.id)) {
+			if (message.content.toLowerCase() === 'help' || message.content.includes(this.client.user.id)) {
 				message.reply(`My Prefix is \`${this.client.prefix}\`.  please see \`${this.client.prefix}help\` to see a list of my commands.`);
 			}
 			if (!message.content.startsWith(this.client.prefix)) return;
 			const args = message.content.substring(message.content.indexOf(this.client.prefix) + 1).split(new RegExp(/\s+/));
 			const cmd = args.shift();
 
-			if (client.commands.get(cmd)) {
-				client.commands.get(cmd).run(client, message, args);
+			if (this.client.commands.get(cmd)) {
+				this.client.commands.get(cmd).run(this.client, message, args);
 			}
 			else {
 				return;
