@@ -21,7 +21,7 @@ class YeetBot {
 					user.send(`${client.user.tag} is online.`);
 				});
 			}
-			
+
 			client.user.setPresence({
 				activity: {
 					name: 'JD-San Develop me',
