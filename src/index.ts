@@ -51,12 +51,12 @@ class YeetBot{
 			}
 		});
 
-		process.on('uncaughtException', err => {
+		process.on('uncaughtException', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
 		});
 
-		process.on('unhandledRejection', err => {
-			this.messageDevs(this.client.devs, `Error: ${err}`);
+		process.on('unhandledRejection', (err: Error) => {
+			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
 		});
 	}
 
@@ -107,7 +107,6 @@ class YeetBot{
 	login(token: string) {
 		if (this.client.loggedIn) throw new Error('Cannot call login() twice');
 
-		console.log('starting...');
 		this.client.login(token);
 		this.client.loggedIn = true;
 	}
