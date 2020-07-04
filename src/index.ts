@@ -31,6 +31,7 @@ class YeetBot{
 
 		this.client.on('error', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			fs.writeFile('./errors.log', `Error: ${err}\nat ${err.stack}\n \n`);
 		});
 
 		this.client.on('message', async (message: Discord.Message) => {
@@ -50,13 +51,14 @@ class YeetBot{
 				return;
 			}
 		});
-
 		process.on('uncaughtException', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			fs.writeFile('./errors.log', `Error: ${err}\nat ${err.stack}\n \n`);
 		});
 
 		process.on('unhandledRejection', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			fs.writeFile('./errors.log', `Error: ${err}\nat ${err.stack}\n \n`);
 		});
 	}
 
