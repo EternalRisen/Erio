@@ -5,23 +5,30 @@ const path = require('path');
 const config = require('../config/config.json');
 const { checkCommandModule, checkProperties } = require('./structs/validate.js');
 
-class YeetBot{
-	// TODO:  Give this a type other than 'any'
-	protected client: any;
+class Client extends Discord.Client { 
+    public commands: any = new Map(); 
+    public commandsLoaded: boolean = false; 
+    public devs: Array<string> = []; 
+    public prefix: string = ''; 
+    public loggedIn: boolean = false;
+}
 
-	constructor() {
-		this.client = new Discord.Client();
-		this.client.devs = config.botAdmins;
-		this.client.token = config.token;
-		this.client.prefix = config.prefix;
-		this.client.loggedIn = false;
-		this.client.commandsLoaded = false;
-		this.client.commands = new Map();
+class YeetBot{
+    protected client: Client;
+
+    constructor() {
+        this.client = new Client();
+        this.client.devs = config.botAdmins;
+        this.client.token = config.token;
+        this.client.prefix = config.prefix;
+        this.client.loggedIn = false;
+        this.client.commandsLoaded = false;
+        this.client.commands = new Map();
 
 		this.client.on('ready', () => {
-			this.messageDevs(this.client.devs, `Logged in as ${this.client.user.tag}`);
+			this.messageDevs(this.client.devs, `Logged in as ${this.client.user!.tag}`);
 
-			this.client.user.setPresence({
+			this.client.user!.setPresence({
 				activity: {
 					name: 'JD-San Develop me',
 					type: 'WATCHING',
@@ -36,7 +43,7 @@ class YeetBot{
 		this.client.on('message', async (message: Discord.Message) => {
 			if (this.client.commandsLoaded === false) return;
 			if (message.author.bot) return;
-			if (message.content.toLowerCase() === 'help' || message.content.includes(this.client.user.id)) {
+			if (message.content.toLowerCase() === 'help' || message.content.includes(this.client.user!.id)) {
 				message.reply(`My Prefix is \`${this.client.prefix}\`.  please see \`${this.client.prefix}help\` to see a list of my commands.`);
 			}
 			if (!message.content.startsWith(this.client.prefix)) return;
@@ -61,7 +68,7 @@ class YeetBot{
 	}
 
 	onReady() {
-		console.log(`${this.client.user.tag} is online`);
+		console.log(`${this.client.user!.tag} is online`);
 	}
 
 	async loadCommands() {
@@ -98,13 +105,13 @@ class YeetBot{
 
 	async messageDevs(devs: Array<string>, message: string) {
 		for (let dev of devs) {
-			dev = await this.client.users.fetch(dev);
+			(dev as unknown as Discord.User) = await this.client.users.fetch(dev);
 			if (!dev) return;
 			(dev as unknown as Discord.TextChannel).send(message);
 		}
 	}
 
-	login(token: string) {
+	connect(token: string) {
 		if (this.client.loggedIn) throw new Error('Cannot call login() twice');
 
 		this.client.login(token);
