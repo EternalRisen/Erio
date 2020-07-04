@@ -2,25 +2,8 @@
 
 const fs = require('fs');
 
-let built;
-
-if (!fs.existsSync('./node_modules')) {
-    console.log('node_modules is not found.  Please install your dependencies.')
-    built = false;
-} else {
-    built = true;
-}
-
-if (!fs.existsSync('./config/config.json')) {
-    console.log('The config file was not found.  Please make sure that it\'s there and has the right information.');
-    built = false;
-} else {
-    built = true;
-}
-
-if (built === false) {
-    process.exit();
-}
+console.log('building...');
+require('child_process').execSync('npm test', {stdio: 'inherit'});
 
 const YeetBot = require('./dist/index.js');
 const client = new YeetBot();

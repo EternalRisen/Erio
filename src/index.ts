@@ -107,8 +107,9 @@ class YeetBot{
 	login(token: string) {
 		if (this.client.loggedIn) throw new Error('Cannot call login() twice');
 
-		this.client.loggedIn = true;
+		console.log('starting...');
 		this.client.login(token);
+		this.client.loggedIn = true;
 	}
 }
 

@@ -4,10 +4,10 @@
   "description": "A Discord Bot for the Yeet Server",
   "main": "bot",
   "scripts": {
-    "pretest": "tslint *.ts",
-    "test": "tsc",
-    "start": "node bot",
-    "build": "node build"
+    "pretest": "npm install",
+    "test": "tslint *.ts",
+    "posttest": "tsc",
+    "start": "node bot"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,6 @@
     "@types/node": "^14.0.14",
     "@types/ws": "^7.2.6",
     "discord.js": "^12.2.0",
-    "eslint": "^6.8.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.6"
   }
