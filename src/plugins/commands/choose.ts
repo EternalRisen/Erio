@@ -1,9 +1,9 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 module.exports = {
-	/* eslint-disable */
-	run: async (client, message, args) => {
-        /* eslint-enable */
+	run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		const choices = args.join(' ').split(', ');
 		if (choices[0] === '') return message.reply('Please give options.');
 		if (!choices[1]) return message.reply('I need more than one option to choose.');

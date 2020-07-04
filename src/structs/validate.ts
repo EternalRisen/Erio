@@ -1,4 +1,4 @@
-module.exports.checkCommandModule = (cmdName, cmdModule) => {
+export function checkCommandModule(cmdName: any, cmdModule: any) {
 	/* eslint-disable */
 	if(!cmdModule.hasOwnProperty('run')) {throw new Error(`${cmdName} command module does not have property 'run'.`);}
 	if(!cmdModule.hasOwnProperty('description')) {throw new Error(`${cmdName} command module does not have property 'description'.`);}
@@ -8,7 +8,8 @@ module.exports.checkCommandModule = (cmdName, cmdModule) => {
     /* eslint-enable */
 	return true;
 };
-module.exports.checkProperties = (cmdName, cmdModule) => {
+
+export function checkProperties(cmdName: any, cmdModule: any) {
 	const typeTypes = ['util', 'mod', 'fun', 'dev'];
 	if(typeof cmdModule.run !== 'function') {throw new Error(`${cmdName} command: 'run' is not a function.`);}
 	if(typeof cmdModule.description !== 'string') {throw new Error(`${cmdName} command: 'description' is not a string.`);}

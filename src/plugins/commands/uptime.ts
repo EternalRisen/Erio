@@ -1,9 +1,9 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 module.exports = {
-	/* eslint-disable */
-    run: async (client, message, args) => {
-        /* eslint enable */
+    run: async (client: any, message: Discord.Message, args: Array<string>) => {
         let totalSeconds = Math.floor(client.uptime / 1000); 
         let days = Math.floor(totalSeconds / 86400); 
         let hours = Math.floor(totalSeconds / 3600); 

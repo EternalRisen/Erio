@@ -1,4 +1,4 @@
-module.exports.getAvatar = (user, size) => {
+export function getAvatar(user: any, size: string) {
 	const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
 
 	size = size || '128';

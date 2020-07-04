@@ -1,9 +1,9 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 module.exports = {
-	/* eslint-disable */
-	run: async (client, message, args) => {
-        /* eslint-enable */
+	run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		const rateString = args.join(' ');
 		const rating = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 		message.reply(`I rate ${rateString} a ${rating[Math.floor(Math.random() * rating.length)]}/10`);

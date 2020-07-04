@@ -1,13 +1,13 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 const fs = require('fs').promises;
 const path = require('path');
-const { checkCommandModule, checkProperties } = require('../../structs/validate.js');
+const { checkCommandModule, checkProperties } = require('../../structs/validate');
 
 module.exports = {
-	/* eslint-disable */
-    run: async (client, message, args) => {
-        /* eslint-enable */
+    run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
@@ -26,7 +26,7 @@ module.exports = {
 									const { aliases } = cmdModule;
 									client.commands.set(cmdName, cmdModule);
 									if(aliases.length !== 0) {
-										aliases.forEach(alias => client.commands.set(alias, cmdModule));
+										aliases.forEach((alias: string) => client.commands.set(alias, cmdModule));
 									}
 									console.log(`Command loaded:  ${cmdName}:  ${cmdModule.description}`);
 								}

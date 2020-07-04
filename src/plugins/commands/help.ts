@@ -1,12 +1,12 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 const fs = require('fs').promises;
 const path = require('path');
 
 module.exports = {
-	/* eslint-disable */
-    run: async (client, message, args) => {
-        /* eslint-enable */
+    run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		const command = args[0];
 		let utilText = 'Utility:  ';
 		let funText = 'Fun:  ';
@@ -39,13 +39,13 @@ module.exports = {
 			try {
 				switch(client.commands.get(command).type) {
 				case 'util':
-					commandText += `\n${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]`;
 					break;
 				case 'fun':
-					commandText += `\n${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]`;
 					break;
 				case 'mod':
-					commandText += `\n${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]`;
 					break;
 				case 'dev':
 					commandText = (`Error:  Command(${command}) not found.`);

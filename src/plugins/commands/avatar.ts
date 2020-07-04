@@ -1,12 +1,13 @@
 'use strict';
 
-const { MessageAttachment } = require('discord.js');
-const { getAvatar } = require('../../structs/getavatar.js');
+import Discord = require('discord.js');
+
+import { getAvatar } from '../../structs/getavatar';
+
+const MessageAttachment = Discord.MessageAttachment;
 
 module.exports = {
-	/* eslint-disable */
-    run: async (client, message, args) => {
-		/* eslint-enable */
+    run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		let targetUser = args[0];
 
 		try {
@@ -18,13 +19,13 @@ module.exports = {
 			console.log(`Can't replace the string.  The user must have either inputted something wrong, or are just wanting their own avatar.  ${e}`);
 		}
 
-		client.users.fetch(targetUser).then(user => {
-			const avatar = new MessageAttachment(getAvatar(user, 2048));
+		client.users.fetch(targetUser).then((user: Discord.User) => {
+			const avatar = new MessageAttachment(getAvatar(user, '2048'));
 			message.channel.send(`${user.tag}'s avatar:`, avatar);
-		}).catch(e => {
+		}).catch((e: Error) => {
 			console.log(`We just need to log this somewhere else in the future when I add other things. ${e}`);
 			const user = message.author;
-			const avatar = new MessageAttachment(getAvatar(user, 2048));
+			const avatar = new MessageAttachment(getAvatar(user, '2048'));
 			message.channel.send(`${user.tag}'s avatar:`, avatar);
 		});
 	},

@@ -1,9 +1,9 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 module.exports = {
-	/* eslint-disable */
-    run: (client, message, args) => {
-        /* eslint-enable */
+    run: (client: any, message: Discord.Message, args: Array<string>) => {
 		message.reply(`Pong!\n ${client.ws.ping}ms is the latency`);
 	},
 	aliases: ['p'],

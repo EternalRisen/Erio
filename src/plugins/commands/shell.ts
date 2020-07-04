@@ -1,15 +1,15 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 const { exec } = require('child_process');
 
 module.exports = {
-	/* eslint-disable */
-	run: async (client, message, args) => {
-		/* eslint-enable */
+	run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const cmd = args.join(' ');
 			/* eslint-disable */
-			exec(cmd, (stderr, stdout) => {
+			exec(cmd, (stderr: string, stdout: string) => {
 				/* eslint-enable */
 				message.channel.send((`${stdout}`));
 			});

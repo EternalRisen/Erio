@@ -1,11 +1,11 @@
 'use strict';
 
+import Discord = require('discord.js');
+
 const { inspect } = require('util');
 
 module.exports = {
-	/* eslint-disable */
-	run: async (client, message, args) => {
-		/* eslint-enable */
+	run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			let evaled;
 			try {
