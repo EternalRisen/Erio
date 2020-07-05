@@ -14,7 +14,11 @@ module.exports = {
 			sayMessage += `\n- ${message.author.tag}`;
 		}
 		else {
-			message.delete();
+			if (['dm'].includes(message.channel.type)) {
+
+			} else {
+				message.delete();
+			}
 		}
 		message.channel.send(sayMessage);
 	},

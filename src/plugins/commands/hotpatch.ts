@@ -11,6 +11,7 @@ module.exports = {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
+				require('child_process').execSync('npm run posttest', {stdio: 'inherit'});
 				console.log('Hotpatching Commands...');
 				client.commands.clear();
 				client.commands = new Map();
