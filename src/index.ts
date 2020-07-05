@@ -31,7 +31,11 @@ class YeetBot{
 
 		this.client.on('error', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
-			fs.writeFile('./errors.log', `Error: ${err}\nat ${err.stack}\n \n`);
+			fs.readFile('./errors.txt', 'utf8', function(error: Error, data: Buffer) {
+				console.log(data.toString());
+				if (error) throw new Error(error.toString());
+				fs.writeFile('./errors.txt', `${data}\nError: ${err}\nat ${err.stack}\n \n`);
+			});
 		});
 
 		this.client.on('message', async (message: Discord.Message) => {
@@ -53,12 +57,21 @@ class YeetBot{
 		});
 		process.on('uncaughtException', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
-			fs.writeFile('./errors.log', `Error: ${err}\nat ${err.stack}\n \n`);
+			fs.readFile('./errors.txt', 'utf8', function(error: Error, data: Buffer) {
+				console.log(data);
+				if (error) throw new Error(error.toString());
+				fs.writeFile('./errors.txt', `${data}\nError: ${err}\nat ${err.stack}\n \n`);
+			});
+			// fs.writeFile('./errors.log', `${existingError}\nError: ${err}\nat ${err.stack}\n \n`);
 		});
 
 		process.on('unhandledRejection', (err: Error) => {
 			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
-			fs.writeFile('./errors.log', `Error: ${err}\nat ${err.stack}\n \n`);
+			fs.readFile('./errors.txt', 'utf8', function(error: Error, data: Buffer) {
+				console.log(data);
+				if (error) throw new Error(error.toString());
+				fs.writeFile('./errors.txt', `${data}\nError: ${err}\nat ${err.stack}\n \n`);
+			});
 		});
 	}
 
