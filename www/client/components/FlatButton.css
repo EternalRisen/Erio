@@ -1,0 +1,21 @@
+.flat-button {
+    -webkit-appearance: none;
+    display: inline-flex;
+    border-radius: 2px;
+    background-color: #4c0e20;
+    border: 2px solid transparent;
+    color: white;
+    padding: 10px 8px;
+    font-weight: bold;
+    margin-right: 5px;
+    transition: .3s ease background-color;
+    outline: none;
+}
+
+.flat-button:hover {
+    background-color: #58142a;
+}
+
+.flat-button:active {
+    background-color: #671932;
+}

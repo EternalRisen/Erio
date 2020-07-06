@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-require('child_process').execSync('npx sucrase -q ./src -d ./src-dist --transforms typescript,imports', {stdio: 'inherit'});
-require('child_process').execSync('npx sucrase -q ./server -d ./server-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('npx sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('npx sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
 require('child_process').execSync('npm test', {stdio: 'inherit'});

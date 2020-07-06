@@ -1,5 +1,16 @@
 /node_modules
 /src-dist
-/server-dist
+/www-dist
 errors.txt
 .env
+
+# Mac being shit as usual
+*/.DS_Store
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

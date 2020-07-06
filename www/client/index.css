@@ -1,0 +1,38 @@
+@font-face {
+	font-family: 'Bubblegum';
+    src: url('./assets/fonts/Avenir.ttc'),
+         url('./assets/fonts/Avenir.woff');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    background: #270000;
+    color: white;
+    font-family: Bubblegum;
+}
+
+body::before {
+    content: '';
+    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .3)), to(rgba(0, 0, 0, .3))), url('https://static.zerochan.net/Touwa.Erio.full.1005527.jpg');
+    background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)),  url('https://static.zerochan.net/Touwa.Erio.full.1005527.jpg');
+    background-position-x: right;
+    background-position-y: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: rgb(39, 0, 0);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
