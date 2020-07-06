@@ -2,7 +2,6 @@ import Discord = require('discord.js');
 
 const fs = require('fs').promises;
 const path = require('path');
-const config = require('../config/config.json');
 const { checkCommandModule, checkProperties } = require('./structs/validate.js');
 
 class Client extends Discord.Client { 
