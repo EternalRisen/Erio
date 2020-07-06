@@ -12,7 +12,7 @@ module.exports = {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
-				require('child_process').execSync('node build', {stdio: 'inherit'});
+				require('child_process').execSync('npx sucrase -q ./src/plugins/commands -d ./src-dist/plugins/commands --transforms jsx,typescript,imports', {stdio: 'inherit'});
 				console.log('Hotpatching Commands...');
 				client.commands.clear();
 				client.commands = new Map();
