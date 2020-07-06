@@ -4,6 +4,8 @@ const fs = require('fs').promises;
 const path = require('path');
 const { checkCommandModule, checkProperties } = require('./structs/validate.js');
 
+require('dotenv').config({ path: './.env'});
+
 class Client extends Discord.Client { 
     public commands: any = new Map(); 
     public commandsLoaded: boolean = false; 
@@ -16,16 +18,18 @@ class YeetBot{
     protected client: Client;
 
     constructor() {
+		require('dotenv').config({ path: './.env'});
         this.client = new Client();
-        this.client.devs = process.env.ADMINS?.split(',') || [];
-        this.client.token = `${process.env.TOKEN}`;
-        this.client.prefix = `${process.env.PREFIX}`;
+		this.client.devs = process.env.ADMINS?.split(',') || [];
+		this.client.token = process.env.TOKEN?.toString() || '';
+		console.log(this.client.token);
+        this.client.prefix = process.env.PREFIX?.toString() || '';
         this.client.loggedIn = false;
         this.client.commandsLoaded = false;
         this.client.commands = new Map();
 
 		this.client.on('ready', () => {
-			this.messageDevs(this.client.devs, `Logged in as ${this.client.user!.tag}`);
+			// this.messageDevs(this.client.devs, `Logged in as ${this.client.user!.tag}`);
 
 			this.client.user!.setPresence({
 				activity: {
@@ -36,7 +40,8 @@ class YeetBot{
 		});
 
 		this.client.on('error', (err: Error) => {
-			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			// this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			console.error(err);
 		});
 
 		this.client.on('message', async (message: Discord.Message) => {
@@ -57,11 +62,13 @@ class YeetBot{
 			}
 		});
 		process.on('uncaughtException', (err: Error) => {
-			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			// this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			console.error(err);
 		});
 
 		process.on('unhandledRejection', (err: Error) => {
-			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			// this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			console.error(err);
 		});
 	}
 

@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "npm install",
     "test": "tslint *.ts",
-    "start": "node bot",
+    "start": "node -r dotenv/config bot",
     "webdev": "tsc && concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && open-cli http://localhost:3000\"",
     "web": "tsc && npm run build && npm run serve",
     "serve": "node www-dist/server/app.js",
@@ -36,8 +36,7 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "tslint": "^6.1.2",
-    "typescript": "^3.9.6"
+    "tslint": "^6.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -54,7 +53,7 @@
     "open-cli": "^5.0.0",
     "style-loader": "^1.0.0",
     "ts-loader": "^6.2.1",
-    "typescript": "^3.6.4",
+    "typescript": "^3.9.6",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"
   }

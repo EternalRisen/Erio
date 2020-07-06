@@ -2,7 +2,7 @@
 
 const fs = require('fs').promises;
 
-let port = process.env.PORT || process.argv[2] || 8000;
+require('dotenv').config({path: './.env'});
 
 fs.writeFile('./errors.txt');
 
@@ -10,11 +10,11 @@ console.log('building...');
 
 require('child_process').execSync('npm run build', {stdio: 'inherit'});
 
-require('child_process').execSync('npm run serve', {stdio: 'inherit'});
-
 const YeetBot = require('./src-dist/index');
 const client = new YeetBot();
 
 client.loadCommands();
 
 client.connect(client.token);
+
+require('./www-dist/server/app.js');
