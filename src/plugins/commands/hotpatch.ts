@@ -1,17 +1,18 @@
 'use strict';
 
 import Discord = require('discord.js');
+const YeetBot = require('../../index');
 
 const fs = require('fs').promises;
 const path = require('path');
 const { checkCommandModule, checkProperties } = require('../../structs/validate');
 
 module.exports = {
-    run: async (client: any, message: Discord.Message, args: Array<string>) => {
+    run: async (client: typeof YeetBot, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
-				require('child_process').execSync('npm run posttest', {stdio: 'inherit'});
+				require('child_process').execSync('node build', {stdio: 'inherit'});
 				console.log('Hotpatching Commands...');
 				client.commands.clear();
 				client.commands = new Map();
