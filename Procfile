@@ -1,1 +1,1 @@
-web: node bot 8000
+web: node bot

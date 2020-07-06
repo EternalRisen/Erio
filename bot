@@ -2,7 +2,7 @@
 
 const fs = require('fs').promises;
 
-let port = process.argv[2] || 8000;
+let port = process.env.PORT || process.argv[2] || 8000;
 
 fs.writeFile('./errors.txt');
 
