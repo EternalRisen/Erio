@@ -10,7 +10,18 @@ module.exports = {
 			let evaled;
 			try {
 				evaled = eval(args.join(' ').slice());
-				message.channel.send(inspect(evaled));
+				evaled = inspect(evaled);
+				if (evaled.length > 1800) {
+					const evalChunks: string[] = [];
+					for (let i = 0, charsLength = evaled.length; i < charsLength; i += 1800) {
+    					evalChunks.push(evaled.substring(i, i + 1800));
+					}
+					for (let evals of evalChunks) {
+						message.channel.send(`\`\`\`js\n${evals}\`\`\``);
+					}
+				} else {
+					message.channel.send(`\`\`\`js\n${evaled}\`\`\``);
+				}
 			}
 			catch (err) {
 				message.channel.send(`${err.message}`);

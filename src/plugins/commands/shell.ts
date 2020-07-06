@@ -8,10 +8,18 @@ module.exports = {
 	run: async (client: any, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const cmd = args.join(' ');
-			/* eslint-disable */
 			exec(cmd, (stderr: string, stdout: string) => {
-				/* eslint-enable */
-				message.channel.send((`${stdout}`));
+				if (stdout.length > 1800) {
+					const outChunks: string[] = [];
+					for (let i = 0, charsLength = stdout.length; i < charsLength; i += 1800) {
+    					outChunks.push(stdout.substring(i, i + 1800));
+					}
+					for (let out of outChunks) {
+						message.channel.send(`\`\`\`js\n${out}\`\`\``);
+					}
+				} else {
+					message.channel.send(`${stdout}`);
+				}
 			});
 		}
 		else {
