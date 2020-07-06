@@ -2,3 +2,4 @@
 /src-dist
 /server-dist
 errors.txt
+.env

@@ -18,9 +18,9 @@ class YeetBot{
 
     constructor() {
         this.client = new Client();
-        this.client.devs = config.botAdmins;
-        this.client.token = config.token;
-        this.client.prefix = config.prefix;
+        this.client.devs = process.env.ADMINS?.split(',') || [];
+        this.client.token = `${process.env.TOKEN}`;
+        this.client.prefix = `${process.env.PREFIX}`;
         this.client.loggedIn = false;
         this.client.commandsLoaded = false;
         this.client.commands = new Map();
@@ -103,10 +103,14 @@ class YeetBot{
 	}
 
 	async messageDevs(devs: Array<string>, message: string) {
-		for (let dev of devs) {
-			(dev as unknown as Discord.User) = await this.client.users.fetch(dev);
-			if (!dev) return;
-			(dev as unknown as Discord.TextChannel).send(message);
+		try {
+			for (let dev of devs) {
+				(dev as unknown as Discord.User) = await this.client.users.fetch(dev);
+				if (!dev) return;
+				(dev as unknown as Discord.TextChannel).send(message);
+			}
+		} catch (e) {
+			console.error(e);
 		}
 	}
 
