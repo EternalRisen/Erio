@@ -1,11 +1,21 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
+const fs = require('fs').promises;
+
+fs.writeFile('./errors.txt');
 
 console.log('building...');
+
+require('child_process').execSync('npx sucrase -q ./src -d ./src-dist --transforms typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('npx sucrase -q ./server -d ./server-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
 require('child_process').execSync('npm test', {stdio: 'inherit'});
 
-const YeetBot = require('./dist/index.js');
+const Server = require('./server-dist/index');
+const server = new Server();
+
+server.createServer(8000);
+
+const YeetBot = require('./src-dist/index');
 const client = new YeetBot();
 
 client.loadCommands();
