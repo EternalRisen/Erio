@@ -2,6 +2,8 @@
 
 const fs = require('fs').promises;
 
+let port = process.argv[2] || 8000;
+
 fs.writeFile('./errors.txt');
 
 console.log('building...');
@@ -13,7 +15,7 @@ require('child_process').execSync('npm test', {stdio: 'inherit'});
 const Server = require('./server-dist/index');
 const server = new Server();
 
-server.createServer(8000);
+server.createServer(port);
 
 const YeetBot = require('./src-dist/index');
 const client = new YeetBot();
