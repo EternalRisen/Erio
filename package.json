@@ -7,8 +7,8 @@
     "pretest": "npm install",
     "test": "tslint *.ts",
     "start": "node -r dotenv/config bot",
-    "webdev": "tsc && concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && open-cli http://localhost:3000\"",
-    "web": "tsc && npm run build && npm run serve",
+    "webdev": "concurrently \"npm:watch\" \"npm:build\" \"npm:serve\" \"sleep 3 && open-cli http://localhost:3000\"",
+    "web": "npm run build && npm run serve",
     "serve": "node www-dist/server/app.js",
     "watch": "webpack --watch --mode development",
     "build": "npm run test && webpack --mode development && node build"
