@@ -18,10 +18,12 @@ const mainhtmlPlugin = new HtmlWebPackPlugin({
     template: './www/client/index.html',
     filename: './index.html'
 });
+
 const commandhtmlPlugin = new HtmlWebPackPlugin({
     template: './www/client/commandindex.html',
     filename: './commandindex.html'
 })
+
 const copyPlugin = new CopyWebpackPlugin([
     {
         from: 'www/client/assets',
@@ -35,7 +37,6 @@ const copyPlugin = new CopyWebpackPlugin([
 
 module.exports = {
     target: 'node',
-    externals: ['./node_modules'],
     entry: ['./www/client/index.tsx', './www/client/commandindex.tsx'],
     output: {
         path: PATHS.dist,
@@ -45,6 +46,7 @@ module.exports = {
         cleanPlugin,
         hmrPlugin,
         mainhtmlPlugin,
+        commandhtmlPlugin,
         copyPlugin,
     ],
     resolve: {

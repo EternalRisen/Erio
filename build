@@ -2,4 +2,3 @@
 
 require('child_process').execSync('npx sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
 require('child_process').execSync('npx sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
-require('child_process').execSync('npm test', {stdio: 'inherit'});

@@ -9,7 +9,7 @@ const App = () => {
             className={`wallpaper`}
         >
             Base to make Erio website
-            <FlatButton></FlatButton>
+            <FlatButton>Test</FlatButton>
         </div>
     );
 };
