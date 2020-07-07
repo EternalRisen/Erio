@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-const fs = require('fs').promises;
+console.log('building...');
 
 require('dotenv').config({path: './.env'});
-
-fs.writeFile('./errors.txt');
 
 console.log('building...');
 
 require('child_process').execSync('npm run build', {stdio: 'inherit'});
 
-const YeetBot = require('./src-dist/index');
-const client = new YeetBot();
+console.log('starting...');
+
+const ErioBot = require('./src-dist/index');
+const client = new ErioBot();
 
 client.loadCommands();
 
