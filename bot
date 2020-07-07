@@ -18,3 +18,5 @@ client.loadCommands();
 client.connect(client.token);
 
 require('./www-dist/server/app.js');
+
+console.log('hi');
