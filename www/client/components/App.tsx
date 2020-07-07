@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './App.css';
+import FlatButton from './FlatButton';
 
 const App = () => {
     return (
@@ -8,6 +9,7 @@ const App = () => {
             className={`wallpaper`}
         >
             Base to make Erio website
+            <FlatButton></FlatButton>
         </div>
     );
 };

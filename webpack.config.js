@@ -14,10 +14,14 @@ const PATHS = {
 // Damn webpack plugins
 const cleanPlugin = new CleanWebpackPlugin();
 const hmrPlugin = new HotModuleReplacementPlugin();
-const htmlPlugin = new HtmlWebPackPlugin({
+const mainhtmlPlugin = new HtmlWebPackPlugin({
     template: './www/client/index.html',
     filename: './index.html'
 });
+const commandhtmlPlugin = new HtmlWebPackPlugin({
+    template: './www/client/commandindex.html',
+    filename: './commandindex.html'
+})
 const copyPlugin = new CopyWebpackPlugin([
     {
         from: 'www/client/assets',
@@ -30,7 +34,9 @@ const copyPlugin = new CopyWebpackPlugin([
 ]);
 
 module.exports = {
-    entry: './www/client/index.tsx',
+    target: 'node',
+    externals: ['./node_modules'],
+    entry: ['./www/client/index.tsx', './www/client/commandindex.tsx'],
     output: {
         path: PATHS.dist,
         filename: '[name].js'
@@ -38,11 +44,14 @@ module.exports = {
     plugins: [
         cleanPlugin,
         hmrPlugin,
-        htmlPlugin,
+        mainhtmlPlugin,
         copyPlugin,
     ],
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.tsx', '.js', '.json'],
+        alias: {
+            commands: path.resolve(__dirname, 'src-dist/plugins/commands')
+        }
     },
     module: {
         rules: [

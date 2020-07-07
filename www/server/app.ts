@@ -3,13 +3,16 @@ const path = require('path');
 
 const app = express();
 
-const DIST_DIR = path.join(__dirname, '../');
-const HTML_DIR = path.join(DIST_DIR, 'index.html');
+const clientDir = path.join(__dirname, '../');
 
-app.use(express.static(DIST_DIR));
+app.use(express.static(clientDir));
 
 app.get('/', (_: any, res: { sendFile: (arg0: any) => void; }) => {
-    res.sendFile(HTML_DIR);
+    res.sendFile(path.join(clientDir, 'index.html'));
 });
 
-app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${process.env.PORT || 3000}`));
+app.get('/commands', (_: any, res: { sendFile: (arg0: any) => void; }) => {
+    res.sendFile(path.join(clientDir, 'commandindex.html'));
+});
+
+app.listen(process.env.PORT || 8000, () => console.log(`Listening on port ${process.env.PORT || 3000}`));
