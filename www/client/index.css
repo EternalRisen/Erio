@@ -14,7 +14,7 @@ body {
     right: 0;
     bottom: 0;
     margin: 0;
-    background: #270000;
+    background: linear-gradient(to right, #092f3f, #090c19);
     color: white;
     font-family: Bubblegum;
 }
@@ -24,11 +24,11 @@ body::before {
     background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .3)), to(rgba(0, 0, 0, .3))), url('https://static.zerochan.net/Touwa.Erio.full.1005527.jpg');
     background-image: linear-gradient(to right, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)),  url('https://static.zerochan.net/Touwa.Erio.full.1005527.jpg');
     background-position-x: right;
-    background-position-y: center;
+    background-position-y: top;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: rgb(39, 0, 0);
+    background-color: #173145;
     position: fixed;
     top: 0;
     bottom: 0;

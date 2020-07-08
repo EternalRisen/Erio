@@ -1,14 +1,12 @@
 import React from 'react';
 
 import './App.css';
-import FlatButton from './FlatButton';
+import Header from './Header';
 
 const App = () => {
     return (
-        <div className={`wallpaper`} >
-            <FlatButton>Let me take you to our commands!</FlatButton>
-            <FlatButton>Invite me to your server!</FlatButton>
-            <p>This is the base to the Erio Website</p>
+        <div className="app" >
+            <Header/>
         </div>
     );
 };

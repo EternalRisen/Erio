@@ -14,10 +14,10 @@ const PATHS = {
 // Damn webpack plugins
 const cleanPlugin = new CleanWebpackPlugin();
 const hmrPlugin = new HotModuleReplacementPlugin();
-const mainhtmlPlugin = new HtmlWebPackPlugin({
-    template: './www/client/index.html',
-    filename: './index.html'
-});
+// const mainhtmlPlugin = new HtmlWebPackPlugin({
+//     template: './www/client/index.html',
+//     filename: './index.html'
+// });
 
 const commandhtmlPlugin = new HtmlWebPackPlugin({
     template: './www/client/commands.html',
