@@ -1,34 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// import fs from 'fs';
-
-// TODO:  Require the bot command modules and return it's string and array values in the DOM
-
-/* import path from 'path';
-
-const listReactFiles = require('list-react-files');
-
-
-const files = listReactFiles(path.join(__dirname, '../../../src-dist/plugins/commands'))
-// const files = fs.readdirSync('./src-dist/plugins/commands');
-
-let cmdString = '';
-
-let file: any;
-
-for (file of files) {
-    const cmdName = file.substring(0, file.indexOf('.js'));
-    const cmdModule = require(`../../../src-dist/plugins/commands/${file}`);
-    cmdString += `${cmdName}\n${cmdModule.type}\n${cmdModule.usage}\n${cmdModule.description}`
-    cmdString += `\n${cmdName}`;
-} */
-
+import CommandsListing, { Command } from './CommandsListing';
 
 const Commands = () => {
+    const [commands, setCommands] = useState(null);
+    // Run this effect only on component initialization thanks to its empty dependency array
+    useEffect(() => {
+        fetch('/commands.json')
+            .then(res => res.json())
+            .then(data => setCommands(data));
+    }, []);
+
     return (
-        <div className={`wallpaper`}>
-            Commands: NOT IMPLEMENTED YET.
+        <div className='wallpaper'>
+            {
+                commands === null
+                    ? 'Loading commands...'
+                    // Retarded typescript can't infer that it isn't null even though it's right above
+                    : <CommandsListing commands={commands as unknown as Command[]} />
+            }
         </div>
     );
 };
