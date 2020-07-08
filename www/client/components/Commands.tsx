@@ -1,39 +1,36 @@
 import React from 'react';
+import './App.css';
 
 // import fs from 'fs';
 
-import path from 'path';
+// TODO:  Require the bot command modules and return it's string and array values in the DOM
 
-import './App.css';
+/* import path from 'path';
 
 const listReactFiles = require('list-react-files');
 
-async function getCommands() {
-    const files = await listReactFiles(path.join(__dirname, '../../../src-dist/plugins/commands'))
-    // const files = fs.readdirSync('./src-dist/plugins/commands');
 
-    let cmdString = '';
+const files = listReactFiles(path.join(__dirname, '../../../src-dist/plugins/commands'))
+// const files = fs.readdirSync('./src-dist/plugins/commands');
 
-    let file: any;
+let cmdString = '';
 
-    for (file of files) {
-        const cmdName = file.substring(0, file.indexOf('.js'));
-        const cmdModule = require(`../../../src-dist/plugins/commands/${file}`);
-        cmdString += `${cmdName}\n${cmdModule.type}\n${cmdModule.usage}\n${cmdModule.description}`
-        // cmdString += `${cmdName}`;
-    }
+let file: any;
 
-    return cmdString;
-}
+for (file of files) {
+    const cmdName = file.substring(0, file.indexOf('.js'));
+    const cmdModule = require(`../../../src-dist/plugins/commands/${file}`);
+    cmdString += `${cmdName}\n${cmdModule.type}\n${cmdModule.usage}\n${cmdModule.description}`
+    cmdString += `\n${cmdName}`;
+} */
 
-const App = () => {
+
+const Commands = () => {
     return (
-        <div
-            className={`wallpaper`}
-        >
-            {getCommands()}
+        <div className={`wallpaper`}>
+            Commands: NOT IMPLEMENTED YET.
         </div>
     );
 };
 
-export default App;
+export default Commands;

@@ -5,11 +5,10 @@ import FlatButton from './FlatButton';
 
 const App = () => {
     return (
-        <div
-            className={`wallpaper`}
-        >
-            Base to make Erio website
-            <FlatButton>Test</FlatButton>
+        <div className={`wallpaper`} >
+            <FlatButton>Let me take you to our commands!</FlatButton>
+            <FlatButton>Invite me to your server!</FlatButton>
+            <p>This is the base to the Erio Website</p>
         </div>
     );
 };

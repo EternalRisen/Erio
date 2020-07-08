@@ -12,7 +12,7 @@ app.get('/', (_: any, res: { sendFile: (arg0: any) => void; }) => {
 });
 
 app.get('/commands', (_: any, res: { sendFile: (arg0: any) => void; }) => {
-    res.sendFile(path.join(clientDir, 'commandindex.html'));
+    res.sendFile(path.join(clientDir, 'commands.html'));
 });
 
 app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${process.env.PORT || 3000}`));

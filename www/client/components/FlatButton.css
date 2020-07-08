@@ -2,7 +2,7 @@
     -webkit-appearance: none;
     display: inline-flex;
     border-radius: 2px;
-    background-color: #4c0e20;
+    background-color: #37deff;
     border: 2px solid transparent;
     color: white;
     padding: 10px 8px;
@@ -13,9 +13,9 @@
 }
 
 .flat-button:hover {
-    background-color: #58142a;
+    background-color: #240cf8;
 }
 
 .flat-button:active {
-    background-color: #671932;
+    background-color: #7a16ec;
 }
