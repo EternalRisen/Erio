@@ -1,37 +1,28 @@
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { HotModuleReplacementPlugin } = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
     client: path.join(__dirname, 'www', 'client'),
     dist: path.join(__dirname, 'www-dist'),
-    assets: path.join(__dirname, 'www', 'client', 'assets'),
+    assets: path.join(__dirname, 'www', 'public', 'assets'),
 };
 
 // Damn webpack plugins
 const cleanPlugin = new CleanWebpackPlugin();
-const hmrPlugin = new HotModuleReplacementPlugin();
-// const mainhtmlPlugin = new HtmlWebPackPlugin({
-//     template: './www/client/index.html',
-//     filename: './index.html'
-// });
-
-const commandhtmlPlugin = new HtmlWebPackPlugin({
-    template: './www/client/commands.html',
-    filename: './commands.html'
-})
-
 const copyPlugin = new CopyWebpackPlugin([
     {
-        from: 'www/client/assets',
-        to: 'assets'
+        from: 'www/public',
+        to: ''
     },
     {
-        from: 'www/client/favicon.ico',
-        to: 'favicon.ico'
+        from: 'www/public/index.html',
+        to: ''
+    },
+    {
+        from: 'www/public/commands.html',
+        to: ''
     }
 ]);
 
@@ -48,9 +39,6 @@ module.exports = {
     },
     plugins: [
         cleanPlugin,
-        hmrPlugin,
-        mainhtmlPlugin,
-        commandhtmlPlugin,
         copyPlugin,
     ],
     resolve: {

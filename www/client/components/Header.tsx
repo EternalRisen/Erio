@@ -26,7 +26,9 @@ const Header: React.FC<HeaderProps> = (props) => {
             {...restProps}
         >
             <div className="header-left">
-                <HeaderItem>Commands</HeaderItem>
+                <HeaderItem
+                    link="/commands"
+                >Commands</HeaderItem>
             </div>
             <div className="header-right">
                 <HeaderItem>Invite Me!</HeaderItem>

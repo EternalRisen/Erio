@@ -2,25 +2,25 @@
   "name": "erio",
   "version": "1.0.0",
   "description": "A Discord Bot for the Yeet Server",
-  "main": "bot",
+  "main": "start",
   "scripts": {
     "start": "node -r dotenv/config bot",
     "serve": "node www-dist/server/app.js",
     "watch": "webpack --watch --mode development",
     "compile": "tslint *.ts && node build",
-    "build": "npm run compile && webpack --mode development",
-    "dev": "npm run compile && concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && open-cli http://localhost:3000\""
+    "build": "webpack --mode development && npm run compile",
+    "dev": "concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && npm run compile && open-cli http://localhost:3000\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yaboijd/yeet-bot.git"
+    "url": "git+https://github.com/yaboijd/erio.git"
   },
   "author": "JD",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yaboijd/yeet-bot/issues"
+    "url": "https://github.com/yaboijd/erio/issues"
   },
-  "homepage": "https://github.com/yaboijd/yeet-bot#readme",
+  "homepage": "https://github.com/yaboijd/erio#readme",
   "dependencies": {
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
