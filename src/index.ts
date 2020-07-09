@@ -121,4 +121,4 @@ class ErioBot{
 	}
 }
 
-module.exports = ErioBot;
+module.exports = ErioBot

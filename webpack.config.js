@@ -31,7 +31,7 @@ module.exports = {
     // entry: ['./www/client/index.tsx', './www/client/commands.tsx'],
     entry: {
         index: './www/client/index.tsx',
-        commands: './www/client/commands.tsx'
+        commands: './www/client/commands.tsx',
     },
     output: {
         path: PATHS.dist,

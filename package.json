@@ -5,7 +5,7 @@
   "main": "start",
   "scripts": {
     "start": "node -r dotenv/config bot",
-    "serve": "node www-dist/server/app.js",
+    "serve": "node -r dotenv/config www-dist/server/app.js",
     "watch": "webpack --watch --mode development",
     "compile": "tslint *.ts && node build",
     "build": "webpack --mode development && npm run compile",

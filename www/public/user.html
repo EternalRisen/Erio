@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./index.css" rel="stylesheet" type="text/css">
+    <title>User Info</title>
+</head>
+<body>
+    <div>
+        <img id="avatar">
+        <p id="username"></p>
+        <p id="creationDate"></p>
+    </div>
+    <script>
+        function appendData(data) {
+            var avatar = document.getElementById('avatar');
+            var username = document.getElementById('username');
+            var creationDate = document.getElementById('creationDate');
+
+            avatar.src = `${data.avatar}`;
+            username.innerHTML = `User:  ${data.tag}(${data.id})`;
+            creationDate.innerHTML = `Created At:  ${data.createdAt.toLocaleString()}`;
+        }
+        fetch('/user.json').then(response => {
+            return response.json();
+        }).then(data => {
+            appendData(data);
+        }).catch(err => {
+            console.log(err);
+        });
+    </script>
+</body>
+</html>

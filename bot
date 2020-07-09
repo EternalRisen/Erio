@@ -2,19 +2,13 @@
 
 console.log('building...');
 
-require('dotenv').config({path: './.env'});
-
-console.log('building...');
+if (!process.env.TOKEN) {
+    console.log('be sure you have your token in here otherwise the bot won\'t start.');
+    console.log('if you have your token in here and you see this. use "npm start" to start the bot.');
+}
 
 require('child_process').execSync('npm run build', {stdio: 'inherit'});
 
 console.log('starting...');
 
-const ErioBot = require('./src-dist/index');
-const client = new ErioBot();
-
-client.loadCommands();
-
-client.connect(client.token);
-
-require('./www-dist/server/app.js');
+require('child_process').execSync('npm run serve', {stdio: 'inherit'});
