@@ -21,7 +21,7 @@
 
             avatar.src = `${data.avatar}`;
             username.innerHTML = `User:  ${data.tag}(${data.id})`;
-            creationDate.innerHTML = `Created At:  ${data.createdAt.toLocaleString()}`;
+            creationDate.innerHTML = `Created At:  ${data.createdAt}`;
         }
         fetch('/user.json').then(response => {
             return response.json();

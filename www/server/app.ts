@@ -66,7 +66,7 @@ app.get('/user', async (req: Request, res: Response) => {
     const user = await bot.client.users.fetch((userID as string));
     USER = {
         avatar: getAvatar((user as typeof ErioBot), 2048),
-        createdAt:  user.createdAt.toLocaleString(),
+        createdAt:  user.createdAt.toUTCString,
         tag: user.tag,
         id: user.id
     }
