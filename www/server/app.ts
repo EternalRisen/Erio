@@ -60,7 +60,6 @@ app.get('/users.json', (req: Request, res: Response) => {
 
 app.get('/users', async (req: Request, res: Response) => {
     let userID: string[] = String(req.query.user).split(',');
-    console.log(userID);
     try {
         for (const userid of userID) {
             const user = await bot.client.users.fetch((userid as string));
@@ -80,7 +79,6 @@ app.get('/users', async (req: Request, res: Response) => {
             id: 'Otherwise I can\'t return a user\'s information.'
         })
     }
-    console.log(USERS);
     res.sendFile(path.join(clientDir, 'users.html'));
 });
 
