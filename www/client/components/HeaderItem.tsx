@@ -18,13 +18,15 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
 
     if (props.link) {
         return (
-            <div
-                className={className ? `header-item ${className}` : 'header-item'}
-                style={headerStyle}
-                {...restProps}
-            >
-                <a href={props.link}>{children}</a>
-        </div>
+            <a href={props.link}>
+                <div
+                    className={className ? `header-item ${className}` : 'header-item'}
+                    style={headerStyle}
+                    {...restProps}
+                >
+                    {children}
+                </div>
+            </a>
         )
     } else {
         return (
@@ -34,7 +36,7 @@ const HeaderItem: React.FC<HeaderItemProps> = (props) => {
                 {...restProps}
             >
                 {children}
-                
+
             </div>
         );
     }

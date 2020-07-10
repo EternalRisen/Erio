@@ -1,0 +1,27 @@
+/* CSS Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    outline: none;
+    text-decoration: none;
+}
+
+a {
+    color: #c7f7fb;
+    text-shadow: 0 -15px 2.5px transparent, 0 15px 2.5px transparent;
+    text-decoration: none;
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -ms-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s
+}
+
+a:hover {
+    text-shadow: 0 0 2.5px #41b1b9, 0 0 2.5px #41b1b9;
+    color: #e4fdff;
+}
+
+
+

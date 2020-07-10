@@ -29,9 +29,10 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <HeaderItem
                     link="/commands"
                 >Commands</HeaderItem>
+                <HeaderItem>Invite Me!</HeaderItem>
             </div>
             <div className="header-right">
-                <HeaderItem>Invite Me!</HeaderItem>
+                <HeaderItem>Dashboard</HeaderItem>
             </div>
             {children}
         </div>

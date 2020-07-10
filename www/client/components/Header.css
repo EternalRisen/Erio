@@ -1,5 +1,42 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding: 8px 16px;
+    background: rgba(171, 243, 255, 0.1);
+    height: 44px;
+}
+
+.header-left {
+    background: rgba(171, 243, 255, 0.2);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.header-left::after {
+    content: '';
+    position: absolute;
+    width: 55px;
+    height: 100%;
+    top: 0;
+    left: 100%;
+    border-top: 44px solid rgba(171, 243, 255, 0.2);
+    border-right: 45px solid transparent;
+}
+
+.header-right {
+    background: rgba(157, 255, 255, .1);
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.header-right::after {
+    content: '';
+    position: absolute;
+    width: 55px;
+    height: 100%;
+    top: 0;
+    right: 100%;
+    border-bottom: 44px solid rgba(157, 255, 255, .1);
+    border-left: 45px solid transparent;
 }

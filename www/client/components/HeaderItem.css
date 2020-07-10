@@ -1,9 +1,24 @@
 .header-item {
-    background: #135474;
-    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    padding: 0 16px;
     font-size: 14px;
+    position: relative;
 }
 
-.header-item a {
-    color: #c7f7fb;
+.header-item::before {
+    content: '';
+    background: rgba(255, 255, 255, .1);
+    width: 100%;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: .3s;
+}
+
+.header-item:hover::before {
+    height: 100%;
 }

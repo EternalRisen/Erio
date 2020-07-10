@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
@@ -10,7 +10,7 @@ const PATHS = {
 };
 
 // Damn webpack plugins
-const cleanPlugin = new CleanWebpackPlugin();
+// const cleanPlugin = new CleanWebpackPlugin();
 const copyPlugin = new CopyWebpackPlugin([
     {
         from: 'www/public',
@@ -31,7 +31,7 @@ module.exports = {
         filename: '[name].js'
     },
     plugins: [
-        cleanPlugin,
+        // cleanPlugin,
         copyPlugin,
     ],
     resolve: {
