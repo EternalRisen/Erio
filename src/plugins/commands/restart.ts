@@ -6,6 +6,7 @@ const { exec } = require('child_process');
 
 module.exports = {
 	run: async (client: any, message: Discord.Message, args: Array<string>) => {
+		// TODO:  Add Heroku restart support
 		if (client.devs.includes(message.author.id)) {
 			for (const dev of client.devs) {
 				client.users.fetch(dev).then((user: Discord.User) => {
@@ -24,7 +25,7 @@ module.exports = {
 		}
 	},
 	aliases: [],
-	description: 'Restarts the bot.(Operatos only.)',
+	description: 'Restarts the bot.(Operators only.)',
 	type: 'dev',
 	usage: 'restart',
 };

@@ -114,7 +114,7 @@ class ErioBot{
 	}
 
 	connect(token: string) {
-		if (this.client.loggedIn) throw new Error('Cannot call login() twice');
+		if (this.client.loggedIn) throw new Error('Cannot call connect() twice');
 
 		this.client.login(token);
 		this.client.loggedIn = true;

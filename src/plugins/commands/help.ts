@@ -59,7 +59,7 @@ module.exports = {
 		}
 	},
 	aliases: ['h'],
-	description: 'Tells the user the latency.',
+	description: 'Returns the help message',
 	type: 'util',
 	usage: 'help <command(optional)>',
 };
