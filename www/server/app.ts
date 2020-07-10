@@ -1,4 +1,7 @@
-import { Request, Response, json } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
+const fs = require('fs');
+const path = require('path');
+const app = express();
 // sucrase refuses to map src/ to src-dist/, hardcode output dir
 // @ts-ignore
 let commands: any;
@@ -10,26 +13,21 @@ if (!process.env.PORT) {
 
 let USERS: Array<any> = [];
 
-const ErioBot = require('../../src-dist/index');
+const ErioBot = require('../../../../src-dist/index');
+const clientDir = path.join(__dirname, '../../../dist');
+
 const bot = new ErioBot();
 
 bot.loadCommands();
 
 bot.connect(bot.client.token);
 
-function getAvatar(user: typeof ErioBot, size: string | number) {
+const getAvatar = (user: typeof ErioBot, size: string | number) => {
 	const ext = user.avatar!.startsWith('a_') ? 'gif' : 'png';
 	size = size || '128';
 	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
 	return avatarURL;
 };
-
-const express = require('express');
-const path = require('path');
-
-const app = express();
-
-const clientDir = path.join(__dirname, '../');
 
 app.use(express.static(clientDir));
 
@@ -38,7 +36,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/commands', (req: Request, res: Response) => {
-    commands = require('../../src-dist/plugins/list');
+    commands = require('../../../../src-dist/plugins/list');
     res.sendFile(path.join(clientDir, 'commands.html'));
 });
 
@@ -82,5 +80,20 @@ app.get('/users', async (req: Request, res: Response) => {
     res.sendFile(path.join(clientDir, 'users.html'));
 });
 
+app.get('/:subpage', (req: Request, res: Response, next: NextFunction) => {
+    const file = path.join(clientDir, req.params.subpage + '.html');
+    fs.exists(file, (exists: boolean) => {
+        if (exists) {
+            res.charset = 'utf8';
+            fs.createReadStream(file).pipe(res);
+        } else {
+            next();
+        }
+    });
+});
+
+app.use((req: Request, res: Response) => {
+    res.redirect('/');
+});
 
 app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${process.env.PORT || 3000}`));

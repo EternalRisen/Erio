@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
     client: path.join(__dirname, 'www', 'client'),
-    dist: path.join(__dirname, 'www-dist'),
+    dist: path.join(__dirname, 'www-dist', 'dist'),
     assets: path.join(__dirname, 'www', 'public', 'assets'),
 };
 
@@ -14,14 +14,6 @@ const cleanPlugin = new CleanWebpackPlugin();
 const copyPlugin = new CopyWebpackPlugin([
     {
         from: 'www/public',
-        to: ''
-    },
-    {
-        from: 'www/public/index.html',
-        to: ''
-    },
-    {
-        from: 'www/public/commands.html',
         to: ''
     }
 ]);

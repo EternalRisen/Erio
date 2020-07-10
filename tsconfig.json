@@ -8,14 +8,15 @@
         "moduleResolution": "node",
         "strict": true,
         "allowJs": true,
-        "checkJs": true
+        "checkJs": true,
+        "outDir": "./www-dist/bundle",
+        "rootDir": "./",
     },
     "types": ["node"],
     "exclude": [
         "./.*-dist/**/*"
     ],
     "include": [
-		"./src/**/*.ts",
-		"./www/**/*.ts",
+		"www"
     ]
 }
