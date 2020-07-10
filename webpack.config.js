@@ -32,6 +32,7 @@ module.exports = {
     entry: {
         index: './www/client/index.tsx',
         commands: './www/client/commands.tsx',
+        users: './www/client/users.tsx'
     },
     output: {
         path: PATHS.dist,
