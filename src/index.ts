@@ -25,7 +25,11 @@ class ErioBot{
         this.client.commands = new Map();
 
 		this.client.on('ready', () => {
-			this.dumpLogs(`Logged in as ${this.client.user!.tag}`);
+			if (!this.client || !this.client.user) {
+				console.log('onReady fired before the bot could log in. Exiting...');
+				process.exit();
+			}
+			this.dumpLogs(`I\'m Logged in!`);
 
 			this.client.user!.setPresence({
 				activity: {
@@ -101,10 +105,10 @@ class ErioBot{
 		this.client.commandsLoaded = true;
 	}
 
-	dumpLogs(message: string) {
+	async dumpLogs(logMessage: string) {
 		try {
-			let logChannel = this.client.channels.fetch((process.env.BOTLOG as string));
-			(logChannel as unknown as Discord.TextChannel).send(message);
+			let logChannel = await this.client.channels.fetch((process.env.BOTLOG as string));
+			(logChannel as Discord.TextChannel).send(logMessage);
 		} catch (e) {
 			console.error(e);
 		}
