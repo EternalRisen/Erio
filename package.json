@@ -8,8 +8,8 @@
     "serve": "node -r dotenv/config www-dist/server/app.js",
     "watch": "webpack --watch --mode development",
     "compile": "tslint *.ts && node build",
-    "build": "webpack --mode development && node build",
-    "dev": "concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && npm run compile && open-cli http://localhost:3000\""
+    "build": "node build && webpack --mode development",
+    "dev": "npm run compile && concurrently \"npm:watch\" \"npm:serve\" \"sleep 3  && open-cli http://localhost:3000\""
   },
   "repository": {
     "type": "git",
