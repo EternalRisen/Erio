@@ -13,8 +13,8 @@ if (!process.env.PORT) {
 
 let USERS: Array<any> = [];
 
-const ErioBot = require('../../../../src-dist/index');
-const clientDir = path.join(__dirname, '../../../dist');
+const ErioBot = require('../../src-dist/index');
+const clientDir = path.join(__dirname, '../');
 
 const bot = new ErioBot();
 
@@ -36,7 +36,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/commands', (req: Request, res: Response) => {
-    commands = require('../../../../src-dist/plugins/list');
+    commands = require('../../src-dist/plugins/list');
     res.sendFile(path.join(clientDir, 'commands.html'));
 });
 
@@ -80,6 +80,7 @@ app.get('/users', async (req: Request, res: Response) => {
     res.sendFile(path.join(clientDir, 'users.html'));
 });
 
+// idk what this does so I'm just going to leave this here and ask later.
 app.get('/:subpage', (req: Request, res: Response, next: NextFunction) => {
     const file = path.join(clientDir, req.params.subpage + '.html');
     fs.exists(file, (exists: boolean) => {

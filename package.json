@@ -5,12 +5,11 @@
   "main": "start",
   "scripts": {
     "start": "node -r dotenv/config bot",
-    "serveboth": "node -r dotenv/config www-dist/bundle/www/server/app.js",
-    "serve": "node www-dist/bundle/www/server/app.js",
+    "serve": "node -r dotenv/config www-dist/server/app.js",
     "watch": "webpack --watch --mode development",
     "compile": "tslint *.ts && node build",
-    "build": "tsc && webpack --mode development",
-    "dev": "tsc && concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && open-cli http://localhost:3000\""
+    "build": "webpack --mode development && node build",
+    "dev": "concurrently \"npm:watch\" \"npm:serve\" \"sleep 3 && npm run compile && open-cli http://localhost:3000\""
   },
   "repository": {
     "type": "git",

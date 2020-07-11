@@ -9,14 +9,13 @@
         "strict": true,
         "allowJs": true,
         "checkJs": true,
-        "outDir": "./www-dist/bundle",
-        "rootDir": "./",
     },
     "types": ["node"],
     "exclude": [
         "./.*-dist/**/*"
     ],
     "include": [
-		"www"
+        "./src/**/*.ts",
+		"./www;**/*.ts"
     ]
 }

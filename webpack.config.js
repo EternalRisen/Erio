@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
     client: path.join(__dirname, 'www', 'client'),
-    dist: path.join(__dirname, 'www-dist', 'dist'),
+    dist: path.join(__dirname, 'www-dist'),
     assets: path.join(__dirname, 'www', 'public', 'assets'),
 };
 
