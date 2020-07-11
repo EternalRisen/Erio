@@ -25,7 +25,7 @@ class ErioBot{
         this.client.commands = new Map();
 
 		this.client.on('ready', () => {
-			this.messageDevs(this.client.devs, `Logged in as ${this.client.user!.tag}`);
+			this.dumpLogs(`Logged in as ${this.client.user!.tag}`);
 
 			this.client.user!.setPresence({
 				activity: {
@@ -36,7 +36,7 @@ class ErioBot{
 		});
 
 		this.client.on('error', (err: Error) => {
-			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
 		});
 
 		this.client.on('message', async (message: Discord.Message) => {
@@ -57,11 +57,11 @@ class ErioBot{
 			}
 		});
 		process.on('uncaughtException', (err: Error) => {
-			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
 		});
 
 		process.on('unhandledRejection', (err: Error) => {
-			this.messageDevs(this.client.devs, `Error: ${err}\nat ${err.stack}`);
+			this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
 		});
 	}
 
@@ -101,13 +101,10 @@ class ErioBot{
 		this.client.commandsLoaded = true;
 	}
 
-	async messageDevs(devs: Array<string>, message: string) {
+	dumpLogs(message: string) {
 		try {
-			for (let dev of devs) {
-				(dev as unknown as Discord.User) = await this.client.users.fetch(dev);
-				if (!dev) return;
-				(dev as unknown as Discord.TextChannel).send(message);
-			}
+			let logChannel = (process.env.BOTLOG as string);
+			(logChannel as unknown as Discord.TextChannel).send(message);
 		} catch (e) {
 			console.error(e);
 		}
