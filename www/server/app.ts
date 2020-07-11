@@ -16,12 +16,6 @@ let USERS: Array<any> = [];
 const ErioBot = require('../../src-dist/index');
 const clientDir = path.join(__dirname, '../');
 
-const bot = new ErioBot();
-
-bot.loadCommands();
-
-bot.connect(bot.client.token);
-
 const getAvatar = (user: typeof ErioBot, size: string | number) => {
 	const ext = user.avatar!.startsWith('a_') ? 'gif' : 'png';
 	size = size || '128';
@@ -98,3 +92,9 @@ app.use((req: Request, res: Response) => {
 });
 
 app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${process.env.PORT || 3000}`));
+
+const bot = new ErioBot();
+
+bot.loadCommands();
+
+bot.connect(bot.client.token);

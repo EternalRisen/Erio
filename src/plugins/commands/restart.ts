@@ -14,7 +14,7 @@ module.exports = {
 				});
 			}
 
-			exec('node bot');
+			exec('npm start');
 
 			setTimeout(() => {
 				process.exit();

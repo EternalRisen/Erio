@@ -11,4 +11,4 @@ require('child_process').execSync('npm run build', {stdio: 'inherit'});
 
 console.log('starting...');
 
-require('child_process').execSync('npm run serve', {stdio: 'inherit'});
+require('module')._load('./www-dist/server/app.js');
