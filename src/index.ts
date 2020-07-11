@@ -103,7 +103,7 @@ class ErioBot{
 
 	dumpLogs(message: string) {
 		try {
-			let logChannel = (process.env.BOTLOG as string);
+			let logChannel = this.client.channels.fetch((process.env.BOTLOG as string));
 			(logChannel as unknown as Discord.TextChannel).send(message);
 		} catch (e) {
 			console.error(e);
