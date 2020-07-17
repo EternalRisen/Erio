@@ -24,14 +24,14 @@ class ErioBot{
         this.client.commandsLoaded = false;
         this.client.commands = new Map();
 
-		this.client.on('ready', () => {
+		this.client.on('ready', async () => {
 			if (!this.client || !this.client.user) {
-				console.log('onReady fired before the bot could log in. Exiting...');
+				await console.log('onReady fired before the bot could log in. Exiting...');
 				process.exit();
 			}
-			this.dumpLogs(`I\'m Logged in!`);
+			await this.dumpLogs(`I\'m Logged in!`);
 
-			this.client.user!.setPresence({
+			await this.client.user!.setPresence({
 				activity: {
 					name: 'JD-San Develop me',
 					type: 'WATCHING',
@@ -39,8 +39,8 @@ class ErioBot{
 			});
 		});
 
-		this.client.on('error', (err: Error) => {
-			this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
+		this.client.on('error', async (err: Error) => {
+			await this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
 		});
 
 		this.client.on('message', async (message: Discord.Message) => {
@@ -48,6 +48,9 @@ class ErioBot{
 			if (message.author.bot) return;
 			if (message.content.toLowerCase() === 'help' || message.content.includes(this.client.user!.id)) {
 				message.reply(`My Prefix is \`${this.client.prefix}\`.  please see \`${this.client.prefix}help\` to see a list of my commands.`);
+			}
+			if (message.content.includes('(╯°□°）╯︵ ┻━┻')) {
+				message.channel.send('┬─┬ ノ( ゜-゜ノ)');
 			}
 			if (!message.content.startsWith(this.client.prefix)) return;
 			const args = message.content.substring(message.content.indexOf(this.client.prefix) + 1).split(new RegExp(/\s+/));
@@ -60,12 +63,12 @@ class ErioBot{
 				return;
 			}
 		});
-		process.on('uncaughtException', (err: Error) => {
-			this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
+		process.on('uncaughtException', async (err: Error) => {
+			await this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
 		});
 
-		process.on('unhandledRejection', (err: Error) => {
-			this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
+		process.on('unhandledRejection', async (err: Error) => {
+			await this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
 		});
 	}
 
