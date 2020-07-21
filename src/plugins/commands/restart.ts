@@ -5,7 +5,7 @@ import Discord = require('discord.js');
 const { exec } = require('child_process');
 
 module.exports = {
-	run: async (client: any, message: Discord.Message, args: Array<string>) => {
+	run: async (client: { devs: string | string[]; users: { fetch: (arg0: any) => Promise<Discord.User>; }; user: { username: any; }; }, message: Discord.Message, args: Array<string>) => {
 		// TODO:  Add Heroku restart support
 		if (client.devs.includes(message.author.id)) {
 			for (const dev of client.devs) {

@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 module.exports = {
-    run: async (client: any, message: Discord.Message, args: Array<string>) => {
+    run: async (client: { commands: { get: (arg0: string) => { type: string; aliases: string[]; }; }; prefix: string; }, message: Discord.Message, args: Array<string>) => {
 		const command = args[0];
 		let utilText = 'Utility:  ';
 		let funText = 'Fun:  ';

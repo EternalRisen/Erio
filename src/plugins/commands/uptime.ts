@@ -3,7 +3,7 @@
 import Discord = require('discord.js');
 
 module.exports = {
-    run: async (client: any, message: Discord.Message, args: Array<string>) => {
+    run: async (client: { uptime: number; }, message: Discord.Message, args: Array<string>) => {
         let totalSeconds = Math.floor(client.uptime / 1000); 
         let days = Math.floor(totalSeconds / 86400); 
         let hours = Math.floor(totalSeconds / 3600); 

@@ -7,7 +7,7 @@ import { getAvatar } from '../../structs/getavatar';
 const MessageAttachment = Discord.MessageAttachment;
 
 module.exports = {
-    run: async (client: any, message: Discord.Message, args: Array<string>) => {
+    run: async (client: { users: { fetch: (arg0: string) => Promise<Discord.User>; }; }, message: Discord.Message, args: Array<string>) => {
 		let targetUser = args[0];
 
 		try {

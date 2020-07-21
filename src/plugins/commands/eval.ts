@@ -5,7 +5,7 @@ import Discord = require('discord.js');
 const { inspect } = require('util');
 
 module.exports = {
-	run: async (client: any, message: Discord.Message, args: Array<string>) => {
+	run: async (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			let evaled;
 			try {

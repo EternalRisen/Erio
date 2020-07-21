@@ -3,7 +3,7 @@
 import Discord = require('discord.js');
 
 module.exports = {
-    run: (client: any, message: Discord.Message, args: Array<string>) => {
+    run: (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
 		let sayMessage = args.join(' ');
 		if (sayMessage === '') {
 			sayMessage = args.join(' ') + `Nothin to say eh?  ${message.author}`;

@@ -1,14 +1,14 @@
 'use strict';
 
 import Discord = require('discord.js');
-const YeetBot = require('../../index');
+import { Key } from 'react';
 
 const fs = require('fs').promises;
 const path = require('path');
 const { checkCommandModule, checkProperties } = require('../../structs/validate');
 
 module.exports = {
-    run: async (client: typeof YeetBot, message: Discord.Message, args: Array<string>) => {
+    run: async (client: { devs: string | string[]; commands: Map<Key, string>; }, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
