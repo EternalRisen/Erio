@@ -37,7 +37,7 @@ class User extends Component<{}, {items: any, isLoaded: boolean}> {
             return (
                 <div className="user">
                     {items.map((user: any) => {
-                        return <div className='user'>
+                        return <div key={user.tag} className='user'>
                             <img width="20%" height="20%" className='avatar' src={user.avatar}/>
                             <p className='username and tag'>{user.tag}({user.id})</p>
                             <p className='creation date'>{user.createdAt}</p>
