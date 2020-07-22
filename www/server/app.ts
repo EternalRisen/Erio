@@ -37,7 +37,7 @@ app.get('/commands', (req: Request, res: Response) => {
 app.get('/commands.json', (_: Request, res: Response) => {
     // Mixing ES6 modules with CommonJS modules can lead to stupid shit like this but oh well
     res.json(commands.default);
-    commands = []
+    // commands = []
 });
 
 app.get('/users.json', (req: Request, res: Response) => {
@@ -95,6 +95,6 @@ app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${proc
 
 const bot = new ErioBot();
 
-bot.loadCommands();
+// bot.loadCommands();
 
-bot.connect(bot.client.token);
+// bot.connect(bot.client.token);
