@@ -29,7 +29,6 @@ class ErioBot{
 				await console.log('onReady fired before the bot could log in. Exiting...');
 				process.exit();
 			}
-			await this.dumpLogs(`I\'m Logged in!`);
 
 			await this.client.user!.setPresence({
 				activity: {
