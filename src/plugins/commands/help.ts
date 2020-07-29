@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 module.exports = {
-    run: async (client: { commands: { get: (arg0: string) => { type: string; aliases: string[]; }; }; prefix: string; }, message: Discord.Message, args: Array<string>) => {
+    run: async (client: { commands: { get: (arg0: string) => { type: string; aliases: string[]; description: string; usage: string }; }; prefix: string; }, message: Discord.Message, args: Array<string>) => {
 		const command = args[0];
 		let utilText = 'Utility:  ';
 		let funText = 'Fun:  ';
@@ -39,13 +39,13 @@ module.exports = {
 			try {
 				switch(client.commands.get(command).type) {
 				case 'util':
-					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]\nDescription: ${client.commands.get(command).description}\nUsage:  ${client.prefix}${client.commands.get(command).usage}`;
 					break;
 				case 'fun':
-					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]\nDescription: ${client.commands.get(command).description}\nUsage:  ${client.prefix}${client.commands.get(command).usage}`;
 					break;
 				case 'mod':
-					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]`;
+					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]\nDescription: ${client.commands.get(command).description}\nUsage:  ${client.prefix}${client.commands.get(command).usage}`;
 					break;
 				case 'dev':
 					commandText = (`Error:  Command(${command}) not found.`);
