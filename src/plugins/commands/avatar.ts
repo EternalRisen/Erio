@@ -18,7 +18,6 @@ module.exports = {
 				console.log(`'!' was no replacable because discord is massively retarded`);
 			}
 			targetUser = targetUser.replace('>', '');
-			console.log(targetUser);
 		}
 		catch (e) {
 			// console.log() the debug for now until i add a debug log.
