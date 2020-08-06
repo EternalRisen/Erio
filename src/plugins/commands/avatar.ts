@@ -15,7 +15,7 @@ module.exports = {
 			try {
 				targetUser = targetUser.replace('!', '');
 			} catch (e) {
-				console.log(`'!' was no replacable because discord is massively retarded`);
+				console.log(`'!' was not replaceable because discord is massively retarded`);
 			}
 			targetUser = targetUser.replace('>', '');
 		}
