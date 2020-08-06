@@ -11,8 +11,14 @@ module.exports = {
 		let targetUser = args[0];
 
 		try {
-			targetUser = targetUser.replace('<@!', '');
+			targetUser = targetUser.replace('<@', '');
+			try {
+				targetUser = targetUser.replace('!', '');
+			} catch (e) {
+				console.log(`'!' was no replacable because discord is massively retarded`);
+			}
 			targetUser = targetUser.replace('>', '');
+			console.log(targetUser);
 		}
 		catch (e) {
 			// console.log() the debug for now until i add a debug log.
