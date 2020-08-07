@@ -25,12 +25,12 @@ module.exports = {
 		let embed = new Discord.MessageEmbed();
 
 		client.users.fetch(targetUser).then((user: Discord.User) => {
-			embed.setTitle(`${message.author.tag} Want's ${user.tag}'s Avatar!`);
+			embed.setTitle(`${message.author.tag} Wants ${user.tag}'s Avatar!`);
 			embed.setImage(getAvatar(user, '2048'));
 			message.channel.send(embed);
 		}).catch((e: Error) => {
 			console.log(`We just need to log this somewhere else in the future when I add other things. ${e}`);
-			embed.setTitle(`${message.author.tag} Want's their own Avatar!`);
+			embed.setTitle(`${message.author.tag} Wants their own Avatar!`);
 			embed.setImage(getAvatar(message.author, '2048'));
 			message.channel.send(embed);
 		});
