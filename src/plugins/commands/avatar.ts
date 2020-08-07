@@ -24,14 +24,17 @@ module.exports = {
 			console.log(`Can't replace the string.  The user must have either inputted something wrong, or are just wanting their own avatar.  ${e}`);
 		}
 
+		let embed = new Discord.MessageEmbed();
+
 		client.users.fetch(targetUser).then((user: Discord.User) => {
-			const avatar = new MessageAttachment(getAvatar(user, '2048'));
-			message.channel.send(`${user.tag}'s avatar:`, avatar);
+			embed.setTitle(`${message.author.tag} Want's ${user.tag}'s Avatar!`);
+			embed.setImage(getAvatar(user, '2048'));
+			message.channel.send(embed);
 		}).catch((e: Error) => {
 			console.log(`We just need to log this somewhere else in the future when I add other things. ${e}`);
-			const user = message.author;
-			const avatar = new MessageAttachment(getAvatar(user, '2048'));
-			message.channel.send(`${user.tag}'s avatar:`, avatar);
+			embed.setTitle(`${message.author.tag} Want's their own Avatar!`);
+			embed.setImage(getAvatar(message.author, '2048'));
+			message.channel.send(embed);
 		});
 	},
 	aliases: ['a'],
