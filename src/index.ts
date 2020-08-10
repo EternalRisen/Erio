@@ -30,6 +30,8 @@ class ErioBot{
 				process.exit();
 			}
 
+			console.log(`Logged in as ${this.client.user.tag}!`);
+
 			await this.client.user!.setPresence({
 				activity: {
 					name: 'JD-San Develop me',
