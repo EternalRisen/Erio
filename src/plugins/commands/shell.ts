@@ -8,7 +8,7 @@ module.exports = {
 	run: async (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const cmd = args.join(' ');
-			exec(cmd, (stderr: string, stdout: string) => {
+			await exec(cmd, (stderr: string, stdout: string) => {
 				if (stdout.length > 1800) {
 					const outChunks: string[] = [];
 					for (let i = 0, charsLength = stdout.length; i < charsLength; i += 1800) {
