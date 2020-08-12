@@ -7,27 +7,35 @@ module.exports = {
         if (!message.member?.permissions.has(['MANAGE_MESSAGES', 'ADMINISTRATOR'])) return;
         let num = parseInt(args[0]);
         let authID = message.author.id;
-        let deleted = false;
+        let isComplete = false;
         if (num > 25) {
             message.channel.send('Do you want to delete this many messages[y/n]?');
             (async function () {
                 await client.on('message', (msg: Discord.Message) => {
-                    if (msg.content === 'y' && msg.author.id === authID && deleted === false) {
+                    if (isComplete) return;
+                    if (msg.content === 'y' && msg.author.id === authID) {
                         (async function () {
-                            message.channel.send(`deleting ${num} messages...`);
-                            await message.channel.bulkDelete(num);
-                            message.channel.send(`Successfully deleted ${num} messages!`);
-                            deleted = true;
+                            message.channel.send(`Deleting ${num} messages...`);
+                            try {
+                                await message.channel.bulkDelete(num);
+                                message.channel.send(`Successfully deleted ${num} message(s)!`);
+                            } catch (e) {
+                                message.channel.send(`There was an error with your request:\n${e.message}`);
+                            }
                         })();
-                    } else if (msg.content === 'n' && deleted === false) {
+                    } else if (msg.content === 'n') {
                         message.channel.send('Cancelling...');
-                        deleted = true;
                     }
                 });
             })();
         } else {
-            await message.channel.bulkDelete(num);
-            message.channel.send(`Successfully deleted ${num} messages(s)!`)
+            message.channel.send(`Deleting ${num} messages...`);
+            try {
+                await message.channel.bulkDelete(num);
+                message.channel.send(`Successfully deleted ${num} message(s)!`);
+            } catch (e) {
+                message.channel.send(`There was an error with your request:\n${e.message}`);
+            }
         }
     },
     aliases: ['clear'],
