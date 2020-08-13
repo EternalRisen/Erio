@@ -7,34 +7,53 @@ module.exports = {
         if (!message.member?.permissions.has(['MANAGE_MESSAGES', 'ADMINISTRATOR'])) return;
         let num = parseInt(args[0]);
         let authID = message.author.id;
-        let isComplete = false;
-        if (num > 25) {
+        if (num > 24) {
             message.channel.send('Do you want to delete this many messages[y/n]?');
-            (async function () {
-                await client.on('message', (msg: Discord.Message) => {
-                    if (isComplete) return;
-                    if (msg.content === 'y' && msg.author.id === authID) {
+            let conf = false;
+            let del = false;
+            const filter = (m: any) => m.content;
+            const collector = message.channel.createMessageCollector(filter, { time: 15000 });
+            collector.on('collect', m => {
+                if (m.author !== message.author) return;
+                console.log(m.content);
+                if (conf === true) {
+                    message.reply('baka, you\'ve already given your answer');
+                    return;
+                }
+                if (m.content === 'y' || m.content === 'yes') {
+                    conf = true;
+                    del = true;
+                } else if (m.content === 'n' || m.content === 'no') {
+                    conf = true;
+                } else {
+                    message.channel.send('baka, this isn\'t a valid answer');
+                }
+            });
+            collector.on('end', () => {
+                if (conf === true && del === true) {
+                    try {
                         (async function () {
-                            message.channel.send(`Deleting ${num} messages...`);
-                            try {
-                                await message.channel.bulkDelete(num);
-                                message.channel.send(`Successfully deleted ${num} message(s)!`);
-                            } catch (e) {
-                                message.channel.send(`There was an error with your request:\n${e.message}`);
-                            }
+                            await message.channel.bulkDelete(num);
                         })();
-                    } else if (msg.content === 'n') {
-                        message.channel.send('Cancelling...');
+                        message.channel.send(`Deleted ${num} messages!`);
+                    } catch (e) {
+                        message.channel.send(`There was an error with your request.  ${e.message}`);
                     }
-                });
-            })();
+                }
+                if (conf === true && del === false) {
+                    message.channel.send('Canelling...');
+                }
+                if (conf === false) {
+                    message.channel.send('hahahahaha, you too too long!\nTry again');
+                }
+            });
         } else {
             message.channel.send(`Deleting ${num} messages...`);
             try {
                 await message.channel.bulkDelete(num);
-                message.channel.send(`Successfully deleted ${num} message(s)!`);
+                message.channel.send(`Deleted ${num} messages!`);
             } catch (e) {
-                message.channel.send(`There was an error with your request:\n${e.message}`);
+                message.channel.send(`There was an error with your request.  ${e.message}`);
             }
         }
     },
