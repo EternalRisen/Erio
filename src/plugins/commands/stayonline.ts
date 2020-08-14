@@ -10,30 +10,33 @@ module.exports = {
     run: async (client: { alwaysOnline: boolean; devs: string | string[] }, message: Discord.Message, args: Array<string>) => {
         if (!client.devs.includes(message.author.id)) return;
         let opt = args[0];
-        if (opt === '' || opt === undefined  || /*This is kinda fucking gay*/ (opt as string) !== 'on' || (opt as string) !== 'off') {
-            function getStatus () {
+        switch (opt) {
+            case 'on':
                 if (client.alwaysOnline === true) {
-                    return 'on';
+                    message.channel.send('baka, This is already turned on.');
                 } else {
-                    return 'off';
+                    message.channel.send('I will start pinging the heroku site!');
+                    (client.alwaysOnline as boolean) = true;
                 }
-            }
-            return message.channel.send(`This service is ${getStatus}`);
-        }
-        // check values and act accordingly
-        if (client.alwaysOnline === true && opt === 'off') {
-            message.channel.send('I will stop pinging the heroku site!');
-            return (client.alwaysOnline as boolean) === false;  // This is gay too
-        }
-        if (client.alwaysOnline === true && opt === 'on') {
-            return message.channel.send('baka, This is already turned on.')
-        }
-        if (client.alwaysOnline === false && opt === 'on') {
-            message.channel.send('I will ping the heroku site!');
-            return (client.alwaysOnline as boolean) === true;  // And so is this
-        }
-        if (client.alwaysOnline === false && opt === 'off') {
-            return message.channel.send('baka, this is already off');
+            break;
+            case 'off':
+                if (client.alwaysOnline === false) {
+                    message.channel.send('baka, This is already turned off');
+                } else {
+                    message.channel.send('I will stop pinging the heroku site!');
+                    (client.alwaysOnline as boolean) = false;
+                }
+            break;
+            default:
+                function getStatus () {
+                    if (client.alwaysOnline === true) {
+                        return 'on';
+                    } else {
+                        return 'off';
+                    }
+                }
+                message.channel.send(`This service is ${getStatus()}`)
+            break;
         }
     },
     aliases: [],
