@@ -1,3 +1,7 @@
+/*
+* say command:  just returns what you said after issuing the command
+*/
+
 'use strict';
 
 import Discord = require('discord.js');

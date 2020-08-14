@@ -2,8 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 const fs = require('fs');
 const path = require('path');
 const app = express();
-// sucrase refuses to map src/ to src-dist/, hardcode output dir
-// @ts-ignore
 let commands: any;
 
 if (!process.env.PORT) {
@@ -35,7 +33,6 @@ app.get('/commands', (req: Request, res: Response) => {
 });
 
 app.get('/commands.json', (_: Request, res: Response) => {
-    // Mixing ES6 modules with CommonJS modules can lead to stupid shit like this but oh well
     res.json(commands.default);
     commands = []
 });
@@ -96,5 +93,7 @@ app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${proc
 const bot = new ErioBot();
 
 bot.loadCommands();
+
+bot.stayOnline();
 
 bot.connect(bot.client.token);

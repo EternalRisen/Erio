@@ -1,3 +1,7 @@
+/*
+* help command:  Displays a help message
+*/
+
 'use strict';
 
 import Discord = require('discord.js');
@@ -48,6 +52,7 @@ module.exports = {
 					commandText = `${command}:  Aliases: [${client.commands.get(command).aliases}]\nDescription: ${client.commands.get(command).description}\nUsage:  ${client.prefix}${client.commands.get(command).usage}`;
 					break;
 				case 'dev':
+					// We're supposed to keep these secret from peasants, so yeah
 					commandText = (`Error:  Command(${command}) not found.`);
 					break;
 				}

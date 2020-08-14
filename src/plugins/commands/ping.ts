@@ -1,3 +1,7 @@
+/*
+* ping command:  Just returns the API response time.
+*/
+
 'use strict';
 
 import Discord = require('discord.js');

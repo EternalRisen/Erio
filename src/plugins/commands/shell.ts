@@ -1,3 +1,7 @@
+/*
+* shell command:  Does a bash command in the terminal.  DO NOT LET PEASANTS USE!!
+*/
+
 'use strict';
 
 import Discord = require('discord.js');

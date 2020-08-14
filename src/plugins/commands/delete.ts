@@ -1,9 +1,14 @@
+/*
+* delete command:  deletes specific messages by the provided ID.  (very redundant command, but who gives a shit.)
+*/
+
 'use strict';
 
+// Require this shit
 import Discord from 'discord.js';
 
 module.exports = {
-    run: async (client:Discord.Client, message: Discord.Message, args: Array<string>) => {
+    run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
         args = args.join(' ').split(',');
         if (!message.member?.permissions.has(['MANAGE_MESSAGES', 'ADMINISTRATOR'])) return;
         for (let arg of args) {

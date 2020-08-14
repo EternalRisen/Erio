@@ -1,3 +1,7 @@
+/*
+* choose command:  Chooses randomly from all the given choices
+*/
+
 'use strict';
 
 import Discord = require('discord.js');

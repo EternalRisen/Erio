@@ -1,3 +1,7 @@
+/*
+* eval command:  runs code provides after initializing the command.  DO NOT LET PEASANTS USE
+*/
+
 'use strict';
 
 import Discord = require('discord.js');
@@ -11,6 +15,7 @@ module.exports = {
 			try {
 				evaled = eval(args.join(' ').slice());
 				evaled = inspect(evaled);
+				// Send as multiple messages in chunks if it's bigger than what discord allows because discord is gay
 				if (evaled.length > 1800) {
 					const evalChunks: string[] = [];
 					for (let i = 0, charsLength = evaled.length; i < charsLength; i += 1800) {

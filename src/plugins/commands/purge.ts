@@ -1,3 +1,7 @@
+/*
+* purge command:  Just does a mass deletion of messages based on the number you want to delete (any at or above 25 will prompt a confirmation)
+*/
+
 'use strict';
 
 import Discord from 'discord.js';
@@ -7,6 +11,7 @@ module.exports = {
         if (!message.member?.permissions.has(['MANAGE_MESSAGES', 'ADMINISTRATOR'])) return;
         let num = parseInt(args[0]);
         let authID = message.author.id;
+        // Yes, This will be required, we don't need dumbasses mass deleting a bunch of stuff by accident
         if (num > 24) {
             message.channel.send('Do you want to delete this many messages[y/n]?');
             let conf = false;

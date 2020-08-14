@@ -1,7 +1,10 @@
+/*
+* update command:  gets any updates from the github repository provided either from GITREPO from the .env file, or from the default repo (YaBoiJD/Erio)
+*/
+
 'use strict';
 
 import Discord from 'discord.js';
-import { stringify } from 'querystring';
 
 module.exports = {
     run: async (client: { devs: string | string[]; }, message: Discord.Message, args: string[]) => {

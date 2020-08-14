@@ -1,3 +1,7 @@
+/*
+* uptime command:  returns how long the bot has been up for.
+*/
+
 'use strict';
 
 import Discord = require('discord.js');
@@ -10,6 +14,7 @@ module.exports = {
         totalSeconds %= 3600; 
         let minutes = Math.floor(totalSeconds / 60); 
         let seconds = Math.floor(totalSeconds % 60);
+        // TODO:  Make this look better
         let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
         message.channel.send(uptime);
     },

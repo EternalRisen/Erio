@@ -1,19 +1,23 @@
+/*
+* avatar command:  returns the avatar of a specified user or your own if you don't specify someone, or that user isn't found
+*/
+
 'use strict';
 
 import Discord = require('discord.js');
-
 import { getAvatar } from '../../structs/getavatar';
 
 module.exports = {
     run: async (client: { users: { fetch: (arg0: string) => Promise<Discord.User>; }; }, message: Discord.Message, args: Array<string>) => {
 		let targetUser = args[0];
 
+		// Replace shit in case it's a mention and not the actual ID
 		try {
 			targetUser = targetUser.replace('<@', '');
 			try {
 				targetUser = targetUser.replace('!', '');
 			} catch (e) {
-				console.log(`'!' was not replaceable because discord is massively retarded`);
+				console.log(`'!' was not replaceable because discord is massively retarded`);  // Seriously, they are
 			}
 			targetUser = targetUser.replace('>', '');
 		}

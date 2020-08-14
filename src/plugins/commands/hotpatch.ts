@@ -1,3 +1,8 @@
+/*
+* hotpatch command:  deletes the cached commands from the Map and from the require cache, rebuilds them, and reloads them.  
+* All processes will stop during this.  DO NOT LET PEASANTS USE THIS!!
+*/
+
 'use strict';
 
 import Discord = require('discord.js');
@@ -16,6 +21,7 @@ module.exports = {
 				console.log('Hotpatching Commands...');
 				client.commands.clear();
 				client.commands = new Map();
+				// Yes, I know this can just be done with an exportable function, No I'm not doing it
 				const files = await fs.readdir(path.join(__dirname, '../../plugins/commands'));
 				for (const file of files) {
 					delete require.cache[require.resolve(`../../plugins/commands/${file}`)];
@@ -43,6 +49,7 @@ module.exports = {
 			}
 		}
 		else {
+			// Yes, I still need to add shit such as events, and whatever
 			return;
 		}
 	},

@@ -1,3 +1,7 @@
+/*
+* rate command:  Just gives a simple rating on what you told it to rate
+*/
+
 'use strict';
 
 import Discord = require('discord.js');

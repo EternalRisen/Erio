@@ -1,9 +1,14 @@
+/*
+* whatis command:  just goes through the "whatisBase" for a match, else just respond with the given term followed by "nothing appropriate"
+*/
+
 'use strict';
 
 import Discord from 'discord.js';
 
 module.exports = {
     run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
+        // TODO:  Add more shit
         let whatisBase = [
             {
                 name: 'love',
