@@ -7,7 +7,18 @@ if (!process.env.TOKEN) {
     console.log('if you have your token in here and you see this. use "npm start" to start the bot.');
 }
 
-require('child_process').execSync('npm run build', {stdio: 'inherit'});
+
+switch (process.argv[2]) {
+    case '--production':
+        require('child_process').execSync('npm run build', {stdio: 'inherit'});
+    break;
+    case '--development':
+        require('child_process').execSync('npm run devbuild', {stdio: 'inherit'});
+    break;
+    default:
+        require('child_process').execSync('npm run build', {stdio: 'inherit'});
+    break;
+}
 
 console.log('starting...');
 

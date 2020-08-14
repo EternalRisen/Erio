@@ -4,12 +4,13 @@
   "description": "A Discord Bot for the Yeet Server",
   "main": "start",
   "scripts": {
-    "start": "node -r dotenv/config bot",
-    "serve": "node -r dotenv/config www-dist/server/app.js",
+    "start": "node -r dotenv/config bot --production",
+    "devstart": "node -r dotenv/config bot --development",
     "watch": "webpack --watch --mode development",
     "compile": "tslint *.ts && node build",
-    "build": "node build && webpack --mode development",
-    "dev": "npm run compile && concurrently \"npm:watch\" \"npm:serve\" \"sleep 3  && open-cli http://localhost:3000\""
+    "build": "npm run compile && webpack --mode production",
+    "devbuild": "npm run compile && webpack --mode development",
+    "dev": "npm run compile && concurrently \"npm:watch\" \"npm:devstart\" \"sleep 3  && open-cli http://localhost:3000\""
   },
   "repository": {
     "type": "git",
