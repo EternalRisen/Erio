@@ -4,7 +4,7 @@
 
 'use strict';
 
-import Discord from 'discord.js';
+import Discord, { TextChannel, NewsChannel } from 'discord.js';
 
 module.exports = {
     run: async (client: any, message: Discord.Message, args: Array<string>) => {
@@ -38,7 +38,8 @@ module.exports = {
                 if (conf === true && del === true) {
                     try {
                         (async function () {
-                            await message.channel.bulkDelete(num);
+                            if (message.channel.type === 'dm') throw new Error('This is a Direct Message Channel.');
+                            await (message.channel as TextChannel | NewsChannel).bulkDelete(num);
                         })();
                         message.channel.send(`Deleted ${num} messages!`);
                     } catch (e) {
@@ -55,7 +56,8 @@ module.exports = {
         } else {
             message.channel.send(`Deleting ${num} messages...`);
             try {
-                await message.channel.bulkDelete(num);
+                if (message.channel.type === 'dm') throw new Error('This is a Direct Message Channel.');
+                await (message.channel as TextChannel | NewsChannel).bulkDelete(num);
                 message.channel.send(`Deleted ${num} messages!`);
             } catch (e) {
                 message.channel.send(`There was an error with your request.  ${e.message}`);
