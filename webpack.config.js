@@ -11,12 +11,14 @@ const PATHS = {
 
 // Damn webpack plugins
 // const cleanPlugin = new CleanWebpackPlugin();
-const copyPlugin = new CopyWebpackPlugin([
-    {
-        from: 'www/public',
-        to: ''
-    }
-]);
+const copyPlugin = new CopyWebpackPlugin({
+    patterns: [
+        {
+            from: 'www/public',
+            to: ''
+        }
+    ]
+});
 
 module.exports = {
     target: 'node',
