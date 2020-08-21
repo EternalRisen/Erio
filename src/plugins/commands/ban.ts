@@ -31,7 +31,7 @@ module.exports = {
             return message.reply('I\'m Probably lacking the permissions to ban this user or they are too high up in the hierarchy');
         }
     },
-    aliases: ['k'],
+    aliases: ['b'],
     description: 'Bans members',
     type: 'mod',
     usage: 'ban <member>'
