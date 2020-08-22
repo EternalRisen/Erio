@@ -29,6 +29,10 @@ module.exports = {
             {
                 name: 'reffrey',
                 desc: 'A a spongebob meme fan'
+            },
+            {
+                name: 'music',
+                desc: 'Something I play *uwu*\nLet\'s Jam :3'
             }
         ];
 
