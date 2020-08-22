@@ -26,7 +26,7 @@ module.exports = {
 		}
 		message.channel.send(sayMessage);
 	},
-	aliases: ['s'],
+	aliases: [],
 	description: 'deletes the command message and returns with a sent message containing the content after the command name',
 	type: 'fun',
 	usage: 'say <text>',

@@ -42,9 +42,11 @@
     "express": "^4.17.1",
     "ffmpeg-static": "",
     "file-loader": "^4.3.0",
+    "got": "^11.5.2",
     "html-webpack-plugin": "^3.2.0",
     "list-react-files": "^0.2.0",
     "open-cli": "^6.0.1",
+    "opusscript": "0.0.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "style-loader": "^1.2.1",
@@ -52,6 +54,7 @@
     "tslint": "^6.1.2",
     "typescript": "^3.9.6",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "ytdl-core": "^3.2.2"
   }
 }

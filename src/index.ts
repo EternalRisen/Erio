@@ -6,7 +6,8 @@ const { checkCommandModule, checkProperties } = require('./structs/validate.js')
 
 class Client extends Discord.Client { 
 	// set all this up so I can customize shit
-    public commands: any = new Map(); 
+	public commands: any = new Map();
+	public serverQueue: Object = {}
     public commandsLoaded: boolean = false; 
     public devs: Array<string> = []; 
     public prefix: string = ''; 
@@ -21,6 +22,7 @@ class ErioBot{
     constructor() {
 		this.client = new Client();
 		// Set values
+		this.client.serverQueue = {};
 		this.client.devs = process.env.ADMINS?.split(',') || [];
 		this.client.token = (process.env.TOKEN as string);
         this.client.prefix = `${process.env.PREFIX}`;
