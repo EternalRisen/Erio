@@ -4,14 +4,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const { checkCommandModule, checkProperties } = require('./structs/validate.js');
 
-/*
-*   __    __  __         ___      __   __    __
-*  |  |  |  | \  \      / _ \    / /  |  |  |  |
-*  |  |  |  |   \  \   / / \ \  / /   |  |  |  |
-*  |  |__|  |     \  \/ /   \ \/ /    |  |  |  |
-*  \________/       \__/     \__/     \________/
-*/
-
 class Client extends Discord.Client { 
 	// set all this up so I can customize shit
 	public commands: any = new Map();
