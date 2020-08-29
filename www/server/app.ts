@@ -94,6 +94,4 @@ const bot = new ErioBot();
 
 bot.loadCommands();
 
-bot.stayOnline();
-
 bot.connect(bot.client.token);

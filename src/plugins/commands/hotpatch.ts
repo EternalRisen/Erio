@@ -11,13 +11,15 @@ import { Key } from 'react';
 const fs = require('fs').promises;
 const path = require('path');
 const { checkCommandModule, checkProperties } = require('../../structs/validate');
+const { execSync } = require('child_process');
 
 module.exports = {
     run: async (client: { devs: string | string[]; commands: Map<Key, string>; }, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
-				require('child_process').execSync('npx sucrase -q ./src/plugins/commands -d ./src-dist/plugins/commands --transforms jsx,typescript,imports', {stdio: 'inherit'});
+				await fs.rmdir(`${path.join(__dirname, '../../plugins/commands')}`, { recursive: true });
+				execSync('npx sucrase -q ./src/plugins/commands -d ./src-dist/plugins/commands --transforms jsx,typescript,imports', {stdio: 'inherit'});
 				console.log('Hotpatching Commands...');
 				client.commands.clear();
 				client.commands = new Map();

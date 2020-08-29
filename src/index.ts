@@ -126,10 +126,10 @@ class ErioBot{
 	// Makes less lines in the code
 	async dumpLogs(logMessage: string) {
 		try {
-			let logChannel = await this.client.channels.fetch((process.env.BOTLOG as string));
+			let logChannel = await this.client.channels.cache.get((process.env.BOTLOG as string));
 			(logChannel as Discord.TextChannel).send(logMessage);
 		} catch (e) {
-			console.error(e);
+			console.error(logMessage);
 		}
 	}
 

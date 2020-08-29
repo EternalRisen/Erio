@@ -37,7 +37,7 @@
     "concurrently": "^5.2.0",
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^3.6.0",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.3.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ffmpeg-static": "",
