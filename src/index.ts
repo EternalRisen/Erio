@@ -12,8 +12,6 @@ class Client extends Discord.Client {
     public devs: Array<string> = []; 
     public prefix: string = ''; 
 	public loggedIn: boolean = false;
-	// Only use with things such as heroku that will sleep after x amount of inactivity
-	public alwaysOnline: boolean = false;
 }
 
 class ErioBot{
@@ -29,8 +27,6 @@ class ErioBot{
         this.client.loggedIn = false;
         this.client.commandsLoaded = false;
 		this.client.commands = new Map();
-		// should stay false by default, use the command to turn this on if you need to, or just set it to true and never have to deal with this.
-		this.client.alwaysOnline = false;
 
 		this.client.on('ready', async () => {
 			if (!this.client || !this.client.user) {
@@ -143,15 +139,6 @@ class ErioBot{
 
 		this.client.login(token);
 		this.client.loggedIn = true;
-	}
-
-	// function to stay online
-	stayOnline () {
-		setInterval(() => {
-			if (this.client.alwaysOnline === true) {
-				require('child_process').exec('curl https://erio-bot.herokuapp.com/');
-			}
-		},1000 * 60 * 9);
 	}
 }
 
