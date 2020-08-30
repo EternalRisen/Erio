@@ -53,6 +53,17 @@ module.exports = {
                     connection.disconnect();
                 }
             })
+
+            client.serverQueue[message.guild!.id].dispatcher.on('error', async (err: Error) => {
+                message.channel.send(`An Error Has occurred:  ${err}`);
+                try {
+                    let logChannel = await client.channels.cache.get((process.env.BOTLOG as string));
+                    (logChannel as Discord.TextChannel).send(`An error with tydl has occurred:  ${err.message}`);
+                    (logChannel as Discord.TextChannel).send(`At:\n${err.stack}`);
+                } catch (e) {
+                    console.error(`An error with ytdl has ocurred: \n ${err}`);
+                }
+            })
         }
         if (!message.guild!.voice?.connection) {
             message.member?.voice.channel.join().then(connection => {
