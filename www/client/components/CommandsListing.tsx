@@ -18,7 +18,7 @@ interface CommandsListingProps {
 
 const CommandsListing: React.FC<CommandsListingProps> = ({ commands }) => {
     return (
-        <div>
+        <div className="Commands">
             {commands.map(command =>
                 <CommandItem key={command.name} command={command} />
             )}
