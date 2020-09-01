@@ -7,6 +7,7 @@
 
 import Discord = require('discord.js');
 import { Key } from 'react';
+import { exec } from 'child_process';
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -23,7 +24,7 @@ module.exports = {
 				console.log('Hotpatching Commands...');
 				client.commands.clear();
 				client.commands = new Map();
-				// Yes, I know this can just be done with an exportable function, No I'm not doing it
+				// Yes, I know this can just be done with an exportable function, No I'm not doing it because I have to clear a fucking cache manually
 				const files = await fs.readdir(path.join(__dirname, '../../plugins/commands'));
 				for (const file of files) {
 					delete require.cache[require.resolve(`../../plugins/commands/${file}`)];
@@ -48,6 +49,23 @@ module.exports = {
 					}
 				}
 				message.reply('Commands have been hotpatched. :thumbsup:');
+			} else if (hotpatchChoice.toLowerCase() === 'client' || hotpatchChoice.toLowerCase() === 'website') {
+				if (args[1]) {
+					let hotpatchType = args[1];
+					switch(hotpatchType.toLowerCase()) {
+						case '--prod':
+							execSync('npm run prodpack', {stdio: 'inherit'});
+							message.reply('The website has been hotpatched with the `production` flag');
+						break;
+						case '--dev':
+							execSync('npm run devpack', {stdio: 'inherit'});
+							message.reply('The website has been hotpatched with the `development` flag');
+						break;
+					}
+				} else {
+					execSync('npm run prodpack', {stdio: 'inherit'});
+					message.reply('The website has been hotpached.');
+				}
 			}
 		}
 		else {
@@ -58,5 +76,5 @@ module.exports = {
 	aliases: [],
 	description: 'Hotpatches Events(TODO) and Commands.(Operators only)',
 	type: 'dev',
-	usage: 'hotpatch <commands/events>',
+	usage: 'hotpatch <type>',
 };
