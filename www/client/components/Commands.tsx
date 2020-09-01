@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css'
-import './Commands.css'
+import './App.css';
+import './Commands.css';
 
 class Commands extends Component<{}, {items: any, isLoaded: boolean}> {
     constructor(props: Readonly<{}>) {

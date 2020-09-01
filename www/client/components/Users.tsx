@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css'
-import './User.css'
+import './App.css';
+import './Users.css';
 
 class User extends Component<{}, {items: any, isLoaded: boolean}> {
     constructor(props: Readonly<{}>) {
