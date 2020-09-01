@@ -73,11 +73,38 @@ app.get('/users', async (req: Request, res: Response) => {
 });
 
 app.get('/credits', async (req: Request, res: Response) => {
+    let jd = await bot.client.users.fetch('615249674084810763');
+    let byn = await bot.client.users.fetch('187524257280950272');
+
+    credits = [
+        {
+            avatar: getAvatar(jd, 2048),
+            discordTag: jd.tag,
+            name: 'JD',
+            intro: `Hi!  I'm JD.  I'm the one responsible for the development of the discord bot, along with the backend of the site!`,
+            message: `If you ever have any questions you can always message me at ${jd.tag} if you have any questions about Erio!`,
+            github: `Also, you can find the official repo to the bot`,
+            role: 'Bot Development',
+            site: 'https://github.com/YaBoiJD/Erio'
+        },
+        {
+            avatar: getAvatar(byn, 2048),
+            discordTag: byn.tag,
+            name: 'Robyn',
+            intro: `Hi!  I'm robyn.  I'm the one responsible for the front end of the site (plus I give JD some suggestions for things to do with the bot because he's a dummy and doesn't have many ideas in the back of his head)`,
+            message: `I haven't chosen my message yet so this is why this is my message right here for now.`,
+            github: `Also, you can find my github`,
+            role: 'Designer extraordinaire',
+            site: 'https://github.com/GameModerator'
+        }
+    ];
+    
     res.sendFile(path.join(clientDir, 'credits.html'));
 });
 
 app.get('/credits.json', async (req: Request, res: Response) => {
     res.json(credits);
+    credits = [];
 })
 
 // idk what this does so I'm just going to leave this here and ask later.
@@ -104,31 +131,3 @@ const bot = new ErioBot();
 bot.loadCommands();
 
 bot.connect(bot.client.token);
-
-(async function() {
-    let jd = await bot.client.users.fetch('615249674084810763');
-    let byn = await bot.client.users.fetch('187524257280950272');
-
-    credits = [
-        {
-            avatar: getAvatar(jd, 2048),
-            discordTag: jd.tag,
-            name: 'JD',
-            intro: `Hi!  I'm JD.  I'm the one responsible for the development of the discord bot, along with the backend of the site!`,
-            message: `If you ever have any questions you can always message me at ${jd.tag} if you have any questions about Erio!`,
-            github: `Also, you can find the official repo to the bot`,
-            role: 'Bot Development',
-            site: 'https://github.com/YaBoiJD/Erio'
-        },
-        {
-            avatar: getAvatar(byn, 2048),
-            discordTag: byn.tag,
-            name: 'Robyn',
-            intro: `Hi!  I'm robyn.  I'm the one responsible for the front end of the site (plus I give JD some suggestions for things to do with the bot because he's a dummy and doesn't have many ideas in the back of his head)`,
-            message: `I haven't chosen my message yet so this is why this is my message right here for now.`,
-            github: `Also, you can find my github`,
-            role: 'Designer extraordinaire',
-            site: 'https://github.com/GameModerator'
-        }
-    ];
-})();
