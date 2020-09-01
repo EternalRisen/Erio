@@ -26,13 +26,11 @@ const Header: React.FC<HeaderProps> = (props) => {
             {...restProps}
         >
             <div className="header-left">
-                <HeaderItem
-                    link="/commands"
-                >Commands</HeaderItem>
+                <HeaderItem link="/commands">Commands</HeaderItem>
                 <HeaderItem link="https://discord.com/oauth2/authorize?client_id=699892206126760026&scope=bot&permissions=37088576">Invite Me!</HeaderItem>
             </div>
             <div className="header-right">
-                <HeaderItem>Dashboard</HeaderItem>
+                <HeaderItem link="/">Dashboard</HeaderItem>
             </div>
             {children}
         </div>
