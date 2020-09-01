@@ -22,12 +22,4 @@ switch (process.argv[2]) {
 
 console.log('starting...');
 
-const ErioBot = require('./src-dist/index.js');
-
-const bot = new ErioBot();
-
-bot.loadCommands();
-
-bot.connect(bot.client.token);
-
 require('module')._load('./www-dist/server/app.js');

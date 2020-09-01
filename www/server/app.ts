@@ -128,6 +128,6 @@ app.listen(process.env.PORT || 3000, () => console.log(`Listening on port ${proc
 
 const bot = new ErioBot();
 
-//bot.loadCommands();
+bot.loadCommands();
 
 bot.connect(bot.client.token);

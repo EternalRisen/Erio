@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node -r dotenv/config bot --production",
     "devstart": "node -r dotenv/config bot --development",
-    "serve": "node -r dotenv/config www-dist/server/app.js",
     "watch": "webpack --watch --mode development",
     "compile": "tslint *.ts && node build",
     "prodpack": "webpack --mode production",
