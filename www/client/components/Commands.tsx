@@ -31,7 +31,7 @@ class Commands extends Component<{}, {items: any, isLoaded: boolean}> {
 
         if (!isLoaded) {
             return (
-                <div>Loading User(s)...</div>
+                <div>Loading Commands...</div>
             )
         } else {
             return (

@@ -30,6 +30,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <HeaderItem link="https://discord.com/oauth2/authorize?client_id=699892206126760026&scope=bot&permissions=37088576">Invite Me!</HeaderItem>
             </div>
             <div className="header-right">
+                <HeaderItem link="/credits">Credits</HeaderItem>
                 <HeaderItem link="/">Dashboard</HeaderItem>
             </div>
             {children}

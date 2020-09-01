@@ -3,6 +3,7 @@
     justify-content: space-between;
     background: rgba(171, 243, 255, 0.1);
     height: 44px;
+    width: 100%;
 }
 
 .header-left {
