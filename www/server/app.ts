@@ -9,8 +9,8 @@ if (!process.env.PORT) {
     console.log('if you see this and wonder what\'s going on, use "npm run serve".');
 }
 
-let USERS: Array<any>;
-let credits: Array<any>;
+let USERS: Array<any> = [];
+let credits: Array<any> = [];
 
 const ErioBot = require('../../src-dist/index');
 const clientDir = path.join(__dirname, '../');
@@ -98,7 +98,7 @@ app.get('/credits', async (req: Request, res: Response) => {
             site: 'https://github.com/GameModerator'
         }
     ];
-    
+
     res.sendFile(path.join(clientDir, 'credits.html'));
 });
 
