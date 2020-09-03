@@ -7,6 +7,12 @@ import got from 'got';
 module.exports = {
     run: async (client: any /*I'm too lazy to do typing for this one*/, message: Discord.Message, args: string[]) => {
         if (!message.member?.voice.channel) return message.reply('You are not in a voice channel');
+        const perms = message.member?.voice.channel.permissionsFor(client.user);
+        if (!perms?.has("CONNECT") || !perms?.has("SPEAK")) {
+            return message.channel.send(
+              "I need the permissions to join and speak in your voice channel!  FUCKING ALLOW ME IF YOU WANT MUSIC"
+            );
+        }
         let query = args.join(' ');
         let res;
         if (query === '') return message.reply('you provided nothing for me to play');
