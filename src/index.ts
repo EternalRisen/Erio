@@ -8,24 +8,24 @@ class Client extends Discord.Client {
 	// set all this up so I can customize shit
 	public commands: any = new Map();
 	public serverQueue: Object = {}
-    public commandsLoaded: boolean = false; 
-    public devs: Array<string> = []; 
-    public prefix: string = ''; 
+	public commandsLoaded: boolean = false; 
+	public devs: Array<string> = []; 
+	public prefix: string = ''; 
 	public loggedIn: boolean = false;
 }
 
 class ErioBot{
-    protected client: Client;
+	protected client: Client;
 
-    constructor() {
+	constructor() {
 		this.client = new Client();
 		// Set values
 		this.client.serverQueue = {};
 		this.client.devs = process.env.ADMINS?.split(',') || [];
 		this.client.token = (process.env.TOKEN as string);
-        this.client.prefix = `${process.env.PREFIX}`;
-        this.client.loggedIn = false;
-        this.client.commandsLoaded = false;
+		this.client.prefix = `${process.env.PREFIX}`;
+		this.client.loggedIn = false;
+		this.client.commandsLoaded = false;
 		this.client.commands = new Map();
 
 		this.client.on('ready', async () => {
