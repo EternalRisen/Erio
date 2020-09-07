@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 const app = express();
 let commands: any;
 
@@ -44,9 +44,8 @@ app.get('/users.json', (req: Request, res: Response) => {
         USERS = []
     } catch (e) {
         console.error(e);
-        // res.json(e);
     }
-})
+});
 
 app.get('/users', async (req: Request, res: Response) => {
     let userID: string[] = String(req.query.user).split(',');
@@ -91,7 +90,7 @@ app.get('/credits', async (req: Request, res: Response) => {
             avatar: getAvatar(byn, 2048),
             discordTag: byn.tag,
             name: 'Robyn',
-            intro: `Hi!  I'm robyn.  I'm the one responsible for the front end of the site (a very small portion of it, anyways)`,
+            intro: `Hi!  I'm Robyn.  I'm the one responsible for the front end of the site (a very small portion of it, anyways)`,
             message: `I'm a dead website designer for the site, so right now it's all JD that's doing it.`,
             github: `Also, you can find my github`,
             role: 'Designer extraordinaire',
@@ -105,7 +104,7 @@ app.get('/credits', async (req: Request, res: Response) => {
 app.get('/credits.json', async (req: Request, res: Response) => {
     res.json(credits);
     credits = [];
-})
+});
 
 // idk what this does so I'm just going to leave this here and ask later.
 app.get('/:subpage', (req: Request, res: Response, next: NextFunction) => {
