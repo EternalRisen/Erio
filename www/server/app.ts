@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
 import path from 'path';
+import Discord from 'discord.js';
 const app = express();
 let commands: any;
 
@@ -9,17 +10,16 @@ if (!process.env.PORT) {
     console.log('if you see this and wonder what\'s going on, use "npm run serve".');
 }
 
-let USERS: Array<any> = [];
-let credits: Array<any> = [];
+let USERS: Array<Object> = [];
+let credits: Array<Object> = [];
 
 const ErioBot = require('../../src-dist/index');
 const clientDir = path.join(__dirname, '../');
 
-const getAvatar = (user: typeof ErioBot, size: string | number) => {
+function getAvatar(user: Discord.User, size: string | number) {
 	const ext = user.avatar!.startsWith('a_') ? 'gif' : 'png';
 	size = size || '128';
-	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
-	return avatarURL;
+	return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
 };
 
 app.use(express.static(clientDir));
