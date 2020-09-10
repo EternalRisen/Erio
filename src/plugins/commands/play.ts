@@ -35,21 +35,20 @@ module.exports = {
                 let queries = '(if it returns undefined, it\'s not a video)';
                 for (let i = 0; i < items.items.length; i++) {
                     let j = i + 1;
-                    async function getInfo(link: string) {
-                        let info;
-                        let undef;
-                        try {
-                            info = await ytdl.getInfo(link);
-                        } catch (e) {
-                            undef =  'Undefined Video';
-                        }
-                        if (info) {
-                            return `${info.videoDetails.title}`;
-                        } else {
-                            return undef;
-                        }
+                    
+                    let songInfo;
+                    let undef;
+                    console.log(link);
+                    try {
+                        songInfo = await ytdl.getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`);
+                        console.log(songInfo);
+                        queries+= `\n${j} ${songInfo.videoDetails.title}`;
+                    } catch (e) {
+                        undef =  `\n${j} Undefined Video`;
+                        queries+= undef;
                     }
-                    queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
+                    
+                    //queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
                 }
                 return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
             } else {
