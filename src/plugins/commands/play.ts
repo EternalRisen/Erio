@@ -36,11 +36,17 @@ module.exports = {
                 for (let i = 0; i < items.items.length; i++) {
                     let j = i + 1;
                     async function getInfo(link: string) {
+                        let info;
+                        let undef;
                         try {
-                            let info = await ytdl.getInfo(link);
-                            return info.videoDetails.title;
+                            info = await ytdl.getInfo(link);
                         } catch (e) {
-                            return 'Undefined Video';
+                            undef =  'Undefined Video';
+                        }
+                        if (info) {
+                            return `${info.videoDetails.title}`;
+                        } else {
+                            return undef;
                         }
                     }
                     queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
