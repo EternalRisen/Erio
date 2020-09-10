@@ -28,26 +28,18 @@ module.exports = {
             const songInfo = await ytdl.getInfo(client.serverQueue[message.guild!.id].queue[0])
             message.channel.send(`Now Playing:  ${songInfo.videoDetails.title}\n${songInfo.videoDetails.video_url}`);
 
-            client.serverQueue[message.guild!.id].queue.shift();
-
             client.serverQueue[message.guild!.id].dispatcher.on('end', () => {
+                client.serverQueue[message.guild!.id].queue.shift();
                 if (client.serverQueue[message.guild!.id].queue[0]) {
                     play(connection, message);
                 } else {
                     message.channel.send('welp, I\'m outta songs');
                     connection.disconnect();
                 }
-            })
+            });
 
             client.serverQueue[message.guild!.id].dispatcher.on('error', async (err: Error) => {
                 message.channel.send(`An Error Has occurred:  ${err}`);
-                client.serverQueue[message.guild!.id].queue.shift();
-                if (client.serverQueue[message.guild!.id].queue[0]) {
-                    play(connection, message);
-                } else {
-                    message.channel.send('Guess I don\'t have anything to play.  (maybe I\'m waiting for you to provide a video from the list)')
-                    connection.disconnect();
-                }
                 try {
                     let logChannel = await client.channels.cache.get((process.env.BOTLOG as string));
                     (logChannel as Discord.TextChannel).send(`An error with ytdl has occurred:  ${err.message}`);
@@ -55,7 +47,7 @@ module.exports = {
                 } catch (e) {
                     console.error(`An error with ytdl has ocurred: \n ${err}`);
                 }
-            })
+            });
         }
 
         async function getLink(q: string) {
