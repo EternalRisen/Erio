@@ -67,8 +67,9 @@ module.exports = {
                     if (!vidID) return message.reply('Seriously??  I just said that it\'s not a video if it returns undefined...');
                     conf = true;
                     console.log('here we go!')
-                    //link = `https://youtube.com/watch?v=${vidID}`;
+                    link = `https://youtube.com/watch?v=${vidID}`;
                     message.reply('Alright, I\'ll add it to the queue.');
+                    client.serverQueue[message.guild!.id].queue.push(link);
                 });
 
                 collector.on('end', () => {
@@ -83,11 +84,8 @@ module.exports = {
                                 return message.channel.send('nothing found... nothing will be added to the queue');
                             }
                         }
-                    } else {
-                        link = `https://youtube.com/watch?v=${vidID}`;
-                        client.serverQueue[message.guild!.id].queue.push(link);
                     }
-                })
+                });
             } else {
                 console.log(items.items[0]);
                 link = `https://youtube.com/watch?v=${vidID}`;
