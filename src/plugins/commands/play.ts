@@ -27,10 +27,39 @@ module.exports = {
 
             const items = JSON.parse(res.body);
 
-            const vidID = items.items[0].id.videoId;
-            console.log(items.items[0]);
-            let link = `https://youtube.com/watch?v=${vidID}`;
-            console.log(link)
+            let vidID = items.items[0].id.videoId;
+            let link = '';
+            console.log(items.items.length);
+            if (!vidID) {
+                message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
+                let queries = '(if it returns undefined, it\'s not a video)';
+                for (let i = 0; i < items.items.length; i++) {
+                    let j = i + 1;
+                    queries += `${j} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
+                    //message.channel.send(`items.items[i]`);
+                }
+                message.channel.send(queries);
+                const filter = (m: any) => m.content;
+                const collector = message.channel.createMessageCollector(filter, { time: 15000 });
+                let conf = false;
+                collector.on('collect', m => {
+                    if (m.author !== message.author) return;
+                    if (conf === true) return;
+                    let num = parseInt(m.content);
+                    if (isNaN(num)) return message.reply('This isn\'t a number.');
+                    if (num > items.items.length) return message.reply(`This number isn't a valid number.  Try a number that is lower than ${num}`);
+                    let arrNum = num -1;
+                    vidID = items.items[arrNum].id.videoId;
+                    if (!vidID) return message.reply('Seriously??  I just said that it\'s not a video if it returns undefined...');
+                    conf = true;
+                    link = `https://youtube.com/watch?v=${vidID}`;
+                    message.reply('Alright, I\'ll add it to the queue.');
+                })
+            } else {
+                console.log(items.items[0]);
+                link = `https://youtube.com/watch?v=${vidID}`;
+                console.log(link);
+            }
             return link;
         }
 
@@ -38,6 +67,8 @@ module.exports = {
             query = await getLink(query);
         } else if (!query.startsWith('https://youtu.be/')) {
             query = await getLink(query);
+        } else if (query.startsWith('https://')) {
+            return message.reply('This isn\'t a valid URL/Query for me to use.');
         }
 
         client.serverQueue[message.guild!.id].queue.push(query);
