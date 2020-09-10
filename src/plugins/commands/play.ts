@@ -30,7 +30,7 @@ module.exports = {
 
             client.serverQueue[message.guild!.id].queue.shift();
 
-            client.serverQueue[message.guild!.id].dispatcher.on('finish', () => {
+            client.serverQueue[message.guild!.id].dispatcher.on('end', () => {
                 if (client.serverQueue[message.guild!.id].queue[0]) {
                     play(connection, message);
                 } else {
