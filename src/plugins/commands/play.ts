@@ -35,7 +35,15 @@ module.exports = {
                 let queries = '(if it returns undefined, it\'s not a video)';
                 for (let i = 0; i < items.items.length; i++) {
                     let j = i + 1;
-                    queries += `\n${j} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
+                    async function getInfo(link: string) {
+                        try {
+                            let info = await ytdl.getInfo(link);
+                            return info.videoDetails.title;
+                        } catch (e) {
+                            return 'Undefined Video';
+                        }
+                    }
+                    queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
                 }
                 message.channel.send(queries);
                 const filter = (m: any) => m.content;
@@ -62,33 +70,37 @@ module.exports = {
                         message.reply('You took too long.  Finding the best match out of the top 5 results...')
                         for (let vids of items.items) {
                             if (vids.id.videoId) {
-                                link = `https://youtube.com/watch?v=${vids.id.videoId}`
+                                link = `https://youtube.com/watch?v=${vids.id.videoId}`;
+                                client.serverQueue[message.guild!.id].queue.push(link);
                                 message.channel.send('Found!');
                             } else {
-                                return message.reply('nothing found... nothing will be added to the queue')
+                                return message.channel.send('nothing found... nothing will be added to the queue');
                             }
                         }
                     } else {
                         link = `https://youtube.com/watch?v=${vidID}`;
+                        client.serverQueue[message.guild!.id].queue.push(link);
                     }
                 })
             } else {
                 console.log(items.items[0]);
                 link = `https://youtube.com/watch?v=${vidID}`;
+                client.serverQueue[message.guild!.id].queue.push(link);
                 console.log(link);
             }
-            return link;
+            //return link;
         }
 
         if (!query.startsWith('https://youtube.com/')) {
-            query = await getLink(query);
+            getLink(query);
         } else if (!query.startsWith('https://youtu.be/')) {
-            query = await getLink(query);
+            getLink(query);
         } else if (query.startsWith('https://')) {
             return message.reply('This isn\'t a valid URL/Query for me to use.');
+        } else {
+            client.serverQueue[message.guild!.id].queue.push(query);
         }
 
-        client.serverQueue[message.guild!.id].queue.push(query);
         message.channel.send('Added your request to the queue!');
 
         async function play(connection: Discord.VoiceConnection, message: Discord.Message) {
@@ -103,7 +115,7 @@ module.exports = {
                 if (client.serverQueue[message.guild!.id].queue[0]) {
                     play(connection, message);
                 } else {
-                    message.channel.send('welp, I\'m outta songs')
+                    message.channel.send('welp, I\'m outta songs');
                     connection.disconnect();
                 }
             })
@@ -119,7 +131,7 @@ module.exports = {
                 }
                 try {
                     let logChannel = await client.channels.cache.get((process.env.BOTLOG as string));
-                    (logChannel as Discord.TextChannel).send(`An error with tydl has occurred:  ${err.message}`);
+                    (logChannel as Discord.TextChannel).send(`An error with ytdl has occurred:  ${err.message}`);
                     (logChannel as Discord.TextChannel).send(`At:\n${err.stack}`);
                 } catch (e) {
                     console.error(`An error with ytdl has ocurred: \n ${err}`);
