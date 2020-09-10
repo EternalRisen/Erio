@@ -28,7 +28,7 @@ module.exports = {
             const songInfo = await ytdl.getInfo(client.serverQueue[message.guild!.id].queue[0])
             message.channel.send(`Now Playing:  ${songInfo.videoDetails.title}\n${songInfo.videoDetails.video_url}`);
 
-            client.serverQueue[message.guild!.id].dispatcher.on('end', () => {
+            client.serverQueue[message.guild!.id].dispatcher.on('finish', () => {
                 client.serverQueue[message.guild!.id].queue.shift();
                 if (client.serverQueue[message.guild!.id].queue[0]) {
                     play(connection, message);
