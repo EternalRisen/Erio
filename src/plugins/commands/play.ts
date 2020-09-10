@@ -32,7 +32,8 @@ module.exports = {
             let link = '';
             console.log(items.items.length);
             if (vidID === undefined || vidID === null) {
-                console.log(canConnect);
+                canConnect = false;
+                //console.log(canConnect);
                 message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
                 let queries = '(if it returns undefined, it\'s not a video)';
                 for (let i = 0; i < items.items.length; i++) {
@@ -52,7 +53,6 @@ module.exports = {
                 }
                 return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
             } else {
-                canConnect = true;
                 //console.log(items.items[0]);
                 link = `https://youtube.com/watch?v=${vidID}`;
                 client.serverQueue[message.guild!.id].queue.push(link);
@@ -63,8 +63,10 @@ module.exports = {
 
         if (!query.startsWith('https://youtube.com/')) {
             getLink(query);
+            canConnect = true;
         } else if (!query.startsWith('https://youtu.be/')) {
             getLink(query);
+            canConnect = true;
         } else if (!query.startsWith('https://')) {
             client.serverQueue[message.guild!.id].queue.push(query);
         } else {
