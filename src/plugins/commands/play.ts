@@ -30,13 +30,12 @@ module.exports = {
             let vidID = items.items[0].id.videoId;
             let link = '';
             console.log(items.items.length);
-            if (!vidID) {
+            if (vidID === undefined || vidID === null) {
                 message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
                 let queries = '(if it returns undefined, it\'s not a video)';
                 for (let i = 0; i < items.items.length; i++) {
                     let j = i + 1;
-                    queries += `${j} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
-                    //message.channel.send(`items.items[i]`);
+                    queries += `\n${j} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
                 }
                 message.channel.send(queries);
                 const filter = (m: any) => m.content;
