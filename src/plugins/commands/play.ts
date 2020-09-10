@@ -41,6 +41,7 @@ module.exports = {
                 const filter = (m: any) => m.content;
                 const collector = message.channel.createMessageCollector(filter, { time: 15000 });
                 let conf = false;
+
                 collector.on('collect', m => {
                     if (m.author !== message.author) return;
                     if (conf === true) return;
@@ -51,8 +52,25 @@ module.exports = {
                     vidID = items.items[arrNum].id.videoId;
                     if (!vidID) return message.reply('Seriously??  I just said that it\'s not a video if it returns undefined...');
                     conf = true;
-                    link = `https://youtube.com/watch?v=${vidID}`;
+                    console.log('here we go!')
+                    //link = `https://youtube.com/watch?v=${vidID}`;
                     message.reply('Alright, I\'ll add it to the queue.');
+                });
+
+                collector.on('end', () => {
+                    if (conf === false) {
+                        message.reply('You took too long.  Finding the best match out of the top 5 results...')
+                        for (let vids of items.items) {
+                            if (vids.id.videoId) {
+                                link = `https://youtube.com/watch?v=${vids.id.videoId}`
+                                message.channel.send('Found!');
+                            } else {
+                                return message.reply('nothing found... nothing will be added to the queue')
+                            }
+                        }
+                    } else {
+                        link = `https://youtube.com/watch?v=${vidID}`;
+                    }
                 })
             } else {
                 console.log(items.items[0]);
@@ -92,6 +110,13 @@ module.exports = {
 
             client.serverQueue[message.guild!.id].dispatcher.on('error', async (err: Error) => {
                 message.channel.send(`An Error Has occurred:  ${err}`);
+                client.serverQueue[message.guild!.id].queue.shift();
+                if (client.serverQueue[message.guild!.id].queue[0]) {
+                    play(connection, message);
+                } else {
+                    message.channel.send('Guess I don\'t have anything to play.  (maybe I\'m waiting for you to provide a video from the list)')
+                    connection.disconnect();
+                }
                 try {
                     let logChannel = await client.channels.cache.get((process.env.BOTLOG as string));
                     (logChannel as Discord.TextChannel).send(`An error with tydl has occurred:  ${err.message}`);
