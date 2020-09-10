@@ -13,7 +13,7 @@ module.exports = {
               "I need the permissions to join and speak in your voice channel!  FUCKING ALLOW ME IF YOU WANT MUSIC"
             );
         }
-        let canConnect = false;
+        //let canConnect = false;
         let query = args.join(' ');
         let res;
         if (query === '') return message.reply('you provided nothing for me to play');
@@ -22,58 +22,6 @@ module.exports = {
                 queue: []
             }
         }
-
-        async function getLink(q: string) {
-            res = await got(`https://www.googleapis.com/youtube/v3/search?q=${q}&key=${process.env.YTKEY}`);
-
-            const items = JSON.parse(res.body);
-
-            let vidID = items.items[0].id.videoId;
-            let link = '';
-            console.log(items.items.length);
-            if (vidID === undefined || vidID === null) {
-                canConnect = false;
-                //console.log(canConnect);
-                message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
-                let queries = '(if it returns undefined, it\'s not a video)';
-                for (let i = 0; i < items.items.length; i++) {
-                    let j = i + 1;
-                    
-                    let songInfo;
-                    //console.log(link);
-                    try {
-                        songInfo = await ytdl.getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`);
-                        //console.log(songInfo);
-                        queries+= `\n${j} ${songInfo.videoDetails.title} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
-                    } catch (e) {
-                        queries+=  `\n${j} Undefined Video`;
-                    }
-                    
-                    //queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
-                }
-                return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
-            } else {
-                //console.log(items.items[0]);
-                link = `https://youtube.com/watch?v=${vidID}`;
-                client.serverQueue[message.guild!.id].queue.push(link);
-                //console.log(link);
-            }
-            //return link;
-        }
-
-        if (!query.startsWith('https://youtube.com/')) {
-            getLink(query);
-            canConnect = true;
-        } else if (!query.startsWith('https://youtu.be/')) {
-            getLink(query);
-            canConnect = true;
-        } else if (!query.startsWith('https://')) {
-            client.serverQueue[message.guild!.id].queue.push(query);
-        } else {
-            return message.reply('This isn\'t a valid URL/Query for me to use.');
-        }
-
-        message.channel.send('Added your request to the queue!');
 
         async function play(connection: Discord.VoiceConnection, message: Discord.Message) {
             client.serverQueue[message.guild!.id].dispatcher = connection.play(ytdl(client.serverQueue[message.guild!.id].queue[0], {filter: 'audioonly'}));
@@ -110,12 +58,73 @@ module.exports = {
                 }
             })
         }
-        if (!message.guild!.voice?.connection) {
-            if (canConnect === false) return;
-            console.log(canConnect);
-            message.member?.voice.channel.join().then(connection => {
-                play(connection, message)
-            })
+
+        async function getLink(q: string) {
+            res = await got(`https://www.googleapis.com/youtube/v3/search?q=${q}&key=${process.env.YTKEY}`);
+
+            const items = JSON.parse(res.body);
+
+            let vidID = items.items[0].id.videoId;
+            let link = '';
+            console.log(items.items.length);
+            if (vidID === undefined || vidID === null) {
+                //canConnect = false;
+                //console.log(canConnect);
+                message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
+                let queries = '(if it returns undefined, it\'s not a video)';
+                for (let i = 0; i < items.items.length; i++) {
+                    let j = i + 1;
+                    
+                    let songInfo;
+                    //console.log(link);
+                    try {
+                        songInfo = await ytdl.getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`);
+                        //console.log(songInfo);
+                        //queries+= `\n${j} ${songInfo.videoDetails.title} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
+                    } catch (e) {
+                        queries+=  `\n${j} Undefined Video`;
+                    }
+
+                    if (!songInfo) {
+                        console.log('ree');
+                    } else {
+                        queries+= `\n${j} ${songInfo.videoDetails.title} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
+                    }
+                    
+                    //queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
+                }
+                return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
+            } else {
+                //console.log(items.items[0]);
+                link = `https://youtube.com/watch?v=${vidID}`;
+                client.serverQueue[message.guild!.id].queue.push(link);
+                console.log(link);
+                if (!message.guild!.voice?.connection) {
+                    message.member?.voice.channel?.join().then(connection => {
+                        play(connection, message)
+                    })
+                }
+            }
+            //return link;
+        }
+
+        message.channel.send('Added your request to the queue!');
+
+        if (!query.startsWith('https://youtube.com/')) {
+            getLink(query);
+            //canConnect = true;
+        } else if (!query.startsWith('https://youtu.be/')) {
+            getLink(query);
+            //canConnect = true;
+        } else if (!query.startsWith('https://')) {
+            client.serverQueue[message.guild!.id].queue.push(query);
+            if (!message.guild!.voice?.connection) {
+                message.member?.voice.channel.join().then(connection => {
+                    play(connection, message)
+                })
+            }
+        } else {
+            return message.reply('This isn\'t a valid URL/Query for me to use.');
         }
     },
     aliases: ['p'],
