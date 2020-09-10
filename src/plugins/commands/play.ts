@@ -13,6 +13,7 @@ module.exports = {
               "I need the permissions to join and speak in your voice channel!  FUCKING ALLOW ME IF YOU WANT MUSIC"
             );
         }
+        let canConnect = true;
         let query = args.join(' ');
         let res;
         if (query === '') return message.reply('you provided nothing for me to play');
@@ -31,21 +32,20 @@ module.exports = {
             let link = '';
             console.log(items.items.length);
             if (vidID === undefined || vidID === null) {
+                canConnect = false;
                 message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
                 let queries = '(if it returns undefined, it\'s not a video)';
                 for (let i = 0; i < items.items.length; i++) {
                     let j = i + 1;
                     
                     let songInfo;
-                    let undef;
                     console.log(link);
                     try {
                         songInfo = await ytdl.getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`);
                         console.log(songInfo);
-                        queries+= `\n${j} ${songInfo.videoDetails.title}`;
+                        queries+= `\n${j} ${songInfo.videoDetails.title} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
                     } catch (e) {
-                        undef =  `\n${j} Undefined Video`;
-                        queries+= undef;
+                        queries+=  `\n${j} Undefined Video`;
                     }
                     
                     //queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
@@ -108,6 +108,7 @@ module.exports = {
             })
         }
         if (!message.guild!.voice?.connection) {
+            if (canConnect !== true) return;
             message.member?.voice.channel.join().then(connection => {
                 play(connection, message)
             })
