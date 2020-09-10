@@ -51,41 +51,7 @@ module.exports = {
                     }
                     queries += `\n${j} ${getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`)}`;
                 }
-                message.channel.send(queries);
-                const filter = (m: any) => m.content;
-                const collector = message.channel.createMessageCollector(filter, { time: 15000 });
-                let conf = false;
-
-                collector.on('collect', m => {
-                    if (m.author !== message.author) return;
-                    if (conf === true) return;
-                    let num = parseInt(m.content);
-                    if (isNaN(num)) return message.reply('This isn\'t a number.');
-                    if (num > items.items.length) return message.reply(`This number isn't a valid number.  Try a number that is lower than ${num}`);
-                    let arrNum = num -1;
-                    vidID = items.items[arrNum].id.videoId;
-                    if (!vidID) return message.reply('Seriously??  I just said that it\'s not a video if it returns undefined...');
-                    conf = true;
-                    console.log('here we go!')
-                    link = `https://youtube.com/watch?v=${vidID}`;
-                    message.reply('Alright, I\'ll add it to the queue.');
-                    client.serverQueue[message.guild!.id].queue.push(link);
-                });
-
-                collector.on('end', () => {
-                    if (conf === false) {
-                        message.reply('You took too long.  Finding the best match out of the top 5 results...')
-                        for (let vids of items.items) {
-                            if (vids.id.videoId) {
-                                link = `https://youtube.com/watch?v=${vids.id.videoId}`;
-                                client.serverQueue[message.guild!.id].queue.push(link);
-                                message.channel.send('Found!');
-                            } else {
-                                return message.channel.send('nothing found... nothing will be added to the queue');
-                            }
-                        }
-                    }
-                });
+                return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
             } else {
                 console.log(items.items[0]);
                 link = `https://youtube.com/watch?v=${vidID}`;
@@ -99,10 +65,10 @@ module.exports = {
             getLink(query);
         } else if (!query.startsWith('https://youtu.be/')) {
             getLink(query);
-        } else if (query.startsWith('https://')) {
-            return message.reply('This isn\'t a valid URL/Query for me to use.');
-        } else {
+        } else if (!query.startsWith('https://')) {
             client.serverQueue[message.guild!.id].queue.push(query);
+        } else {
+            return message.reply('This isn\'t a valid URL/Query for me to use.');
         }
 
         message.channel.send('Added your request to the queue!');
