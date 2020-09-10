@@ -33,16 +33,17 @@ module.exports = {
             console.log(items.items.length);
             if (vidID === undefined || vidID === null) {
                 canConnect = false;
+                console.log(canConnect);
                 message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
                 let queries = '(if it returns undefined, it\'s not a video)';
                 for (let i = 0; i < items.items.length; i++) {
                     let j = i + 1;
                     
                     let songInfo;
-                    console.log(link);
+                    //console.log(link);
                     try {
                         songInfo = await ytdl.getInfo(`https://youtube.com/watch?v=${items.items[i].id.videoId}`);
-                        console.log(songInfo);
+                        //console.log(songInfo);
                         queries+= `\n${j} ${songInfo.videoDetails.title} https://youtube.com/watch?v=${items.items[i].id.videoId}`;
                     } catch (e) {
                         queries+=  `\n${j} Undefined Video`;
@@ -52,10 +53,10 @@ module.exports = {
                 }
                 return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
             } else {
-                console.log(items.items[0]);
+                //console.log(items.items[0]);
                 link = `https://youtube.com/watch?v=${vidID}`;
                 client.serverQueue[message.guild!.id].queue.push(link);
-                console.log(link);
+                //console.log(link);
             }
             //return link;
         }
@@ -109,6 +110,7 @@ module.exports = {
         }
         if (!message.guild!.voice?.connection) {
             if (canConnect !== true) return;
+            console.log(canConnect);
             message.member?.voice.channel.join().then(connection => {
                 play(connection, message)
             })
