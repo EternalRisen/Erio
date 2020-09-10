@@ -19,8 +19,9 @@ module.exports = {
         }
 
         for (let i = 0; i < num; i++) {
+            let j = i + 1;
             const songInfo = await ytdl.getInfo(`${client.serverQueue[message.guild!.id].queue[i]}`);
-            items += `\n${i}:  ${songInfo.videoDetails.title}`;
+            items += `\n${j}:  ${songInfo.videoDetails.title}`;
         }
         message.channel.send(`Current Queue (showing only first 10):${items}`);
         message.channel.send(`Total queue length is ${client.serverQueue[message.guild!.id].queue.length}`);
