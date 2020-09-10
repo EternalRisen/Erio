@@ -13,7 +13,7 @@ module.exports = {
               "I need the permissions to join and speak in your voice channel!  FUCKING ALLOW ME IF YOU WANT MUSIC"
             );
         }
-        let canConnect = true;
+        let canConnect = false;
         let query = args.join(' ');
         let res;
         if (query === '') return message.reply('you provided nothing for me to play');
@@ -32,7 +32,6 @@ module.exports = {
             let link = '';
             console.log(items.items.length);
             if (vidID === undefined || vidID === null) {
-                canConnect = false;
                 console.log(canConnect);
                 message.channel.send('Hey, we couldn\'t find a video at the top.  So we will provide you the top 5(?) items.');
                 let queries = '(if it returns undefined, it\'s not a video)';
@@ -53,6 +52,7 @@ module.exports = {
                 }
                 return message.channel.send(`\`\`\`${queries}\`\`\`\n\nYou will need to paste the link with this command again if you want to play it`);
             } else {
+                canConnect = true;
                 //console.log(items.items[0]);
                 link = `https://youtube.com/watch?v=${vidID}`;
                 client.serverQueue[message.guild!.id].queue.push(link);
@@ -109,7 +109,7 @@ module.exports = {
             })
         }
         if (!message.guild!.voice?.connection) {
-            if (canConnect !== true) return;
+            if (canConnect === false) return;
             console.log(canConnect);
             message.member?.voice.channel.join().then(connection => {
                 play(connection, message)
