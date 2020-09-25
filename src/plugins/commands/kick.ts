@@ -1,4 +1,6 @@
-'use string';
+/*
+* kick command:  kicks a user
+*/
 
 import Discord, { GuildMember, User } from 'discord.js';
 

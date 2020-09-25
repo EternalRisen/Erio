@@ -2,9 +2,7 @@
 * say command:  just returns what you said after issuing the command
 */
 
-'use strict';
-
-import Discord = require('discord.js');
+import Discord from 'discord.js';
 
 module.exports = {
     run: (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
@@ -30,4 +28,4 @@ module.exports = {
 	description: 'deletes the command message and returns with a sent message containing the content after the command name',
 	type: 'fun',
 	usage: 'say <text>',
-};
+}

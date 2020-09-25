@@ -2,8 +2,6 @@
 * purge command:  Just does a mass deletion of messages based on the number you want to delete (any at or above 25 will prompt a confirmation)
 */
 
-'use strict';
-
 import Discord, { TextChannel, NewsChannel } from 'discord.js';
 
 module.exports = {

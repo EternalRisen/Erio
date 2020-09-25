@@ -2,9 +2,6 @@
 * delete command:  deletes specific messages by the provided ID.  (very redundant command, but who gives a shit.)
 */
 
-'use strict';
-
-// Require this shit
 import Discord from 'discord.js';
 
 module.exports = {
@@ -25,4 +22,3 @@ module.exports = {
     type: 'mod',
     usage: 'delete <msgID>, <msgID>, ...'
 }
-

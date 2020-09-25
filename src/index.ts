@@ -1,8 +1,10 @@
 import Discord = require('discord.js');
+import PG from 'pg';
+import FS from 'fs';
+import path from 'path';
+import { checkCommandModule, checkProperties} from './structs/validate';
 
-const fs = require('fs').promises;
-const path = require('path');
-const { checkCommandModule, checkProperties } = require('./structs/validate.js');
+const fs = FS.promises;
 
 class Client extends Discord.Client { 
 	// set all this up so I can customize shit
@@ -12,6 +14,7 @@ class Client extends Discord.Client {
 	public devs: Array<string> = []; 
 	public prefix: string = ''; 
 	public loggedIn: boolean = false;
+	public pool: any = undefined;
 }
 
 class ErioBot{
@@ -27,6 +30,7 @@ class ErioBot{
 		this.client.loggedIn = false;
 		this.client.commandsLoaded = false;
 		this.client.commands = new Map();
+		this.client.pool = new PG.Pool();
 
 		this.client.on('ready', async () => {
 			if (!this.client || !this.client.user) {
@@ -50,6 +54,55 @@ class ErioBot{
 		// Crash handling
 		this.client.on('error', async (err: Error) => {
 			await this.dumpLogs(`Error: ${err}\nat ${err.stack}`);
+		});
+
+		this.client.on('guildCreate', async guild => {
+			await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [guild.id, guild.name]);
+			let erioRole = await guild.roles.cache.find(r => r.name === this.client.user?.username);
+			let erioPos = erioRole?.rawPosition;
+			let removeable = true;
+			guild.roles.cache.forEach(role => {
+				if (role.rawPosition >= (erioPos as number)) {
+					removeable = false;
+				}
+				(async () => {
+					await this.client.pool.query('INSERT INTO roles (roleid, serverid, rolename, roleposition, removeable) VALUES ($1, $2, $3, $4, $5)', [role.id, guild.id, role.name, role.rawPosition.toString(), removeable]);
+				})();
+			});
+		});
+
+		this.client.on('guildDelete', async guild => {
+			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
+			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
+		});
+
+		this.client.on('roleCreate', async role => {
+			let erioRole = await role.guild.roles.cache.find(r => r.name === this.client.user?.username);
+			let erioPos = erioRole?.rawPosition;
+			let removeable = true;
+			if (role.rawPosition >= (erioPos as number)) {
+				removeable = false;
+			}
+			await this.client.pool.query('INSERT INTO roles (roleid, serverid, rolename, roleposition, removeable) VALUES ($1, $2, $3, $4, $5)', [role.id, role.guild.id, role.name, role.rawPosition.toString(), removeable]);
+		});
+
+		this.client.on('roleUpdate', async role => {
+			console.log('updated roles.');
+			let erioRole = await role.guild.roles.cache.find(r => r.name === this.client.user?.username);
+			let erioPos = erioRole?.rawPosition;
+			let worker = await this.client.pool.connect();
+			await role.guild.roles.cache.forEach(async r => {
+				let removeable = true;
+				if (r.rawPosition >= (erioPos as number)) {
+					removeable = false;
+				}
+				await worker.query('UPDATE roles SET rolename = $1, roleposition = $2, removeable = $3 WHERE roleid = $4', [r.name, r.rawPosition, removeable, r.id]);
+			});
+			worker.release()
+		});
+
+		this.client.on('roleDelete', async role => {
+			await this.client.pool.query('DELETE FROM roles WHERE roleid = $1', [role.id]);
 		});
 
 		this.client.on('message', async (message: Discord.Message) => {

@@ -1,4 +1,6 @@
-'use strict';
+/*
+* play command:  plays music
+*/
 
 import Discord from 'discord.js';
 import ytdl from 'ytdl-core';

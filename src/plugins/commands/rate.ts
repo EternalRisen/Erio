@@ -2,9 +2,7 @@
 * rate command:  Just gives a simple rating on what you told it to rate
 */
 
-'use strict';
-
-import Discord = require('discord.js');
+import Discord from 'discord.js';
 
 module.exports = {
 	run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
@@ -21,4 +19,4 @@ module.exports = {
 	description: 'Makes a random choice between the choices given.',
 	type: 'fun',
 	usage: 'rate <text>',
-};
+}

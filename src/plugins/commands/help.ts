@@ -2,12 +2,11 @@
 * help command:  Displays a help message
 */
 
-'use strict';
+import Discord from 'discord.js';
+import FS from 'fs';
+import path from 'path';
 
-import Discord = require('discord.js');
-
-const fs = require('fs').promises;
-const path = require('path');
+const fs = FS.promises;
 
 module.exports = {
     run: async (client: { commands: { get: (arg0: string) => { type: string; aliases: string[]; description: string; usage: string }; }; prefix: string; }, message: Discord.Message, args: Array<string>) => {
@@ -67,4 +66,4 @@ module.exports = {
 	description: 'Returns the help message',
 	type: 'util',
 	usage: 'help <command(optional)>',
-};
+}

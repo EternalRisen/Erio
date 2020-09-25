@@ -1,4 +1,6 @@
-'use strict';
+/*
+* queue command:  returns the queue list for the server
+*/
 
 import { Message } from "discord.js";
 import ytdl from 'ytdl-core';

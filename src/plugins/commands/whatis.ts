@@ -2,8 +2,6 @@
 * whatis command:  just goes through the "whatisBase" for a match, else just respond with the given term followed by "nothing appropriate"
 */
 
-'use strict';
-
 import Discord from 'discord.js';
 
 module.exports = {

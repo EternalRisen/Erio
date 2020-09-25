@@ -2,9 +2,7 @@
 * uptime command:  returns how long the bot has been up for.
 */
 
-'use strict';
-
-import Discord = require('discord.js');
+import Discord from 'discord.js';
 
 module.exports = {
     run: async (client: { uptime: number; }, message: Discord.Message, args: Array<string>) => {

@@ -2,8 +2,6 @@
 * ping command:  Just returns the API response time.
 */
 
-'use strict';
-
 import Discord = require('discord.js');
 
 module.exports = {
@@ -14,4 +12,4 @@ module.exports = {
 	description: 'Tells the user the latency.',
 	type: 'util',
 	usage: 'ping',
-};
+}

@@ -2,8 +2,6 @@
 * update command:  gets any updates from the github repository provided either from GITREPO from the .env file, or from the default repo (YaBoiJD/Erio)
 */
 
-'use strict';
-
 import Discord from 'discord.js';
 
 module.exports = {

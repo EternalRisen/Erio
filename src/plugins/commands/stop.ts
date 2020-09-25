@@ -1,4 +1,6 @@
-'use strict';
+/*
+* stop command:  drains the queue and leaves
+*/
 
 import Discord from 'discord.js';
 
@@ -17,7 +19,7 @@ module.exports = {
             message.channel.send('huh?');
         }
     },
-    aliases: [],
+    aliases: ['leave', 'fuckoff'],
     description: 'Drains the queue and leaves',
     type: 'fun',
     usage: 'stop'

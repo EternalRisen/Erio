@@ -5,9 +5,7 @@
 
 'use strict';
 
-import Discord = require('discord.js');
-import { Key } from 'react';
-import { exec } from 'child_process';
+import Discord from 'discord.js';
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -15,7 +13,7 @@ const { checkCommandModule, checkProperties } = require('../../structs/validate'
 const { execSync } = require('child_process');
 
 module.exports = {
-    run: async (client: { devs: string | string[]; commands: Map<Key, string>; }, message: Discord.Message, args: Array<string>) => {
+    run: async (client: { devs: string | string[]; commands: any; }, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
@@ -77,4 +75,4 @@ module.exports = {
 	description: 'Hotpatches Events(TODO) and Commands.(Operators only)',
 	type: 'dev',
 	usage: 'hotpatch <type>',
-};
+}

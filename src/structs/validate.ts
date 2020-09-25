@@ -7,7 +7,7 @@ export function checkCommandModule(cmdName: string, cmdModule: {run: Function, d
 	if(!cmdModule.hasOwnProperty('usage')) {throw new Error(`${cmdName} command module does not have property 'usage'.`);}
     /* eslint-enable */
 	return true;
-};
+}
 
 export function checkProperties(cmdName: string, cmdModule: {run: Function, description: string, aliases: Array<string>, type: string, usage: string}) {
 	const typeTypes = ['util', 'mod', 'fun', 'dev'];
@@ -18,4 +18,4 @@ export function checkProperties(cmdName: string, cmdModule: {run: Function, desc
 	if(!typeTypes.includes(cmdModule.type)) {throw new Error(`${cmdName} command:  'type' should be ${typeTypes} which doesn't include '${cmdModule.type}'`);}
 	if(typeof cmdModule.usage !== 'string') {throw new Error(`${cmdName} command: 'usage' is not a string.`);}
 	return true;
-};
+}

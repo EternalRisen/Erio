@@ -1,6 +1,8 @@
-'use string';
+/*
+* ban command:  bans a user.
+*/
 
-import Discord, { GuildMember, User, Guild } from 'discord.js';
+import Discord, { GuildMember } from 'discord.js';
 
 module.exports = {
     run: async (client: Discord.Client, message: Discord.Message, args: string[]) => {

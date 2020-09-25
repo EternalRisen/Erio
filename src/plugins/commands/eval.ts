@@ -2,11 +2,8 @@
 * eval command:  runs code provides after initializing the command.  DO NOT LET PEASANTS USE
 */
 
-'use strict';
-
-import Discord = require('discord.js');
-
-const { inspect } = require('util');
+import Discord from 'discord.js';
+import { inspect } from 'util';
 
 module.exports = {
 	run: async (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
@@ -40,4 +37,4 @@ module.exports = {
 	description: 'Runs a console eval if the user is an operator.(operators only)',
 	type: 'dev',
 	usage: 'eval <code>',
-};
+}

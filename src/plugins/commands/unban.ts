@@ -1,4 +1,6 @@
-'use strict';
+/*
+* unban command:  unbans a user
+*/
 
 import Discord from 'discord.js'
 

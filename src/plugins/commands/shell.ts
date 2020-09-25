@@ -2,17 +2,13 @@
 * shell command:  Does a bash command in the terminal.  DO NOT LET PEASANTS USE!!
 */
 
-'use strict';
-
-import Discord = require('discord.js');
-
-const { exec } = require('child_process');
+import Discord from 'discord.js';
 
 module.exports = {
 	run: async (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
 		if (client.devs.includes(message.author.id)) {
 			const cmd = args.join(' ');
-			await exec(cmd, (stderr: string, stdout: string) => {
+			await require('child_process').exec(cmd, (stderr: string, stdout: string) => {
 				if (stdout.length > 1800) {
 					const outChunks: string[] = [];
 					for (let i = 0, charsLength = stdout.length; i < charsLength; i += 1800) {
@@ -34,4 +30,4 @@ module.exports = {
 	description: 'Runs bash command if the user is an operator.(operators only)',
 	type: 'dev',
 	usage: 'shell <command>',
-};
+}

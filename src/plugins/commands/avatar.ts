@@ -2,9 +2,7 @@
 * avatar command:  returns the avatar of a specified user or your own if you don't specify someone, or that user isn't found
 */
 
-'use strict';
-
-import Discord = require('discord.js');
+import Discord from 'discord.js';
 import { getAvatar } from '../../structs/getavatar';
 
 module.exports = {
@@ -43,4 +41,4 @@ module.exports = {
 	description: 'returns with the user\'s avatar',
 	type: 'util',
 	usage: 'avatar <user>',
-};
+}

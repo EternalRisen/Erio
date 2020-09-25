@@ -6,4 +6,4 @@ export function getAvatar(user: Discord.User, size: string | number) {
 	size = size || '128';
 	const avatarURL = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=${size}`;
 	return avatarURL;
-};
+}

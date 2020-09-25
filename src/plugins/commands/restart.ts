@@ -2,11 +2,8 @@
 * restart command:  just restarts the bot.
 */
 
-'use strict';
-
-import Discord = require('discord.js');
-
-const { exec } = require('child_process');
+import Discord from 'discord.js';
+import { exec } from 'child_process';
 
 module.exports = {
 	run: async (client: any, message: Discord.Message, args: Array<string>) => {
@@ -28,4 +25,4 @@ module.exports = {
 	description: 'Restarts the bot.(Operators only.)',
 	type: 'dev',
 	usage: 'restart',
-};
+}

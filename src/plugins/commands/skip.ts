@@ -1,4 +1,6 @@
-'use strict';
+/*
+* skip command:  skips the currently playing song
+*/
 
 import Discord from 'discord.js';
 

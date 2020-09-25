@@ -2,9 +2,7 @@
 * choose command:  Chooses randomly from all the given choices
 */
 
-'use strict';
-
-import Discord = require('discord.js');
+import Discord from 'discord.js';
 
 module.exports = {
 	run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
@@ -17,4 +15,4 @@ module.exports = {
 	description: 'Makes a random choice between the choices given.',
 	type: 'fun',
 	usage: 'choose <choice1>, <choice2>, ...',
-};
+}
