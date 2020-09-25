@@ -72,8 +72,8 @@ class ErioBot{
 		});
 
 		this.client.on('guildDelete', async guild => {
-			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
 			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
+			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
 		});
 
 		this.client.on('roleCreate', async role => {
