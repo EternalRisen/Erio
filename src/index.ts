@@ -87,7 +87,6 @@ class ErioBot{
 		});
 
 		this.client.on('roleUpdate', async role => {
-			console.log('updated roles.');
 			let erioRole = await role.guild.roles.cache.find(r => r.name === this.client.user?.username);
 			let erioPos = erioRole?.rawPosition;
 			let worker = await this.client.pool.connect();

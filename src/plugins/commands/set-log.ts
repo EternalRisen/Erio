@@ -6,6 +6,7 @@ import Discord from 'discord.js';
 
 module.exports = {
     run: async (client: any, message: Discord.Message, args: string[]) => {
+        if (!message.member?.permissions.has(['MANAGE_GUILD']) || !message.member?.permissions.has(['ADMINISTRATOR'])) return;
         let channelid = args[0];
         try {
             channelid = channelid.replace('<#', '');

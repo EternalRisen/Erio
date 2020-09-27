@@ -7,7 +7,7 @@ import Discord from 'discord.js';
 module.exports = {
     run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
         args = args.join(' ').split(',');
-        if (!message.member?.permissions.has(['MANAGE_MESSAGES', 'ADMINISTRATOR'])) return;
+        if (!message.member?.permissions.has(['MANAGE_MESSAGES']) || !message.member?.permissions.has(['MANAGE_GUILD']) || !message.member?.permissions.has(['ADMINISTRATOR'])) return;
         for (let arg of args) {
             try {
                 let msg = await (client.channels.cache.get(`${message.channel.id}`) as any).messages.fetch(`${arg}`);

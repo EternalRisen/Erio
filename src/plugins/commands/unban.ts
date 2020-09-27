@@ -6,7 +6,7 @@ import Discord from 'discord.js'
 
 module.exports = {
     run: async (client: Discord.Client, message: Discord.Message, args: string[]) => {
-        if (!message.member?.permissions.has(['BAN_MEMBERS', 'MANAGE_GUILD', 'ADMINISTRATOR'])) return;
+        if (!message.member?.permissions.has(['BAN_MEMBERS']) || !message.member?.permissions.has(['MANAGE_GUILD']) || !message.member?.permissions.has(['ADMINISTRATOR'])) return;
         let userID = args[0];
         let rsn = args[1];
 
