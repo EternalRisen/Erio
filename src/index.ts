@@ -30,7 +30,9 @@ class ErioBot{
 		this.client.loggedIn = false;
 		this.client.commandsLoaded = false;
 		this.client.commands = new Map();
-		this.client.pool = new PG.Pool();
+		this.client.pool = new PG.Pool({
+			connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
+		});
 
 		this.client.on('ready', async () => {
 			if (!this.client || !this.client.user) {
