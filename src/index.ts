@@ -42,13 +42,23 @@ class ErioBot{
 			// Tell me that the bot is on.
 			console.log(`Logged in as ${this.client.user.tag}!`);
 
-			// Set the presence
+			let nameArr = ['uwu', 'owo', 'bot things', 'the watchful night'];
+
 			await this.client.user!.setPresence({
 				activity: {
-					name: 'JD-San Develop me',
-					type: 'WATCHING',
-				},
+					name: nameArr[Math.floor(Math.random() * nameArr.length)],
+					type: 'PLAYING',
+				}
 			});
+
+			setInterval(async () => {
+				await this.client.user!.setPresence({
+					activity: {
+						name: nameArr[Math.floor(Math.random() * nameArr.length)],
+						type: 'PLAYING',
+					}
+				});
+			}, 1000 * 60 * Math.floor(Math.random() * 60));
 		});
 
 		// Crash handling
