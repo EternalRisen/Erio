@@ -4,6 +4,7 @@
   "description": "A Discord Bot for the Yeet Server",
   "main": "start",
   "scripts": {
+    "herokustart": "node -r dotenv/config www-dist/server/app.js",
     "start": "node -r dotenv/config bot --production",
     "devstart": "node -r dotenv/config bot --development",
     "watch": "webpack --watch --mode development",
