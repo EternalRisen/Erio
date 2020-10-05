@@ -6,6 +6,7 @@ import Discord from 'discord.js';
 
 module.exports = {
     run: async (client: any, message: Discord.Message, args: string[]) => {
+        return message.reply('this command is disabled right now...');
         if (client.serverQueue[message.guild!.id].dispatcher) {
             client.serverQueue[message.guild!.id].dispatcher.end();
         } else {

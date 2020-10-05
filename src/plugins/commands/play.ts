@@ -8,8 +8,9 @@ import got from 'got';
 
 module.exports = {
     run: async (client: any /*I'm too lazy to do typing for this one*/, message: Discord.Message, args: string[]) => {
+        return message.reply('this command is disabled right now...');
         if (!message.member?.voice.channel) return message.reply('You are not in a voice channel');
-        const perms = message.member?.voice.channel.permissionsFor(client.user);
+        const perms = message.member?.voice.channel?.permissionsFor(client.user);
         if (!perms?.has("CONNECT") || !perms?.has("SPEAK")) {
             return message.channel.send(
               "I need the permissions to join and speak in your voice channel!  FUCKING ALLOW ME IF YOU WANT MUSIC"
@@ -101,7 +102,7 @@ module.exports = {
         } else if (!query.startsWith('https://')) {
             client.serverQueue[message.guild!.id].queue.push(query);
             if (!message.guild!.voice?.connection) {
-                message.member?.voice.channel.join().then(connection => {
+                message.member?.voice.channel?.join().then(connection => {
                     play(connection, message)
                 })
             }

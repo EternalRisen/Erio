@@ -17,20 +17,12 @@ module.exports = {
                 desc: `Something JD-san doesn't get enough of`
             },
             {
-                name: 'fluffie',
-                desc: 'Someone who loves Wooloos and Mareeps.  ~~and makes bad jokes~~ :P'
-            },
-            {
                 name: 'jd',
                 desc: 'My Creator *uwu*'
             },
             {
-                name: 'reffrey',
-                desc: 'A a spongebob meme fan'
-            },
-            {
                 name: 'music',
-                desc: 'Something I play *uwu*\nLet\'s Jam :3'
+                desc: 'Something I play *uwu*\nLet\'s Jam :3  (the commands are disabled right now though...)'
             }
         ];
 
