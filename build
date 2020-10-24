@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { profileEnd } = require('console');
 const PG = require('pg');
 const { queries } = require('./config/queries.js');
 
@@ -8,6 +9,7 @@ require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./www -
 
 // Make and edit anything with databases
 (async () => {
+    if (!process.env.DATABASE_URL || process.env.PGUSER) return console.log('No database found.');
     const pool = new PG.Pool({
         connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
     });
