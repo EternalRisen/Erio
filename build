@@ -3,8 +3,8 @@ const PG = require('pg');
 const { queries } = require('./config/queries.js');
 
 // Use sucrase to compile the typescript
-require('child_process').execSync('npx sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
-require('child_process').execSync('npx sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
 
 // Make and edit anything with databases
 (async () => {
