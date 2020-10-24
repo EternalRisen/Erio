@@ -22,7 +22,7 @@ module.exports = {
             console.log('owo');
         }
         let member: Discord.GuildMember | undefined;
-        let rejectionReason;
+        let rejectionReason = '';
 
         function permCheck() {
             try {

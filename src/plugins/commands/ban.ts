@@ -22,7 +22,7 @@ module.exports = {
             console.log('owo');
         }
         let guildMember: Discord.GuildMember | Discord.User | undefined;
-        let rejectionReason;
+        let rejectionReason = '';
         // message.guild?.members.cache.find(u => u.id === userID)?.roles.highest.rawPosition
         // message.member.roles.highest.rawPosition;
         try {
