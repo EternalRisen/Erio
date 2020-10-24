@@ -122,7 +122,7 @@ class ErioBot{
 			// Bots have no access
 			if (message.author.bot) return;
 			// Help stuff in case people are absolutely retarded
-			if (message.content.toLowerCase() === 'help' || message.content.includes(this.client.user!.id)) {
+			if (message.content === (`<@!${this.client.user?.id}>`)) {
 				message.reply(`My Prefix is \`${this.client.prefix}\`.  please see \`${this.client.prefix}help\` to see a list of my commands.`);
 			}
 			// All flipped tables should be unflipped
