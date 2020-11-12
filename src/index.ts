@@ -34,6 +34,34 @@ class ErioBot{
 			connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
 		});
 
+		this.client.on('messageDelete', async message => {
+			const embed = new Discord.MessageEmbed();
+			embed.setTitle(`A message has been deleted`)
+			embed.addField("Author:", `${message.author}`);
+			embed.addField("Channel:", `${message.channel}`);
+			embed.addField("Content:", `${message.content}`);
+
+			let channelid;
+			let res;
+			let channel;
+
+			try {
+				res = await this.client.pool.query("SELECT * FROM servers WHERE serverid = $1", [message.guild?.id]);
+			} catch {
+				return message.channel.send(embed);
+			}
+
+			channelid = res.rows[0].modlog;
+
+			try {
+				channel = await this.client.channels.fetch(channelid);
+			} catch {
+				return message.channel.send(embed);
+			}
+
+			(channel as Discord.TextChannel).send(embed);
+		});
+
 		this.client.on('ready', async () => {
 			if (!this.client || !this.client.user) {
 				await console.log('onReady fired before the bot could log in. Exiting...');
