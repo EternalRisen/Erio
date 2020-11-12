@@ -8,7 +8,7 @@ import got from 'got';
 
 module.exports = {
     run: async (client: any /*I'm too lazy to do typing for this one*/, message: Discord.Message, args: string[]) => {
-        return message.reply('this command is disabled right now...');
+        //return message.reply('this command is disabled right now...');
         if (!message.member?.voice.channel) return message.reply('You are not in a voice channel');
         const perms = message.member?.voice.channel?.permissionsFor(client.user);
         if (!perms?.has("CONNECT") || !perms?.has("SPEAK")) {

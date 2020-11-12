@@ -6,7 +6,7 @@ import Discord from 'discord.js';
 
 module.exports = {
     run: async (client: any, message: Discord.Message, args: string[]) => {
-        return message.reply('this command is disabled right now...');
+        //return message.reply('this command is disabled right now...');
         if (!client.serverQueue[message.guild!.id] || !client.serverQueue[message.guild!.id].queue) return message.channel.send('There is no queue');
 
         if (client.serverQueue[message.guild!.id].queue.length === 0) return message.channel.send('there are no songs in the queue.');

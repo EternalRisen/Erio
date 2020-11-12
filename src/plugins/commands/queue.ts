@@ -7,7 +7,7 @@ import ytdl from 'ytdl-core';
 
 module.exports = {
     run: async (client: any, message: Message, args: string[]) => {
-        return message.reply('this command is disabled right now...');
+        //return message.reply('this command is disabled right now...');
         let items = 'Current Queue:\n'
         let num;
 
