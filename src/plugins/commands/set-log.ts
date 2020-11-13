@@ -33,7 +33,7 @@ module.exports = {
 
         message.channel.send(`Set ${channel} as the modlog!`);
     },
-    aliases: ['mrole', 'role-mute', 'set-mute'],
+    aliases: ['log', 'setlog'],
     description: 'assignes the mute role to bot\'s list of mute roles',
     usage: 'mute-role <role-id>',
     type: 'mod',

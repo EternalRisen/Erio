@@ -49,6 +49,7 @@
     "html-webpack-plugin": "^3.2.0",
     "list-react-files": "^0.2.0",
     "open-cli": "^6.0.1",
+    "opusscript": "0.0.7",
     "pg": "^8.4.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
