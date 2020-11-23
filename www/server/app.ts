@@ -86,16 +86,6 @@ app.get('/credits', async (req: Request, res: Response) => {
             role: 'Bot Development',
             site: 'https://github.com/YaBoiJD/Erio'
         },
-        {
-            avatar: getAvatar(byn, 2048),
-            discordTag: byn.tag,
-            name: 'Robyn',
-            intro: `Hi!  I'm Robyn.  I'm the one responsible for the front end of the site (a very small portion of it, anyways)`,
-            message: `I'm a dead website designer for the site, so right now it's all JD that's doing it.`,
-            github: `Also, you can find my github`,
-            role: 'Designer extraordinaire',
-            site: 'https://github.com/GameModerator'
-        }
     ];
 
     res.sendFile(path.join(clientDir, 'credits.html'));
