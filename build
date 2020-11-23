@@ -4,16 +4,29 @@ const PG = require('pg');
 const { queries } = require('./config/queries.js');
 
 // Use sucrase to compile the typescript
+console.log('Transpiling TypeScript...')
 require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
 require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+console.log('Transpiling complete');
 
 // Make and edit anything with databases
 (async () => {
-    if (!process.env.DATABASE_URL || process.env.PGUSER) return console.log('No database found.');
-    const pool = new PG.Pool({
-        connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
-    });
-    for (const query of queries) {
-        await pool.query(query);
+    console.log('Setting up database.');
+    if (!process.env.DATABASE_URL || process.env.PGUSER) return console.log('no variables found to establish the pool  be sure to set the variables by following the instructions set in the README. Skipping...');
+    console.log("variables found... setting up database");
+    let pool;
+    try {
+        pool = new PG.Pool({
+            connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
+        });
+    } catch (e) {
+        return console.error(`There was an unexpected error with establishing the database\n${e}`);
+    }
+    try {
+        for (const query of queries) {
+            await pool.query(query);
+        }
+    } catch (e) {
+        return console.error(`There was a problem with querying the database\n${e}`);
     }
 })();
