@@ -1,4 +1,4 @@
-import Discord = require('discord.js');
+import Discord from 'discord.js';
 import PG from 'pg';
 import FS from 'fs';
 import path from 'path';
@@ -48,7 +48,7 @@ class ErioBot{
 			try {
 				res = await this.client.pool.query("SELECT * FROM servers WHERE serverid = $1", [message.guild?.id]);
 			} catch {
-				return message.channel.send(embed);
+				return;
 			}
 
 			channelid = res.rows[0].modlog;
@@ -56,7 +56,7 @@ class ErioBot{
 			try {
 				channel = await this.client.channels.fetch(channelid);
 			} catch {
-				return message.channel.send(embed);
+				return;
 			}
 
 			(channel as Discord.TextChannel).send(embed);
@@ -97,6 +97,11 @@ class ErioBot{
 		});
 
 		this.client.on('guildCreate', async guild => {
+			try {
+				await this.client.pool.query("SELECT * FROM servers WHERE serverid = $1", [guild?.id]);
+			} catch {
+				return;
+			}
 			await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [guild.id, guild.name]);
 			let erioRole = await guild.roles.cache.find(r => r.name === this.client.user?.username);
 			let erioPos = erioRole?.rawPosition;
@@ -112,6 +117,11 @@ class ErioBot{
 		});
 
 		this.client.on('guildDelete', async guild => {
+			try {
+				await this.client.pool.query("SELECT * FROM servers WHERE serverid = $1", [guild?.id]);
+			} catch {
+				return;
+			}
 			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
 			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
 		});
@@ -234,4 +244,4 @@ class ErioBot{
 	}
 }
 
-module.exports = ErioBot
+module.exports = ErioBot;

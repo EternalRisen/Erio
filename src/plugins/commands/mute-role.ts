@@ -7,6 +7,11 @@ import Discord from 'discord.js';
 module.exports = {
     run: async (client: any, message: Discord.Message, args: string[]) => {
         if (!message.member?.permissions.has(['ADMINISTRATOR'])) return;
+        try {
+            await client.pool.query("SELECT * FROM servers WHERE serverid = $1", [message.guild?.id]);
+        } catch {
+            return message.reply('there is no active database, so I cannot do this task.');
+        }
         let roleid = args[0];
         console.log(roleid)
         try {
