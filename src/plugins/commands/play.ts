@@ -11,10 +11,11 @@ module.exports = {
         //return message.reply('this command is disabled right now...');
         if (!message.member?.voice.channel) return message.reply('You are not in a voice channel');
         const perms = message.member?.voice.channel?.permissionsFor(client.user);
-        if (!perms?.has("CONNECT") || !perms?.has("SPEAK")) {
-            return message.channel.send(
-              "I need the permissions to join and speak in your voice channel!  FUCKING ALLOW ME IF YOU WANT MUSIC"
-            );
+        if (!perms?.has("CONNECT")) {
+            return message.channel.send("I lack perms to join.");
+        }
+        if (!perms?.has("SPEAK")) {
+            return message.channel.send("I lack perms to speak.");
         }
         let query = args.join(' ');
         let res;
