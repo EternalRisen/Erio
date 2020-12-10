@@ -16,7 +16,7 @@ module.exports = {
         if (client.serverQueue[message.guild!.id].queue.length === 0) return message.channel.send('there are no songs in the queue.');
 
         if (client.serverQueue[message.guild!.id].queue.length > 10) {
-            num = 10
+            num = 11
         } else {
             num = client.serverQueue[message.guild!.id].queue.length;
         }
@@ -24,7 +24,11 @@ module.exports = {
         for (let i = 0; i < num; i++) {
             let j = i + 1;
             const songInfo = await ytdl.getInfo(`${client.serverQueue[message.guild!.id].queue[i]}`);
-            items += `\n${j}:  ${songInfo.videoDetails.title}`;
+            if (i===0) {
+                items += `\nNow Playing:  ${songInfo.videoDetails.title}`;
+            } else {
+                items += `\n${i}:  ${songInfo.videoDetails.title}`;
+            }
         }
         message.channel.send(`Current Queue (showing only first 10):${items}`);
         message.channel.send(`Total queue length is ${client.serverQueue[message.guild!.id].queue.length}`);
