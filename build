@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-const { profileEnd } = require('console');
 const PG = require('pg');
 const { queries } = require('./config/queries.js');
 
 // Use sucrase to compile the typescript
 console.log('Transpiling TypeScript...')
-require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
-require('child_process').execSync('./node_modules/sucrase/bin/sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('node ./node_modules/sucrase/bin/sucrase -q ./src -d ./src-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
+require('child_process').execSync('node ./node_modules/sucrase/bin/sucrase -q ./www -d ./www-dist --transforms jsx,typescript,imports', {stdio: 'inherit'});
 console.log('Transpiling complete');
 
 // Make and edit anything with databases
