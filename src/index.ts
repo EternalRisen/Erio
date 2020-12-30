@@ -26,7 +26,7 @@ class ErioBot{
 		this.client.serverQueue = {};
 		this.client.devs = process.env.ADMINS?.split(',') || [];
 		this.client.token = (process.env.TOKEN as string);
-		this.client.prefix = `${process.env.PREFIX}`;
+		this.client.prefix = `${process.env.PFX}`;
 		this.client.loggedIn = false;
 		this.client.commandsLoaded = false;
 		this.client.commands = new Map();
@@ -70,7 +70,7 @@ class ErioBot{
 			// Should Never happen
 
 			// Tell me that the bot is on.
-			console.log(`Logged in as ${this.client.user.tag}!`);
+			console.log(`Logged in as ${this.client.user.tag}, serving ${this.client.guilds.cache.size} servers with the prefix of ${this.client.prefix}`);
 
 			let nameArr = ['uwu', 'owo', 'bot things', 'the watchful night'];
 

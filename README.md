@@ -9,7 +9,7 @@
  - create a `.env` with the following contents:
      ```
      TOKEN=token
-     PREFIX=prefix
+     PFX=prefix
      ADMINS=admin1,admin2,use_discord_ids
      BOTLOG=channel_id_for_botlog
      GITREPO=your_repo
