@@ -11,8 +11,6 @@ console.log('Transpiling complete');
 // Make and edit anything with databases
 (async () => {
     console.log('Setting up database.');
-    if (!process.env.DATABASE_URL || process.env.PGUSER) return console.log('no variables found to establish the pool  be sure to set the variables by following the instructions set in the README. Skipping...');
-    console.log("variables found... setting up database");
     let pool;
     try {
         pool = new PG.Pool({
