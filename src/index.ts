@@ -91,7 +91,60 @@ class ErioBot{
 				}
 			});
 
-			this.cache_servers();
+			// Cache Servers from database
+			await this.cache_servers();
+
+			// Sync database cache with discord cache
+			for (const serverid in this.client.serverCache) {
+				// Delete any servers the bot is no longer in
+				let server: any = this.client.guilds.cache.find(s => s.id === serverid);
+				if (server) {
+					// Do nothing
+				} else {
+					delete this.client.serverCache[serverid];
+					// Delete from database
+					await this.client.pool.query('DELETE FROM welcome_messages WHERE serverid = $1', [serverid])
+					await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [serverid]);
+					await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [serverid]);
+				}
+
+				// update the cache
+				for (let server of this.client.guilds.cache.array()) {
+					let serverid = (server as any).id;
+					// see if the server exists in cache or not
+					if (!this.client.serverCache[serverid]) {
+						// add to cache
+						this.client.serverCache[serverid] = {
+							serverid: serverid,
+							serverName: (server as any).name,
+							modlog: null,
+							muteRole: null,
+							welcomeChannel: null,
+							welcomeMessage: null,
+							welcomeImage: null
+						};
+						await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [serverid, server.name]);
+						await this.client.pool.query('INSERT INTO welcome_messages (serverid) VALUES ($1)', [serverid]);
+						const erioRole = server.roles.cache.find(r => r.name === this.client.user?.username);
+						const erioPos = erioRole?.rawPosition;
+						let removeable = true;
+						server.roles.cache.forEach(async role => {
+							if (role.rawPosition >= (erioPos as number)) {
+								removeable = false;
+							};
+							await this.client.pool.query('INSERT INTO roles (roleid, serverid, rolename, roleposition, removeable) VALUES ($1, $2, $3, $4, $5)', [role.id, serverid, role.name, role.rawPosition.toString(), removeable]);
+						});
+					} else {
+						let s = this.client.serverCache[serverid];
+						// update the cache if the servername doesn't match
+						if (s.serverName !== server.name) {
+							s.serverName = server.name;
+							// update the database
+							await this.client.pool.query('UPDATE servers SET servername = $1', [server.name])
+						}
+					}
+				}
+			}
 
 			setInterval(async () => {
 				await this.client.user!.setPresence({
@@ -111,15 +164,15 @@ class ErioBot{
 		this.client.on('guildCreate', async guild => {
 			this.client.serverCache[guild.id] = {
 				serverid: guild.id,
-				servername: guild.name,
+				serverName: guild.name,
 				modlog: null,
 				muteRole: null,
 				welcomeChannel: null,
 				welcomeMessage: null,
 				welcomeImage: null
 			};
-			await this.client.pool.query('INSERT INTO welcome_messages (serverid) VALUES ($1)', [guild.id]);
 			await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [guild.id, guild.name]);
+			await this.client.pool.query('INSERT INTO welcome_messages (serverid) VALUES ($1)', [guild.id]);
 			const erioRole = guild.roles.cache.find(r => r.name === this.client.user?.username);
 			const erioPos = erioRole?.rawPosition;
 			let removeable = true;
@@ -132,7 +185,9 @@ class ErioBot{
 		});
 
 		this.client.on('guildDelete', async guild => {
-			this.client.serverCache[guild.id] = {};
+			// delete server from cache
+			delete this.client.serverCache[guild.id];
+			// remote server data and other things from database
 			await this.client.pool.query('DELETE FROM welcome_messages WHERE serverid = $1', [guild.id])
 			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
 			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
