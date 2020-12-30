@@ -39,7 +39,8 @@ class ErioBot{
 			embed.setTitle(`A message has been deleted`)
 			embed.addField("Author:", `${message.author}`);
 			embed.addField("Channel:", `${message.channel}`);
-			embed.addField("Content:", `${message.content}`);
+			embed.addField("Content:", `${message.content}` || 'Empty Message or was an embed');
+			embed.addField('Attachments', message.attachments.map((a) => a.url).join(' ') || "No attatchments")
 
 			let channelid;
 			let res;
