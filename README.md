@@ -1,8 +1,11 @@
-# Erio-bot
+# Erio
+
+This is the repository to the Erio discord bot along with it's website.  If you want to add this bot to your server, use this link [here](https://discord.com/oauth2/authorize?client_id=699892206126760026&scope=bot&permissions=37088576).
 
 # Requirements
 - node.js
 - PostgreSQL (optional)
+- Knowledge of how to use React, Discord.js, and Express.
 
 ## Setup
  - run `npm install`
