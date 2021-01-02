@@ -98,6 +98,7 @@ class ErioBot{
 		});
 
 		this.client.on('guildCreate', async guild => {
+			await this.client.pool.query('INSERT INTO welcome_messages (serverid) VALUES ($1)', [guild.id]);
 			await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [guild.id, guild.name]);
 			let erioRole = await guild.roles.cache.find(r => r.name === this.client.user?.username);
 			let erioPos = erioRole?.rawPosition;
@@ -113,6 +114,7 @@ class ErioBot{
 		});
 
 		this.client.on('guildDelete', async guild => {
+			await this.client.pool.query('DELETE FROM welcome_messages WHERE serverid = $1', [guild.id])
 			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
 			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
 		});
