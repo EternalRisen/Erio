@@ -8,7 +8,7 @@ module.exports = {
     run: async (client: any, message: Discord.Message, args: string[]) => {
         if (!message.member?.permissions.has(['ADMINISTRATOR'])) return;
         try {
-            await client.pool.query("SELECT * FROM servers WHERE serverid = $1", [message.guild?.id]);
+            await client.pool.query('SELECT * FROM servers WHERE serverid = $1', [message.guild?.id]);
         } catch {
             return message.reply('there is no active database, so I cannot do this task.');
         }
@@ -23,7 +23,7 @@ module.exports = {
         console.log(roleid);
         let role: Discord.Role | undefined;
         try {
-            role = await message.guild?.roles.cache.find(r => r.id === roleid);
+            role = message.guild?.roles.cache.find(r => r.id === roleid);
             console.log('found!')
         } catch {
             console.log('not found');
@@ -40,7 +40,7 @@ module.exports = {
             return message.channel.send('There was an error with updating the roles');
         }
         
-        client.server_cache[(message.guild?.id as string)].muteRole = roleid;
+        client.serverCache[(message.guild?.id as string)].muteRole = roleid;
 
         message.channel.send(`Set ${role} as the mute role!`);
     },

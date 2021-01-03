@@ -8,7 +8,7 @@ module.exports = {
     run: async (client: any, message: Discord.Message, args: string[]) => {
         if (!message.member?.permissions.has(['ADMINISTRATOR'])) return;
         try {
-            await client.pool.query("SELECT * FROM servers WHERE serverid = $1", [message.guild?.id]);
+            await client.pool.query('SELECT * FROM servers WHERE serverid = $1', [message.guild?.id]);
         } catch {
             return message.reply('there is no active database, so I cannot do this task.');
         }
@@ -21,7 +21,7 @@ module.exports = {
         }
         let channel: Discord.GuildChannel | undefined;
         try {
-            channel = await message.guild?.channels.cache.find(c => c.id === channelid);
+            channel = message.guild?.channels.cache.find(c => c.id === channelid);
         } catch {
             return message.reply('Unable to find the channel.');
         }
@@ -36,7 +36,7 @@ module.exports = {
             return message.channel.send('There was an error with updating the log channel');
         }
 
-        client.server_cache[(message.guild?.id as string)].modlog = channelid;
+        client.serverCache[(message.guild?.id as string)].modlog = channelid;
 
         message.channel.send(`Set ${channel} as the modlog!`);
     },

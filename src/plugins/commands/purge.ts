@@ -5,9 +5,9 @@
 import Discord, { TextChannel, NewsChannel } from 'discord.js';
 
 module.exports = {
-    run: async (client: any, message: Discord.Message, args: Array<string>) => {
+    run: async (client: any, message: Discord.Message, args: string[]) => {
         if (!message.member?.permissions.has(['MANAGE_MESSAGES']) || !message.member?.permissions.has(['MANAGE_GUILD']) || !message.member?.permissions.has(['ADMINISTRATOR'])) return;
-        let num = parseInt(args[0]);
+        const num = parseInt(args[0]);
         if (num < 2) return message.reply('I can\'t delete only 1 message.');
         if (num > 100) return message.reply('Discord is retarded so I can only delete a maximum of 100 messages.');
         // Yes, This will be required, we don't need dumbasses mass deleting a bunch of stuff by accident
@@ -36,7 +36,7 @@ module.exports = {
             collector.on('end', () => {
                 if (conf === true && del === true) {
                     try {
-                        (async function () {
+                        (async () => {
                             if (message.channel.type === 'dm') throw new Error('This is a Direct Message Channel.');
                             await (message.channel as TextChannel | NewsChannel).bulkDelete(num);
                         })();

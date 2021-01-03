@@ -5,9 +5,9 @@
 import Discord from 'discord.js';
 
 module.exports = {
-    run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
+    run: async (client: Discord.Client, message: Discord.Message, args: string[]) => {
         // TODO:  Add more shit
-        let whatisBase = [
+        const whatisBase = [
             {
                 name: 'love',
                 desc: 'I don\'t fucking know'
@@ -34,11 +34,11 @@ module.exports = {
             return message.reply('Only one term!');
         }
 
-        let term = args[0];
+        const term = args[0];
         let wordFound = false;
         let returnStatement = '';
 
-        for (let whatis of whatisBase) {
+        for (const whatis of whatisBase) {
             if (whatis.name === term.toLowerCase()) {
                 wordFound = true;
                 returnStatement += `${whatis.name}: ${whatis.desc}`;

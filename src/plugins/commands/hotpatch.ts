@@ -6,14 +6,15 @@
 'use strict';
 
 import Discord from 'discord.js';
+import FS from 'fs';
+import path from 'path';
+import { checkCommandModule, checkProperties } from '../../structs/validate';
+import { execSync } from 'child_process';
 
-const fs = require('fs').promises;
-const path = require('path');
-const { checkCommandModule, checkProperties } = require('../../structs/validate');
-const { execSync } = require('child_process');
+const fs = FS.promises
 
 module.exports = {
-    run: async (client: { devs: string | string[]; commands: any; }, message: Discord.Message, args: Array<string>) => {
+	run: async (client: { devs: string | string[]; commands: any; }, message: Discord.Message, args: string[]) => {
 		if (client.devs.includes(message.author.id)) {
 			const hotpatchChoice = args[0];
 			if (hotpatchChoice.toLowerCase() === 'commands') {
@@ -49,16 +50,16 @@ module.exports = {
 				message.reply('Commands have been hotpatched. :thumbsup:');
 			} else if (hotpatchChoice.toLowerCase() === 'client' || hotpatchChoice.toLowerCase() === 'website') {
 				if (args[1]) {
-					let hotpatchType = args[1];
-					switch(hotpatchType.toLowerCase()) {
+					const hotpatchType = args[1];
+					switch (hotpatchType.toLowerCase()) {
 						case '--prod':
 							execSync('npm run prodpack', {stdio: 'inherit'});
 							message.reply('The website has been hotpatched with the `production` flag');
-						break;
+							break;
 						case '--dev':
 							execSync('npm run devpack', {stdio: 'inherit'});
 							message.reply('The website has been hotpatched with the `development` flag');
-						break;
+							break;
 					}
 				} else {
 					execSync('npm run prodpack', {stdio: 'inherit'});

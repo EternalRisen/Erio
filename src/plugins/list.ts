@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 interface Command {
-    run: Function;
+    run: () => void;
     name: string;
     aliases: string[];
     description: string;

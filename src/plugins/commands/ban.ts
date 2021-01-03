@@ -26,7 +26,7 @@ module.exports = {
         // message.guild?.members.cache.find(u => u.id === userID)?.roles.highest.rawPosition
         // message.member.roles.highest.rawPosition;
         try {
-            guildMember = await message.guild?.members.cache.find(u => u.id === userID);
+            guildMember = message.guild?.members.cache.find(u => u.id === userID);
         } catch (e) {
             console.log('idk');
         }

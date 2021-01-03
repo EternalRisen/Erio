@@ -5,7 +5,7 @@
 import Discord from 'discord.js';
 
 module.exports = {
-	run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
+	run: async (client: Discord.Client, message: Discord.Message, args: string[]) => {
 		const choices = args.join(' ').split(', ');
 		if (choices[0] === '') return message.reply('Please give options.');
 		if (!choices[1]) return message.reply('I need more than one option to choose.');

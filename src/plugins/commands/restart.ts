@@ -6,9 +6,9 @@ import Discord from 'discord.js';
 import { exec } from 'child_process';
 
 module.exports = {
-	run: async (client: any, message: Discord.Message, args: Array<string>) => {
+	run: async (client: any, message: Discord.Message, args: string[]) => {
 		if (client.devs.includes(message.author.id)) {
-			let logChannel = await client.channels.cache.get((process.env.BOTLOG as string));
+			const logChannel = await client.channels.cache.get((process.env.BOTLOG as string));
 			(logChannel as Discord.TextChannel).send(`${client.user.username} is being restarted by ${message.author.tag}(${message.author.id})`)
 
 			exec('npm start');

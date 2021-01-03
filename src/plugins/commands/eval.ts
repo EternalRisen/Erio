@@ -6,7 +6,7 @@ import Discord from 'discord.js';
 import { inspect } from 'util';
 
 module.exports = {
-	run: async (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
+	run: async (client: { devs: string | string[]; }, message: Discord.Message, args: string[]) => {
 		if (client.devs.includes(message.author.id)) {
 			let evaled;
 			try {
@@ -16,9 +16,9 @@ module.exports = {
 				if (evaled.length > 1800) {
 					const evalChunks: string[] = [];
 					for (let i = 0, charsLength = evaled.length; i < charsLength; i += 1800) {
-    					evalChunks.push(evaled.substring(i, i + 1800));
+						evalChunks.push(evaled.substring(i, i + 1800));
 					}
-					for (let evals of evalChunks) {
+					for (const evals of evalChunks) {
 						message.channel.send(`\`\`\`js\n${evals}\`\`\``);
 					}
 				} else {

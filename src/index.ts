@@ -6,16 +6,16 @@ import { checkCommandModule, checkProperties} from './structs/validate';
 
 const fs = FS.promises;
 
-class Client extends Discord.Client { 
+class Client extends Discord.Client {
 	// set all this up so I can customize shit
 	public commands: any = new Map();
 	public serverQueue: {} = {}
-	public commandsLoaded: boolean = false; 
-	public devs: Array<string> = []; 
-	public prefix: string = ''; 
+	public commandsLoaded: boolean = false;
+	public devs: string[] = [];
+	public prefix: string = '';
 	public loggedIn: boolean = false;
 	public pool: any = undefined;
-	public server_cache: any = {};
+	public serverCache: any = {};
 }
 
 class ErioBot{
@@ -34,20 +34,20 @@ class ErioBot{
 		this.client.pool = new PG.Pool({
 			connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
 		});
-		this.client.server_cache = {};
+		this.client.serverCache = {};
 
 		this.client.on('messageDelete', async message => {
 			const embed = new Discord.MessageEmbed();
 			embed.setTitle(`A message has been deleted`)
-			embed.addField("Author:", `${message.author}`);
-			embed.addField("Channel:", `${message.channel}`);
-			embed.addField("Content:", `${message.content}` || 'Empty Message or was an embed');
-			embed.addField('Attachments', message.attachments.map((a) => a.url).join('\n') || "No attatchments")
+			embed.addField('Author:', `${message.author}`);
+			embed.addField('Channel:', `${message.channel}`);
+			embed.addField('Content:', `${message.content}` || 'Empty Message or was an embed');
+			embed.addField('Attachments', message.attachments.map((a) => a.url).join('\n') || 'No attatchments')
 
 			let channelid;
 			let channel;
 
-			channelid = this.client.server_cache[(message.guild?.id as any)].modlog;
+			channelid = this.client.serverCache[(message.guild?.id as any)].modlog;
 
 			try {
 				channel = await this.client.channels.fetch(channelid);
@@ -60,7 +60,7 @@ class ErioBot{
 
 		this.client.on('ready', async () => {
 			if (!this.client || !this.client.user) {
-				await console.log('onReady fired before the bot could log in. Exiting...');
+				console.log('onReady fired before the bot could log in. Exiting...');
 				process.exit();
 			};
 			// Should Never happen
@@ -68,7 +68,7 @@ class ErioBot{
 			// Tell me that the bot is on.
 			console.log(`Logged in as ${this.client.user.tag}, serving ${this.client.guilds.cache.size} servers with the prefix of ${this.client.prefix}`);
 
-			let nameArr = ['uwu', 'owo', 'bot things', 'the watchful night'];
+			const nameArr = ['uwu', 'owo', 'bot things', 'the watchful night'];
 
 			await this.client.user!.setPresence({
 				activity: {
@@ -95,7 +95,7 @@ class ErioBot{
 		});
 
 		this.client.on('guildCreate', async guild => {
-			this.client.server_cache[guild.id] = {
+			this.client.serverCache[guild.id] = {
 				serverid: guild.id,
 				servername: guild.name,
 				modlog: null,
@@ -106,8 +106,8 @@ class ErioBot{
 			};
 			await this.client.pool.query('INSERT INTO welcome_messages (serverid) VALUES ($1)', [guild.id]);
 			await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [guild.id, guild.name]);
-			let erioRole = await guild.roles.cache.find(r => r.name === this.client.user?.username);
-			let erioPos = erioRole?.rawPosition;
+			const erioRole = guild.roles.cache.find(r => r.name === this.client.user?.username);
+			const erioPos = erioRole?.rawPosition;
 			let removeable = true;
 			guild.roles.cache.forEach(async role => {
 				if (role.rawPosition >= (erioPos as number)) {
@@ -118,14 +118,14 @@ class ErioBot{
 		});
 
 		this.client.on('guildDelete', async guild => {
-			this.client.server_cache[guild.id] = {};
+			this.client.serverCache[guild.id] = {};
 			await this.client.pool.query('DELETE FROM welcome_messages WHERE serverid = $1', [guild.id])
 			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
 			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
 		});
 
 		this.client.on('roleCreate', async role => {
-			let erioRole = await role.guild.roles.cache.find(r => r.name === this.client.user?.username);
+			let erioRole = role.guild.roles.cache.find(r => r.name === this.client.user?.username);
 			let erioPos = erioRole?.rawPosition;
 			let removeable = true;
 			if (role.rawPosition >= (erioPos as number)) {
@@ -135,10 +135,10 @@ class ErioBot{
 		});
 
 		this.client.on('roleUpdate', async role => {
-			let erioRole = await role.guild.roles.cache.find(r => r.name === this.client.user?.username);
-			let erioPos = erioRole?.rawPosition;
-			let worker = await this.client.pool.connect();
-			await role.guild.roles.cache.forEach(async r => {
+			const erioRole = role.guild.roles.cache.find(r => r.name === this.client.user?.username);
+			const erioPos = erioRole?.rawPosition;
+			const worker = await this.client.pool.connect();
+			role.guild.roles.cache.forEach(async r => {
 				let removeable = true;
 				if (r.rawPosition >= (erioPos as number)) {
 					removeable = false;
@@ -204,7 +204,7 @@ class ErioBot{
 						if (checkProperties(cmdName, cmdModule)) {
 							const { aliases } = cmdModule;
 							this.client.commands.set(cmdName, cmdModule);
-							if(aliases.length !== 0) {
+							if (aliases.length !== 0) {
 								// aliases.forEach(alias => this.client.commands.set(alias, cmdModule));
 								aliases.forEach((alias: string) => {
 									this.client.commands.set(alias, cmdModule);
@@ -224,7 +224,7 @@ class ErioBot{
 	// Makes less lines in the code
 	async dumpLogs(logMessage: string) {
 		try {
-			let logChannel = await this.client.channels.cache.get((process.env.BOTLOG as string));
+			const logChannel = this.client.channels.cache.get((process.env.BOTLOG as string));
 			(logChannel as Discord.TextChannel).send(logMessage);
 		} catch (e) {
 			console.error(logMessage);
@@ -233,12 +233,12 @@ class ErioBot{
 
 	async cache_servers() {
 		console.log('caching servers...')
-		let res = await this.client.pool.query(`
+		const res = await this.client.pool.query(`
 		SELECT * FROM servers
 		INNER JOIN welcome_messages using (serverid)
 		`);
 		for (const row of res.rows) {
-			this.client.server_cache[row.serverid] = {
+			this.client.serverCache[row.serverid] = {
 				serverName: row.servername,
 				serverid: row.serverid,
 				modlog: row.modlog,

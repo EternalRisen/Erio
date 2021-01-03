@@ -5,7 +5,7 @@
 import Discord from 'discord.js';
 
 module.exports = {
-    run: (client: { devs: string | string[]; }, message: Discord.Message, args: Array<string>) => {
+	run: (client: { devs: string | string[]; }, message: Discord.Message, args: string[]) => {
 		let sayMessage = args.join(' ');
 		if (sayMessage === '') {
 			sayMessage = args.join(' ') + `Nothin to say eh?  ${message.author}`;
@@ -17,7 +17,7 @@ module.exports = {
 		}
 		else {
 			if (['dm'].includes(message.channel.type)) {
-
+				// do nothing
 			} else {
 				message.delete();
 			}

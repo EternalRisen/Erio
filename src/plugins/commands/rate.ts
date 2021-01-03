@@ -5,7 +5,7 @@
 import Discord from 'discord.js';
 
 module.exports = {
-	run: async (client: Discord.Client, message: Discord.Message, args: Array<string>) => {
+	run: async (client: Discord.Client, message: Discord.Message, args: string[]) => {
 		let rateString = args.join(' ');
 		if (rateString === '') return message.reply('Give Me Something to rate!');
 		if (rateString === 'me') {

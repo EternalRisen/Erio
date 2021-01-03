@@ -24,7 +24,7 @@ module.exports = {
 			console.log(`Can't replace the string.  The user must have either inputted something wrong, or are just wanting their own avatar.  ${e}`);
 		}
 
-		let embed = new Discord.MessageEmbed();
+		const embed = new Discord.MessageEmbed();
 
 		client.users.fetch(targetUser).then((user: Discord.User) => {
 			embed.setTitle(`${message.author.tag} Wants to see ${user.tag}'s Avatar!`);

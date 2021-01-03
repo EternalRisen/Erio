@@ -5,7 +5,7 @@
 import Discord = require('discord.js');
 
 module.exports = {
-    run: (client: { ws: { ping: any; }; }, message: Discord.Message, args: Array<string>) => {
+	run: (client: { ws: { ping: any; }; }, message: Discord.Message, args: string[]) => {
 		message.reply(`Pong!\n ${client.ws.ping}ms is the latency`);
 	},
 	aliases: [],

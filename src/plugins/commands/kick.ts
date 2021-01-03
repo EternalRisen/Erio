@@ -9,7 +9,6 @@ module.exports = {
         if (!message.member?.permissions.has(['KICK_MEMBERS']) || !message.member?.permissions.has(['BAN_MEMBERS']) || !message.member?.permissions.has(['ADMINISTRATOR'])) return;
         let userID = args[0];
         let rsn = args[1];
-        let err;
         if (rsn === '') {
             rsn = 'No reason specified.'
         }
@@ -36,12 +35,12 @@ module.exports = {
                     return true;
                 }
             } catch (e) {
-                err = e;
+                console.error(e);
             }
         }
 
         try {
-            member = await message.guild?.members.cache.find(u => u.id === userID);
+            member = message.guild?.members.cache.find(u => u.id === userID);
         } catch (e) {
             return message.channel.send(`member ${member} was not found.`)
         }

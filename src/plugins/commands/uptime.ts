@@ -5,16 +5,16 @@
 import Discord from 'discord.js';
 
 module.exports = {
-    run: async (client: { uptime: number; }, message: Discord.Message, args: Array<string>) => {
-        let totalSeconds = Math.floor(client.uptime / 1000); 
-        let days = Math.floor(totalSeconds / 86400); 
-        let hours = Math.floor(totalSeconds / 3600); 
+    run: async (client: { uptime: number; }, message: Discord.Message, args: string[]) => {
+        let totalSeconds = Math.floor(client.uptime / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        let hours = Math.floor(totalSeconds / 3600);
         hours = (hours - (days * 24));
-        totalSeconds %= 3600; 
-        let minutes = Math.floor(totalSeconds / 60); 
-        let seconds = Math.floor(totalSeconds % 60);
+        totalSeconds %= 3600;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.floor(totalSeconds % 60);
         // TODO:  Make this look better
-        let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+        const uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
         message.channel.send(uptime);
     },
     aliases: [],

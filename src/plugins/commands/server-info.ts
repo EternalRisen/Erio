@@ -35,8 +35,8 @@ module.exports = {
                 value: `${message.guild?.name}`,
             },
             {
-                name: 'Guild Description',
-                value: `${message.guild?.description || 'No description provided', `${message.guild.createdAt.toUTCString()}`}`,
+                name: 'Creation',
+                value: `${message.guild.createdAt.toUTCString()}`,
             },
             {
                 name: 'Guild afk channel & timeout',
