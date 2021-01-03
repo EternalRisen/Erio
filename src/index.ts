@@ -232,10 +232,12 @@ class ErioBot{
 	};
 
 	async cache_servers() {
+		console.log('caching servers...')
 		let res = await this.client.pool.query(`
 		SELECT * FROM servers s
 		INNER JOIN welcome_messages using (serverid)
 		`);
+		console.log(res.rows);
 		for (const row of res.rows) {
 			this.client.server_cache[row.serverid] = {
 				serverName: row.servername,
@@ -246,6 +248,7 @@ class ErioBot{
 				welcomeMessage: row.welcome_message,
 				welcomeImage: row.welcome_image
 			};
+			console.log(`cached ${row.servername}`);
 		};
 	};
 
