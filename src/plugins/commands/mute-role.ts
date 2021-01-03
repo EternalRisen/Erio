@@ -39,6 +39,8 @@ module.exports = {
         } catch {
             return message.channel.send('There was an error with updating the roles');
         }
+        
+        client.server_cache[(message.guild?.id as string)].muteRole = roleid;
 
         message.channel.send(`Set ${role} as the mute role!`);
     },

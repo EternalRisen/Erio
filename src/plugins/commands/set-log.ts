@@ -33,13 +33,15 @@ module.exports = {
         try {
             await client.pool.query('UPDATE servers SET modlog = $1 WHERE serverid = $2', [channelid, message.guild?.id]);
         } catch {
-            return message.channel.send('There was an error with updating the roles');
+            return message.channel.send('There was an error with updating the log channel');
         }
+
+        client.server_cache[(message.guild?.id as string)].modlog = channelid;
 
         message.channel.send(`Set ${channel} as the modlog!`);
     },
     aliases: ['log', 'setlog'],
-    description: 'assignes the mute role to bot\'s list of mute roles',
-    usage: 'mute-role <role-id>',
+    description: 'updates the log channel',
+    usage: 'set-log <channel | channel-id>',
     type: 'mod',
 }
