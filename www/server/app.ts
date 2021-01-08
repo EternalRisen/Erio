@@ -109,6 +109,10 @@ app.get('/:subpage', (req: Request, res: Response, next: NextFunction) => {
     });
 });
 
+app.get('/invite', async (req: Request, res: Response) => {
+    await res.redirect('https://discord.com/oauth2/authorize?client_id=699892206126760026&scope=bot&permissions=37088576');
+})
+
 app.use((req: Request, res: Response) => {
     res.redirect('/');
 });
