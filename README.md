@@ -23,4 +23,4 @@ This is the repository to the Erio discord bot along with it's website.  If you 
      PGPORT=port_of_db
      PGDATABASE=database_name
      ```
-- run `npm run start` and it will automatically build the rest for you (optionally you can run `npm run build` followed by `node www-dist/server/app.js`).
+- run `npm run start` and it will automatically build the rest for you (optionally you can run `npm run build` followed by `node -r dotenv/config www-dist/server/app.js`).
