@@ -8,10 +8,13 @@ module.exports = {
     run: async (client: Discord.Client, message: Discord.Message, args: string[]) => {
         if (!message.member?.permissions.has(['BAN_MEMBERS']) || !message.member?.permissions.has(['ADMINISTRATOR'])) return;
         let userID = args[0];
-        let rsn = args[1];
+        args.shift()
+        let rsn = args.join();
         let err;
         if (rsn === '') {
-            rsn = 'No reason specified.'
+            rsn = `${message.author.tag} -  No reason specified.`;
+        } else {
+            rsn = `${message.author.tag} - ${rsn}`;
         }
         try {
             userID = userID.replace('<', '');
