@@ -20,7 +20,8 @@ console.log('Transpiling complete');
     let pool;
     try {
         pool = new PG.Pool({
-            connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
+            connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`,
+            ssl: ssl_enabled
         });
     } catch (e) {
         return console.error(`There was an unexpected error with establishing the database\n${e}`);
