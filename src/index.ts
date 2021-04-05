@@ -6,6 +6,14 @@ import { checkCommandModule, checkProperties} from './structs/validate';
 
 const fs = FS.promises;
 
+// Configure SSL to be true or false for psql db
+console.log(process.env.SSL_ENABLED);
+let ssl_enabled = false;
+if ((process.env.SSL_ENABLED as unknown as number) = 1 /*0 means false, 1 means true*/) {
+	ssl_enabled = true;
+} // just stay false if variable doesn't exist or does not equal 1
+
+
 class Client extends Discord.Client {
 	// set all this up so I can customize shit
 	public commands: any = new Map();
@@ -32,7 +40,8 @@ class ErioBot{
 		this.client.commandsLoaded = false;
 		this.client.commands = new Map();
 		this.client.pool = new PG.Pool({
-			connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`
+			connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`,
+			ssl: ssl_enabled
 		});
 		this.client.serverCache = {};
 

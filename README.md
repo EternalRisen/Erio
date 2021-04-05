@@ -22,5 +22,7 @@ This is the repository to the Erio discord bot along with it's website.  If you 
      PGHOST=hostname_or_ip_of_db
      PGPORT=port_of_db
      PGDATABASE=database_name
+     SSL_ENABLED=0 or 1
      ```
+     For SSL to be enables, you will have to set the value to be 1, for false, just leave the variable out, or just put 0
 - run `npm run start` and it will automatically build the rest for you (optionally you can run `npm run build` followed by `node -r dotenv/config www-dist/server/app.js`).
