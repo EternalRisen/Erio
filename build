@@ -10,18 +10,15 @@ console.log('Transpiling complete');
 
 // Make and edit anything with databases
 (async () => {
-    // Configure SSL to be true or false for psql db
-    let ssl_enabled = false;
-    if (process.env.SSL_ENABLED= 1 /*0 means false, 1 means true*/) {
-	    ssl_enabled = true;
-    } // just stay false if variable doesn't exist or does not equal 1
 
     console.log('Setting up database.');
     let pool;
     try {
         pool = new PG.Pool({
             connectionString: `${process.env.DATABASE_URL || `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}`}`,
-            ssl: ssl_enabled
+            ssl: {
+				rejectUnauthorized: false
+			}
         });
     } catch (e) {
         return console.error(`There was an unexpected error with establishing the database\n${e}`);
