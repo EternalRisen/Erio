@@ -53,17 +53,10 @@ class ErioBot{
 		this.client.on('messageDelete', async message => {
 			const embed = new Discord.MessageEmbed();
 			embed.setTitle(`A message has been deleted`)
-<<<<<<< HEAD
 			embed.addField('Author:', `${message.author}`);
 			embed.addField('Channel:', `${message.channel}`);
 			embed.addField('Content:', `${message.content}` || 'Empty Message or was an embed');
 			embed.addField('Attachments', message.attachments.map((a) => a.url).join('\n') || 'No attatchments')
-=======
-			embed.addField("Author:", `${message.author}`);
-			embed.addField("Channel:", `${message.channel}`);
-			embed.addField("Content:", `${message.content}` || 'Empty Message or was an embed');
-			embed.addField('Attachments', message.attachments.map((a) => a.url).join(' ') || "No attatchments")
->>>>>>> d8703b2 (Add support for attachments and fix an error where it won't say an embed)
 
 			let channelid;
 			let channel;
@@ -169,6 +162,7 @@ class ErioBot{
 		});
 
 		this.client.on('guildCreate', async guild => {
+<<<<<<< HEAD
 			this.client.serverCache[guild.id] = {
 				serverid: guild.id,
 				serverName: guild.name,
@@ -178,6 +172,8 @@ class ErioBot{
 				welcomeMessage: null,
 				welcomeImage: null
 			};
+=======
+>>>>>>> 906b2c7 (remove uneeded queries)
 			await this.client.pool.query('INSERT INTO servers (serverid, servername)  VALUES ($1, $2)', [guild.id, guild.name]);
 			await this.client.pool.query('INSERT INTO welcome_messages (serverid) VALUES ($1)', [guild.id]);
 			const erioRole = guild.roles.cache.find(r => r.name === this.client.user?.username);
@@ -192,10 +188,13 @@ class ErioBot{
 		});
 
 		this.client.on('guildDelete', async guild => {
+<<<<<<< HEAD
 			// delete server from cache
 			delete this.client.serverCache[guild.id];
 			// remote server data and other things from database
 			await this.client.pool.query('DELETE FROM welcome_messages WHERE serverid = $1', [guild.id])
+=======
+>>>>>>> 906b2c7 (remove uneeded queries)
 			await this.client.pool.query('DELETE FROM roles WHERE serverid = $1', [guild.id]);
 			await this.client.pool.query('DELETE FROM servers WHERE serverid = $1', [guild.id]);
 		});
