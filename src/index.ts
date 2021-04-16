@@ -53,10 +53,17 @@ class ErioBot{
 		this.client.on('messageDelete', async message => {
 			const embed = new Discord.MessageEmbed();
 			embed.setTitle(`A message has been deleted`)
+<<<<<<< HEAD
 			embed.addField('Author:', `${message.author}`);
 			embed.addField('Channel:', `${message.channel}`);
 			embed.addField('Content:', `${message.content}` || 'Empty Message or was an embed');
 			embed.addField('Attachments', message.attachments.map((a) => a.url).join('\n') || 'No attatchments')
+=======
+			embed.addField("Author:", `${message.author}`);
+			embed.addField("Channel:", `${message.channel}`);
+			embed.addField("Content:", `${message.content}` || 'Empty Message or was an embed');
+			embed.addField('Attachments', message.attachments.map((a) => a.url).join(' ') || "No attatchments")
+>>>>>>> d8703b2 (Add support for attachments and fix an error where it won't say an embed)
 
 			let channelid;
 			let channel;
