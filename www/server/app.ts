@@ -72,19 +72,18 @@ app.get('/users', async (req: Request, res: Response) => {
 });
 
 app.get('/credits', async (req: Request, res: Response) => {
-    let jd = await bot.client.users.fetch('615249674084810763');
-    let byn = await bot.client.users.fetch('187524257280950272');
+    let emily = await bot.client.users.fetch('615249674084810763');
 
     credits = [
         {
-            avatar: getAvatar(jd, 2048),
-            discordTag: jd.tag,
-            name: 'JD',
-            intro: `Hi!  I'm JD.  I'm the one responsible for the development of the discord bot (and the design for the site now..), along with the backend of the site!`,
-            message: `If you ever have any questions you can always message me at ${jd.tag} if you have any questions about Erio!`,
+            avatar: getAvatar(emily, 2048),
+            discordTag: emily.tag,
+            name: 'Emily',
+            intro: `Hi!  I'm Emily.  I'm the one responsible for the development of the discord bot (and the design for the site now..), along with the backend of the site!`,
+            message: `If you ever have any questions you can always message me at ${emily.tag} if you have any questions about Erio!`,
             github: `Also, you can find the official repo to the bot`,
             role: 'Bot Development',
-            site: 'https://github.com/YaBoiJD/Erio'
+            site: 'https://github.com/EternalRisen/Erio'
         },
     ];
 
