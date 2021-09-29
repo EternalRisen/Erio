@@ -231,7 +231,7 @@ class ErioBot{
 		this.client.on('messageUpdate', async (message: any, oldmsg: any) => {
 			if (message.author.id === '615249674084810763') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`\`\`\`\n${message.user.tag}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``)
+				(logchannel as any).send(`\`\`\`\n${message.author.tag}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``)
 			}
 		})
 
