@@ -229,17 +229,17 @@ class ErioBot{
 		}
 
 		this.client.on('messageUpdate', async (message: any, oldmsg: any) => {
-			if (message.author.id === '615249674084810763') {
+			if (message.author.id === '755288011909890050') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`\`\`\`\n${message.author.tag}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``)
+				(logchannel as any).send(`\`\`\`\n${message.author.tag} - ${message.guild.name || 'in dms'}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``)
 			}
 		})
 
 		this.client.on('message', async (message: Discord.Message) => {
 			// logging parin
-			if (message.author.id === '615249674084810763') {
+			if (message.author.id === '755288011909890050') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`\n\`\`\`\n${message.author.tag}\nmsg:     ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\`\n`);
+				(logchannel as any).send(`\n\`\`\`\n${message.author.tag} - ${message.guild?.name || 'in dms'}\nmsg:     ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\`\n`);
 			}
 
 			// You should have commands loaded
