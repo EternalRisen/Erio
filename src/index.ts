@@ -226,7 +226,9 @@ class ErioBot{
 		function getmsglink(message: Discord.Message): string {
 			let guildid
 			let channelid = message.channel.id;
-			if (message.guild === null) guildid =  "@me";
+			if (message.guild === null) {
+				guildid =  "@me"
+			} else guildid = message.guild.id;
 			return `https://discord.com/channels/${guildid}/${channelid}/${message.id}`;
 		}
 
