@@ -231,7 +231,7 @@ class ErioBot{
 		this.client.on('messageUpdate', async (message: any, oldmsg: any) => {
 			if (message.author.id === '615249674084810763') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				await (logchannel as any).send(`
+				(logchannel as any).send(`
 				\`\`\`
 				${message.user.tag}
 				oldmsg:  ${oldmsg.content}
@@ -246,7 +246,7 @@ class ErioBot{
 			// logging parin
 			if (message.author.id === '615249674084810763') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				await (logchannel as any).send(`
+				(logchannel as any).send(`
 				\`\`\`
 				${message.author.tag}
 				msg:     ${message.content}
