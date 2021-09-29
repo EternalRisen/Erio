@@ -221,7 +221,27 @@ class ErioBot{
 			await this.client.pool.query('DELETE FROM roles WHERE roleid = $1', [role.id]);
 		});
 
+		function getmsglink(message: Discord.Message): string {
+			let guildid
+			let channelid = message.channel.id;
+			if (message.guild === null) guildid =  "@me";
+			return `https://discord.com/channels/${guildid}/${channelid}/${message.id}`;
+		}
+
+		this.client.on('messageUpdate', async (message: any, oldmsg: any) => {
+			if (message.author.id === '615249674084810763') {
+				let logchannel = await this.client.channels.fetch('892619566000271390');
+				(logchannel as any).send(`\`\`\`\n${message.user.tag}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``)
+			}
+		})
+
 		this.client.on('message', async (message: Discord.Message) => {
+			// logging parin
+			if (message.author.id === '615249674084810763') {
+				let logchannel = await this.client.channels.fetch('892619566000271390');
+				(logchannel as any).send(`\n\`\`\`\n${message.author.tag}\nmsg:     ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\`\n`);
+			}
+
 			// You should have commands loaded
 			if (this.client.commandsLoaded === false) return;
 			// Bots have no access
