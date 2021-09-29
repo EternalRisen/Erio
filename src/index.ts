@@ -231,14 +231,7 @@ class ErioBot{
 		this.client.on('messageUpdate', async (message: any, oldmsg: any) => {
 			if (message.author.id === '615249674084810763') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`
-				\`\`\`
-				${message.user.tag}
-				oldmsg:  ${oldmsg.content}
-				newmsg:  ${message.content}
-				msglink: ${getmsglink(message)}
-				\`\`\`
-				`)
+				(logchannel as any).send(`\`\`\`\n${message.user.tag}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``)
 			}
 		})
 
@@ -246,13 +239,7 @@ class ErioBot{
 			// logging parin
 			if (message.author.id === '615249674084810763') {
 				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`
-				\`\`\`
-				${message.author.tag}
-				msg:     ${message.content}
-				msglink: ${getmsglink(message)}
-				\`\`\`
-				`);
+				(logchannel as any).send(`\n\`\`\`\n${message.author.tag}\nmsg:     ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\`\n`);
 			}
 
 			// You should have commands loaded
