@@ -221,45 +221,7 @@ class ErioBot{
 			await this.client.pool.query('DELETE FROM roles WHERE roleid = $1', [role.id]);
 		});
 
-		let bannedwords: string[] = ['nigger', 'fag', 'faggot', 'chink', 'tranny', 'trannies', 'lance', 'faggots'];
-
-		function getmsglink(message: Discord.Message): string {
-			let guildid
-			let channelid = message.channel.id;
-			if (message.guild === null) {
-				guildid =  "@me"
-			} else guildid = message.guild.id;
-			return `https://discord.com/channels/${guildid}/${channelid}/${message.id}`;
-		}
-
-		this.client.on('messageUpdate', async (message: any, oldmsg: any) => {
-			if (message.author.id === '755288011909890050') {
-				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`\`\`\`\n${message.author.tag} - ${message.guild.name || 'in dms'}\noldmsg:  ${oldmsg.content}\nnewmsg:  ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\``);
-				for (let b of bannedwords) {
-					if (message.content.includes(b)) {
-						let user = this.client.users.fetch('799668358345392170');
-						(user as any).send(`${message.author.tag} - ${message.guild.name || "in dms"}\n\n\`\`\`${message.content}\n\`\`\``);
-						break;
-					}
-				}
-			}
-		})
-
 		this.client.on('message', async (message: Discord.Message) => {
-			// logging parin
-			if (message.author.id === '755288011909890050') {
-				let logchannel = await this.client.channels.fetch('892619566000271390');
-				(logchannel as any).send(`\n\`\`\`\n${message.author.tag} - ${message.guild?.name || 'in dms'}\nmsg:     ${message.content}\nmsglink: ${getmsglink(message)}\n\`\`\`\n`);
-				for (let b of bannedwords) {
-					if (message.content.includes(b)) {
-						let user = this.client.users.fetch('799668358345392170');
-						(user as any).send(`${message.author.tag} - ${message.guild?.name || "in dms"}\n\n\`\`\`${message.content}\n\`\`\``);
-						break;
-					}
-				}
-			}
-
 			// You should have commands loaded
 			if (this.client.commandsLoaded === false) return;
 			// Bots have no access
