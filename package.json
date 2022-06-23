@@ -48,7 +48,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "file-loader": "^4.3.0",
-    "got": "^11.8.0",
+    "got": "^11.8.5",
     "html-webpack-plugin": "^3.2.0",
     "list-react-files": "^0.2.0",
     "open-cli": "^6.0.1",
