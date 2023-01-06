@@ -49,7 +49,7 @@
     "express": "^4.17.1",
     "file-loader": "^4.3.0",
     "got": "^11.8.0",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "list-react-files": "^0.2.0",
     "open-cli": "^6.0.1",
     "pg": "^8.4.1",
